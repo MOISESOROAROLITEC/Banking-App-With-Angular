@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
   "name": "banking-app-with-angular",
-=======
-  "name": "banking-with-angular",
->>>>>>> aaff156d6bfc539ebca517391ce05c5370d51e4a
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

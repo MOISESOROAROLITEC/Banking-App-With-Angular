@@ -3,11 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-<<<<<<< HEAD
     "BankingAppWithAngular": {
-=======
-    "bankingWithAngular": {
->>>>>>> aaff156d6bfc539ebca517391ce05c5370d51e4a
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -21,11 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-<<<<<<< HEAD
             "outputPath": "dist/banking-app-with-angular",
-=======
-            "outputPath": "dist/banking-with-angular",
->>>>>>> aaff156d6bfc539ebca517391ce05c5370d51e4a
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -66,17 +58,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-<<<<<<< HEAD
               "browserTarget": "bankingAppWithAngular:build:production"
             },
             "development": {
               "browserTarget": "bankingAppWithAngular:build:development"
-=======
-              "browserTarget": "bankingWithAngular:build:production"
-            },
-            "development": {
-              "browserTarget": "bankingWithAngular:build:development"
->>>>>>> aaff156d6bfc539ebca517391ce05c5370d51e4a
             }
           },
           "defaultConfiguration": "development"
@@ -84,11 +69,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-<<<<<<< HEAD
             "browserTarget": "bankingAppWithAngular:build"
-=======
-            "browserTarget": "bankingWithAngular:build"
->>>>>>> aaff156d6bfc539ebca517391ce05c5370d51e4a
           }
         },
         "test": {

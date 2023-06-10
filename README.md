@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 # BankingAppWithAngular
-=======
-# BankingWithAngular
->>>>>>> aaff156d6bfc539ebca517391ce05c5370d51e4a
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.3.
 
