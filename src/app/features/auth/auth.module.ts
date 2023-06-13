@@ -11,14 +11,17 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthService } from './service/auth.service';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
-  { path: "", component: SignUpComponent }
+  { path: "sign-up", component: SignUpComponent },
+  { path: "login", component: LoginComponent },
 ]
 
 @NgModule({
   declarations: [
     SignUpComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
