@@ -1,7 +1,7 @@
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
-import { UserDatas } from 'src/app/shared/constantes';
+import { UserDatasSignUp } from 'src/app/shared/constantes';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -18,7 +18,11 @@ export class SignUpComponent {
   emailAlreadyExistError = ""
   hide = true
   check = false
-  userData = new UserDatas()
+  userData: UserDatasSignUp = {
+    name: "",
+    email: "",
+    password: "",
+  }
 
   constructor(
     private authService: AuthService,
@@ -53,9 +57,9 @@ export class SignUpComponent {
           } else if (response.status == 400) {
             this.emailAlreadyExistError = "Le format de l'email est incorrect"
           }
-          return
+        } else {
+          this.router.navigate(["/dashboard"])
         }
-        this.router.navigate([""])
       }
     )
   }
