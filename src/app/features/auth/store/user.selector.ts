@@ -1,9 +1,9 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { UserDatas } from "../../constantes";
+import { UserDatas } from "src/app/shared/constantes";
 
 export const selectUserState = createFeatureSelector<UserDatas>('user');
 
-export const selectUserName = createSelector(
+export const getUserName = createSelector(
   selectUserState,
   (state: UserDatas) => state.name
 );

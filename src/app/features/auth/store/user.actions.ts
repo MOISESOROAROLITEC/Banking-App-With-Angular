@@ -1,4 +1,10 @@
 import { createAction, props } from '@ngrx/store';
+import { UserDatas } from 'src/app/shared/constantes';
+
+export const updateUser = createAction(
+  '[User] changeUserName',
+  props<{ newDatas: UserDatas }>()
+);
 
 export const changeUserName = createAction(
   '[User] changeUserName',
