@@ -1,0 +1,20 @@
+$primary-color: #0079ff;
+$default-color: #bfbfbf;
+$error-color: #ff0060;
+
+.valid-input {
+  color: #0079ff !important;
+}
+
+.invalid-input {
+  color: #ff0060 !important;
+}
+
+.invalid-Error-message {
+  font-size: small;
+  color: #ff0060 !important;
+}
+
+.default-input {
+  color: #bfbfbf !important;
+}
