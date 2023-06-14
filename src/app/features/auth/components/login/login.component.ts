@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
-import { UserDatas } from 'src/app/shared/constantes';
+import { UserDatas, UserDatasLogin, UserDatasSignUp } from 'src/app/shared/constantes';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -12,20 +12,23 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent {
 
-  signUpForm: FormGroup;
+  loginForm: FormGroup;
   requestErroMessage = ""
   emailAlreadyExistError = ""
   hide = true
   check = false
-  userData = new UserDatas()
+
+  userData: UserDatasLogin = {
+    email: "",
+    password: '',
+  }
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private formBuilder: FormBuilder
   ) {
-    this.signUpForm = this.formBuilder.group({
-      username: ['', [Validators.maxLength(50), Validators.minLength(4)]],
+    this.loginForm = this.formBuilder.group({
       email: ['', [Validators.email]],
       password: ['', [Validators.pattern("^.{8,50}$")]],
     });
@@ -41,10 +44,9 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    this.userData.name = this.signUpForm.get('username')?.value
-    this.userData.email = this.signUpForm.get('email')?.value
-    this.userData.password = this.signUpForm.get('password')?.value
-    this.authService.createUser(this.userData)?.subscribe(
+    this.userData.email = this.loginForm.get('email')?.value
+    this.userData.password = this.loginForm.get('password')?.value
+    this.authService.login(this.userData)?.subscribe(
       (response) => {
         if (response instanceof HttpErrorResponse) {
           if (response.status == 401) {
