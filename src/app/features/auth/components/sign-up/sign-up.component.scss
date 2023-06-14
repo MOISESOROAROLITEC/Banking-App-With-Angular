@@ -1,5 +1,12 @@
-.sign-up{
-  min-height: 100vh;
-  max-height: 100vh;
-  width: 100%;
+form {
+  max-width: 430px;
+  margin: auto;
+}
+
+.my-custom-form-field .mat-form-field-outline:valid {
+  background-color: red;
+}
+.mdc-text-field--invalid:not(.mdc-text-field--disabled)
+  .mdc-notched-outline__leading {
+  border-color: black !important;
 }

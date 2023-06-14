@@ -12,16 +12,24 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthService } from './service/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
+import { AuthComponent } from './auth/auth.component';
 
 const routes: Routes = [
-  { path: "sign-up", component: SignUpComponent },
-  { path: "login", component: LoginComponent },
+  {
+    path: "", component: AuthComponent, children: [
+      { path: "", redirectTo: 'login', pathMatch: "full" },
+      { path: "sign-up", component: SignUpComponent },
+      { path: "login", component: LoginComponent },
+    ]
+  },
+
 ]
 
 @NgModule({
   declarations: [
     SignUpComponent,
-    LoginComponent
+    LoginComponent,
+    AuthComponent
   ],
   imports: [
     CommonModule,
@@ -30,11 +38,10 @@ const routes: Routes = [
     MatInputModule,
     MatIconModule,
     ReactiveFormsModule,
-    FormsModule,
     MatButtonModule,
     MatDividerModule,
     MatCheckboxModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
   providers: [AuthService]
 })

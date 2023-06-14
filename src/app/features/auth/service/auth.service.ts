@@ -12,16 +12,14 @@ export class AuthService {
 
   createUser(userDatas: UserDatasSignUp) {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
-    try {
-      return this.http.post(`${baseUrl}/user/create`, userDatas, httpOptions)
-        .pipe(
-          catchError((err: Error) => {
-            return of(err)
-          })
-        )
-    } catch (error) {
-      return
-    }
+
+    return this.http.post(`${baseUrl}/user/create`, userDatas, httpOptions)
+      .pipe(
+        catchError((err: Error) => {
+          return of(err)
+        })
+      )
+
 
   }
 
@@ -39,6 +37,8 @@ export class AuthService {
       console.log("l'erreur rencontré est : ", error);
       return
     }
-
   }
+
+
+
 }

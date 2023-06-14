@@ -1,70 +1,57 @@
-<div class="d-flex col-12 sign-up">
-  <div class="d-none d-md-flex col-6 img-div"
-    style="display: flex; align-items: center; justify-content: center; overflow: hidden;">
-    <img class="d-md-block m-0 p-0 building-img"
-      src=" ../../../../../assets/images/gratte-ciel-entreprise-dans-ville-hong-kong.jpg" alt="buildings image">
+<form (ngSubmit)="onSubmit()" [formGroup]="signUpForm" class="col-12 mt-3 sign-up-form">
+  <div class="mt-2 mb-2 w-100 text-center invalid-Error-message fs-5 requestErroMessage"> {{requestErroMessage}}
   </div>
-  <div class="col-xs-12 col-md-6 p-0 p-md-2 pt-md-0   right-item" style="margin-left: auto; margin-right: auto;">
-    <div class="w-100 d-flex">
-      <img src="../../../../../assets/images/Group 5.png" class="mt-2 app-logo" alt="App logo"
-        style="margin-left: auto; margin-right: auto; width: 180px;">
-    </div>
-    <form (ngSubmit)="onSubmit()" [formGroup]="signUpForm" class="col-12 mt-3 sign-up-form">
-      <h5 class="form-title mb-3">Création de compte</h5>
+  <h5 class="form-title mb-3">Création de compte</h5>
 
-      <mat-form-field appearance="outline" class="col-12 mt-1">
-        <input required matInput (input)="onInput()" id="username" formControlName="username"
-          placeholder="Nom d'utilisateur">
-        <mat-icon *ngIf="signUpForm.get('username')?.valid" matSuffix class="valid-input">check_circle</mat-icon>
-        <mat-icon *ngIf="!signUpForm.get('username')?.valid && !signUpForm.get('username')?.pristine" matSuffix
-          class="invalid-input">check_circle</mat-icon>
-        <mat-icon *ngIf="signUpForm.get('username')?.pristine" matSuffix class="default-input">check_circle</mat-icon>
-        <!-- <mat-error class=" c-red mat-error">Le nom d'utilisateur doit contennire entre 4 et 30 caractères</mat-error> -->
-      </mat-form-field>
+  <mat-form-field appearance="outline" class="col-12 mt-1 my-custom-form-field">
+    <input required matInput (input)="onInput()" (change)="onChange()" id="username" formControlName="username"
+      placeholder="Nom d'utilisateur">
+    <mat-icon *ngIf="signUpForm.get('username')?.valid" matSuffix class="valid-input">check_circle</mat-icon>
+    <mat-icon *ngIf="!signUpForm.get('username')?.valid && !signUpForm.get('username')?.pristine" matSuffix
+      class="invalid-input">check_circle</mat-icon>
+    <mat-icon *ngIf="signUpForm.get('username')?.pristine" matSuffix class="default-input">check_circle</mat-icon>
+    <!-- <mat-error class=" c-red mat-error">Le nom d'utilisateur doit contennire entre 4 et 30 caractères</mat-error> -->
+  </mat-form-field>
 
-      <div class="emailAlreadyExistError invalid-Error-message text-center w-100">{{emailAlreadyExistError}}
-      </div>
-      <mat-form-field appearance="outline" class="col-12">
-        <input required (input)="onInput()" type="email" matInput id="email" formControlName="email" name="email"
-          placeholder="Email">
-        <mat-icon *ngIf="signUpForm.get('email')?.valid" matSuffix class="valid-input">check_circle</mat-icon>
-        <mat-icon *ngIf="!signUpForm.get('email')?.valid && !signUpForm.get('email')?.pristine" matSuffix
-          class="invalid-input">check_circle</mat-icon>
-        <mat-icon *ngIf="signUpForm.get('email')?.pristine" matSuffix class="default-input">check_circle</mat-icon>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="col-12">
-        <input required (input)="onInput()" [type]="hide ? 'password' : 'text'" matInput id="password"
-          formControlName="password" name="pass" placeholder="Mot de passe">
-
-        <button *ngIf="signUpForm.get('password')?.valid" class="valid-input" mat-icon-button matSuffix
-          (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-
-        <button *ngIf="!signUpForm.get('password')?.valid && !signUpForm.get('password')?.pristine"
-          class="invalid-input" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-
-        <button *ngIf="signUpForm.get('password')?.pristine" class="default-input" mat-icon-button matSuffix
-          (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-      </mat-form-field>
-
-      <section class="mb-3 confidential-section" style="margin-top: -23px; margin-left: -5px;">
-        <mat-checkbox (click)="changeCheckedState()" matInput class="confidential-checkbox">J'accepte les politiques de
-          confidantialité</mat-checkbox>
-      </section>
-
-      <button type="submit" class="mb-2" [disabled]="!signUpForm.valid || !check" mat-flat-button color="primary"
-        style="padding: 2rem 0.5rem; width: 100%;">Je crée mon compte</button>
-
-      <a [routerLink]="['/login']" class="mt-5" style="font-weight: bold; color: black;"
-        routerLinkActive="router-link-active">Se connecté à mon compte</a>
-    </form>
+  <div class="emailAlreadyExistError invalid-Error-message text-center w-100">{{emailAlreadyExistError}}
   </div>
+  <mat-form-field appearance="outline" class="col-12">
+    <input required (input)="onInput()" type="email" matInput id="email" formControlName="email" name="email"
+      placeholder="Email">
+    <mat-icon *ngIf="signUpForm.get('email')?.valid" matSuffix class="valid-input">check_circle</mat-icon>
+    <mat-icon *ngIf="!signUpForm.get('email')?.valid && !signUpForm.get('email')?.pristine" matSuffix
+      class="invalid-input">check_circle</mat-icon>
+    <mat-icon *ngIf="signUpForm.get('email')?.pristine" matSuffix class="default-input">check_circle</mat-icon>
+  </mat-form-field>
 
-</div>
+  <mat-form-field appearance="outline" class="col-12">
+    <input required (input)="onInput()" [type]="hide ? 'password' : 'text'" matInput id="password"
+      formControlName="password" name="pass" placeholder="Mot de passe">
+
+    <button *ngIf="signUpForm.get('password')?.valid" class="valid-input" mat-icon-button matSuffix
+      (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+
+    <button *ngIf="!signUpForm.get('password')?.valid && !signUpForm.get('password')?.pristine" class="invalid-input"
+      mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+
+    <button *ngIf="signUpForm.get('password')?.pristine" class="default-input" mat-icon-button matSuffix
+      (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <section class="mb-3 confidential-section" style="margin-top: -23px; margin-left: -5px;">
+    <mat-checkbox (click)="changeCheckedState()" matInput class="confidential-checkbox">J'accepte les politiques de
+      confidantialité</mat-checkbox>
+  </section>
+
+  <button type="submit" class="mb-2" [disabled]="!signUpForm.valid || !check" mat-flat-button color="primary"
+    style="padding: 2rem 0.5rem; width: 100%;">Je crée mon compte</button>
+
+  <a [routerLink]="['/auth/login']" class="mt-5" style="font-weight: bold; color: black;"
+    routerLinkActive="router-link-active">Se connecté à mon compte</a>
+</form>

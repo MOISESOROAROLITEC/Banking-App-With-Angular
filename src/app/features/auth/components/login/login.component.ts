@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
-import { UserDatas, UserDatasLogin, UserDatasSignUp } from 'src/app/shared/constantes';
+import { UserDatasLogin } from 'src/app/shared/constantes';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
