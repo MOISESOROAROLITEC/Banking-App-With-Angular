@@ -24,7 +24,6 @@ export class AuthService {
   }
 
   login(userDatas: UserDatasLogin) {
-    console.log("la data : ", userDatas);
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
     try {
       return this.http.post(`${baseUrl}/auth/login`, userDatas, httpOptions)
@@ -34,8 +33,7 @@ export class AuthService {
           })
         )
     } catch (error) {
-      console.log("l'erreur rencontré est : ", error);
-      return
+      return of(error)
     }
   }
 

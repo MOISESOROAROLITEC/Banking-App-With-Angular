@@ -3,14 +3,13 @@
   </div>
   <h5 class="form-title mb-3">Création de compte</h5>
 
-  <mat-form-field appearance="outline" class="col-12 mt-1 my-custom-form-field">
+  <mat-form-field appearance="outline" class="col-12 mt-1">
     <input required matInput (input)="onInput()" (change)="onChange()" id="username" formControlName="username"
       placeholder="Nom d'utilisateur">
     <mat-icon *ngIf="signUpForm.get('username')?.valid" matSuffix class="valid-input">check_circle</mat-icon>
     <mat-icon *ngIf="!signUpForm.get('username')?.valid && !signUpForm.get('username')?.pristine" matSuffix
       class="invalid-input">check_circle</mat-icon>
     <mat-icon *ngIf="signUpForm.get('username')?.pristine" matSuffix class="default-input">check_circle</mat-icon>
-    <!-- <mat-error class=" c-red mat-error">Le nom d'utilisateur doit contennire entre 4 et 30 caractères</mat-error> -->
   </mat-form-field>
 
   <div class="emailAlreadyExistError invalid-Error-message text-center w-100">{{emailAlreadyExistError}}

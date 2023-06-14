@@ -13,6 +13,8 @@ import { AuthService } from './service/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { AuthComponent } from './auth/auth.component';
+import { StoreModule } from '@ngrx/store';
+import { userReducer } from './store/user.reducer';
 
 const routes: Routes = [
   {
@@ -41,6 +43,7 @@ const routes: Routes = [
     MatButtonModule,
     MatDividerModule,
     MatCheckboxModule,
+    StoreModule.forFeature('userFeature', userReducer),
     RouterModule.forChild(routes),
   ],
   providers: [AuthService]

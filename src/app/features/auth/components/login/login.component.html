@@ -1,5 +1,8 @@
-<form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="col-12 mt-4 sign-up-form">
-  <h5 class="form-title mb-3">Création de compte</h5>
+<form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="col-12 mt-3 sign-up-form">
+
+  <div class="mt-2 mb-2 w-100 text-center invalid-Error-message fs-5 requestErroMessage"> {{requestErroMessage}}</div>
+
+  <h5 class="form-title mb-3">Connexion au compte</h5>
 
   <div class="emailAlreadyExistError invalid-Error-message text-center w-100">{{emailAlreadyExistError}}
   </div>
@@ -32,14 +35,15 @@
     </button>
   </mat-form-field>
 
-  <section class="mb-3 confidential-section" style="margin-top: -23px; margin-left: -5px;">
-    <mat-checkbox (click)="changeCheckedState()" matInput class="confidential-checkbox">J'accepte les politiques de
-      confidantialité</mat-checkbox>
-  </section>
-
   <button type="submit" class="mb-2" [disabled]="!loginForm.valid || !check" mat-flat-button color="primary"
     style="padding: 2rem 0.5rem; width: 100%;">Je crée mon compte</button>
 
-  <a [routerLink]="['/login']" class="mt-5" style="font-weight: bold; color: black;"
-    routerLinkActive="router-link-active">Se connecté à mon compte</a>
+  <div class="bottom-links mt-0">
+    <a [routerLink]="['/auth/forget-password']" class="mt-0 text-decoration-none"
+      style="font-weight: bold; color: black;padding: 0 15px 0 0;">Mot
+      de
+      passe oublié ?</a>
+    <a [routerLink]="['/auth/sign-up']" class="mt-0  text-decoration-none" style="font-weight: bold; color: black;"
+      routerLinkActive="router-link-active">Créer un compte</a>
+  </div>
 </form>

@@ -44,21 +44,23 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    this.userData.email = this.loginForm.get('email')?.value
-    this.userData.password = this.loginForm.get('password')?.value
-    this.authService.login(this.userData)?.subscribe(
-      (response) => {
-        if (response instanceof HttpErrorResponse) {
-          if (response.status == 401) {
-            this.emailAlreadyExistError = "Cette adress email est déjàs utilisé"
-          } else if (response.status == 400) {
-            this.emailAlreadyExistError = "Le format de l'email est incorrect"
+    if (this.loginForm.valid) {
+      this.userData.email = this.loginForm.get('email')?.value
+      this.userData.password = this.loginForm.get('password')?.value
+      this.authService.login(this.userData)?.subscribe(
+        (response) => {
+          if (response instanceof HttpErrorResponse) {
+            if (response.status == 401) {
+              this.emailAlreadyExistError = "Cette adress email est déjàs utilisé"
+            } else if (response.status == 400) {
+              this.emailAlreadyExistError = "Le format de l'email est incorrect"
+            }
+          } else {
+            this.router.navigate(["/dashboard"])
           }
-        } else {
-          this.router.navigate(["/login"])
         }
-      }
-    )
+      )
+    }
   }
 
 }

@@ -44,11 +44,9 @@ export class SignUpComponent {
   onInput() {
     this.requestErroMessage = ""
     this.emailAlreadyExistError = ""
-    console.log("je fait input");
   }
 
   onChange() {
-    console.log("on change");
   }
 
   onSubmit() {
@@ -73,7 +71,6 @@ export class SignUpComponent {
             }
           },
           error: (error) => {
-            console.log("le handle error", error);
           },
           complete: () => {
             if (!this.userCreated && !this.emailAlreadyExistError)
