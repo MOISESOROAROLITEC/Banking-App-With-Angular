@@ -6,7 +6,11 @@ import { MainComponent } from './components/main/main.component';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: "dashboard", component: MainComponent }
+  {
+    path: "", component: MainComponent, children: [
+
+    ]
+  }
 ]
 
 @NgModule({
