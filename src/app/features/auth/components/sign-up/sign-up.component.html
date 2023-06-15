@@ -48,8 +48,8 @@
       confidantialité</mat-checkbox>
   </section>
 
-  <button type="submit" class="mb-2" [disabled]="!signUpForm.valid || !check" mat-flat-button color="primary"
-    style="padding: 1.7rem 0.5rem; width: 100%;">Je crée mon compte</button>
+  <button type="submit" (click)="onSubmit('submit')" class="mb-2" [disabled]="!signUpForm.valid || !check"
+    mat-flat-button color="primary" style="padding: 1.7rem 0.5rem; width: 100%;">Je crée mon compte</button>
 
   <a [routerLink]="['/auth/login']" class="mt-5" style="font-weight: bold; color: black;"
     routerLinkActive="router-link-active">Se connecté à mon compte</a>

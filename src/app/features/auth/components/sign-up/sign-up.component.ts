@@ -35,7 +35,7 @@ export class SignUpComponent {
       password: ['', [Validators.pattern("^.{8,50}$")]],
     });
 
-    this.hide = false
+    this.hide = true
     this.check = false
     this.userData = {
       name: "",
@@ -67,7 +67,10 @@ export class SignUpComponent {
     }
   }
 
-  onSubmit() {
+  onSubmit(type?: string) {
+    if (type != "submit") {
+      return
+    }
     if (this.signUpForm.valid) {
       this.userData.name = this.signUpForm.get('username')?.value
       this.userData.email = this.signUpForm.get('email')?.value
