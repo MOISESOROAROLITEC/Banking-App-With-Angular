@@ -1,7 +1,7 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="signUpForm" class="col-12 mt-3 sign-up-form">
   <div class="mt-2 mb-2 w-100 text-center invalid-Error-message fs-5 requestErroMessage"> {{requestErroMessage}}
   </div>
-  <h5 class="form-title mb-3">Création de compte</h5>
+  <h5 class="form-title mb-1">Création de compte</h5>
 
   <mat-form-field appearance="outline" class="col-12 mt-1">
     <input required matInput (input)="onInput()" (change)="onChange()" id="username" formControlName="username"

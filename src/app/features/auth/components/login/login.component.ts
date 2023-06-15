@@ -1,9 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
-import { UserDatasLogin } from 'src/app/shared/constantes';
+import { UserDatas, UserDatasLogin } from 'src/app/shared/constantes';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +27,8 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private store: Store,
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.email]],
@@ -47,20 +49,34 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.userData.email = this.loginForm.get('email')?.value
       this.userData.password = this.loginForm.get('password')?.value
-      this.authService.login(this.userData)?.subscribe(
-        (response) => {
-          if (response instanceof HttpErrorResponse) {
-            if (response.status == 401) {
-              this.emailAlreadyExistError = "Cette adress email est déjàs utilisé"
-            } else if (response.status == 400) {
-              this.emailAlreadyExistError = "Le format de l'email est incorrect"
+      this.authService.login(this.userData).subscribe(
+        {
+          next: (response) => {
+            const res = response as UserDatas
+            this.authService.saveUserDatas(res.name, res.email, res.token)
+            this.router.navigate(["/dashboard"]);
+          },
+          error: (error) => {
+            if (error instanceof HttpErrorResponse) {
+              this.requestErroMessage = error.error.message
             }
-          } else {
-            this.router.navigate(["/dashboard"])
-          }
+          },
+          complete: () => { }
         }
       )
     }
   }
 
 }
+function changeUserName(arg0: { newName: string; }): any {
+  throw new Error('Function not implemented.');
+}
+
+function changeUserEmail(arg0: { newEmail: string; }): any {
+  throw new Error('Function not implemented.');
+}
+
+function changeUserToken(arg0: { newToken: string; }): any {
+  throw new Error('Function not implemented.');
+}
+

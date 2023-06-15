@@ -56,16 +56,6 @@ export class SignUpComponent {
   onChange() {
   }
 
-  saveUserDatas(name: string, email: string, token: string | undefined) {
-    localStorage.setItem('username', name)
-    this.store.dispatch(changeUserName({ newName: name }))
-    localStorage.setItem('email', email)
-    this.store.dispatch(changeUserEmail({ newEmail: email }))
-    if (token) {
-      localStorage.setItem('token', token)
-      this.store.dispatch(changeUserToken({ newToken: token }))
-    }
-  }
 
   onSubmit(type?: string) {
     if (type != "submit") {
@@ -79,24 +69,23 @@ export class SignUpComponent {
       this.authService.createUser(this.userData).subscribe(
         {
           next: (response) => {
-            if (response instanceof HttpErrorResponse) {
-              if (response.status == 401) {
-                this.emailAlreadyExistError = "Cette adress email est déjàs utilisé"
-              } else if (response.status == 400) {
-                this.emailAlreadyExistError = "Le format de l'email est incorrect"
+            this.userCreated = true
+            const res = response as UserDatas
+            this.authService.saveUserDatas(res.name, res.email, res.token)
+            this.router.navigate(["/dashboard"])
+          },
+          error: (error) => {
+            if (error instanceof HttpErrorResponse) {
+              if (error.status == 401) {
+                this.emailAlreadyExistError = error.error.message
+              } else if (error.status == 400) {
+                this.emailAlreadyExistError = error.error.message
+              } else {
+                this.requestErroMessage = error.error.message
               }
-            } else {
-              this.userCreated = true
-              const res = response as UserDatas
-              this.saveUserDatas(res.name, res.email, res.token)
-              this.router.navigate(["/dashboard"])
             }
           },
-          error: (error) => { },
-          complete: () => {
-            if (!this.userCreated && !this.emailAlreadyExistError)
-              this.requestErroMessage = "Erreur de connection au serveur"
-          }
+          complete: () => { }
         }
       )
     }
