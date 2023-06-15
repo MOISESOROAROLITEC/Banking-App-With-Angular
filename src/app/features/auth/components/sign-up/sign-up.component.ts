@@ -4,7 +4,9 @@ import { AuthService } from '../../service/auth.service';
 import { UserDatasSignUp } from 'src/app/shared/constantes';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { Store } from '@ngrx/store';
+import { changeUserEmail, changeUserName, changeUserToken } from '../../store/user.actions';
+import { UserDatas } from 'src/app/shared/constantes';
 
 @Component({
   selector: 'app-sign-up',
@@ -16,25 +18,30 @@ export class SignUpComponent {
   signUpForm: FormGroup;
   requestErroMessage = ""
   emailAlreadyExistError = ""
-  hide = true
-  check = false
+  hide: boolean
+  check: boolean
   userCreated: boolean = false
-  userData: UserDatasSignUp = {
-    name: "",
-    email: "",
-    password: "",
-  }
+  userData: UserDatasSignUp
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private formBuilder: FormBuilder,
+    private store: Store
   ) {
     this.signUpForm = this.formBuilder.group({
       username: ['', [Validators.maxLength(50), Validators.minLength(4)]],
       email: ['', [Validators.email]],
       password: ['', [Validators.pattern("^.{8,50}$")]],
     });
+
+    this.hide = false
+    this.check = false
+    this.userData = {
+      name: "",
+      email: "",
+      password: "",
+    }
   }
 
   changeCheckedState() {
@@ -47,6 +54,17 @@ export class SignUpComponent {
   }
 
   onChange() {
+  }
+
+  saveUserDatas(name: string, email: string, token: string | undefined) {
+    localStorage.setItem('username', name)
+    this.store.dispatch(changeUserName({ newName: name }))
+    localStorage.setItem('email', email)
+    this.store.dispatch(changeUserEmail({ newEmail: email }))
+    if (token) {
+      localStorage.setItem('token', token)
+      this.store.dispatch(changeUserToken({ newToken: token }))
+    }
   }
 
   onSubmit() {
@@ -66,12 +84,12 @@ export class SignUpComponent {
               }
             } else {
               this.userCreated = true
-              localStorage.setItem('username', this.signUpForm.get('username')?.value)
+              const res = response as UserDatas
+              this.saveUserDatas(res.name, res.email, res.token)
               this.router.navigate(["/dashboard"])
             }
           },
-          error: (error) => {
-          },
+          error: (error) => { },
           complete: () => {
             if (!this.userCreated && !this.emailAlreadyExistError)
               this.requestErroMessage = "Erreur de connection au serveur"

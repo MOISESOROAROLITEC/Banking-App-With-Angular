@@ -13,7 +13,7 @@ export class AuthService {
   createUser(userDatas: UserDatasSignUp) {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
 
-    return this.http.post(`${baseUrl}/user/create`, userDatas, httpOptions)
+    return this.http.post<UserDatas>(`${baseUrl}/user/create`, userDatas, httpOptions)
       .pipe(
         catchError((err: Error) => {
           return of(err)
