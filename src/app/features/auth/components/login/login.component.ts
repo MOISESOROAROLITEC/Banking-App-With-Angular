@@ -16,13 +16,10 @@ export class LoginComponent {
   loginForm: FormGroup;
   requestErroMessage = ""
   emailAlreadyExistError = ""
-  hide = true
-  check = false
+  hide: boolean
+  check: boolean
 
-  userData: UserDatasLogin = {
-    email: "",
-    password: '',
-  }
+  userData: UserDatasLogin
 
   constructor(
     private authService: AuthService,
@@ -34,6 +31,13 @@ export class LoginComponent {
       email: ['', [Validators.email]],
       password: ['', [Validators.pattern("^.{8,50}$")]],
     });
+
+    this.hide = true
+    this.check = false
+    this.userData = {
+      email: "",
+      password: "",
+    }
   }
 
   changeCheckedState() {
@@ -45,7 +49,10 @@ export class LoginComponent {
     this.emailAlreadyExistError = ""
   }
 
-  onSubmit() {
+  onSubmit(type?: string) {
+    if (type != "submit") {
+      return
+    }
     if (this.loginForm.valid) {
       this.userData.email = this.loginForm.get('email')?.value
       this.userData.password = this.loginForm.get('password')?.value
@@ -68,15 +75,3 @@ export class LoginComponent {
   }
 
 }
-function changeUserName(arg0: { newName: string; }): any {
-  throw new Error('Function not implemented.');
-}
-
-function changeUserEmail(arg0: { newEmail: string; }): any {
-  throw new Error('Function not implemented.');
-}
-
-function changeUserToken(arg0: { newToken: string; }): any {
-  throw new Error('Function not implemented.');
-}
-

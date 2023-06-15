@@ -1,12 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
-import { UserDatasSignUp } from 'src/app/shared/constantes';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { changeUserEmail, changeUserName, changeUserToken } from '../../store/user.actions';
-import { UserDatas } from 'src/app/shared/constantes';
+import { UserDatas, UserDatasSignUp } from 'src/app/shared/constantes';
 
 @Component({
   selector: 'app-sign-up',
