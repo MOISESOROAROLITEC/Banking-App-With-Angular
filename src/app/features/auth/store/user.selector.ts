@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { UserDatas } from "src/app/shared/constantes";
+import { UserDatas, UserDatasStore } from "src/app/shared/constantes/constantes";
 
-export const selectUserState = createFeatureSelector<UserDatas>('userFeature');
+export const selectUserState = createFeatureSelector<UserDatasStore>('userFeature');
 
 export const getUserName = createSelector(
   selectUserState,
@@ -12,9 +12,30 @@ export const getUserEmail = createSelector(
   (state: UserDatas) => state.email
 );
 
+export const getRequestErrorMessage = createSelector(
+  selectUserState,
+  (state: UserDatasStore) => state.requestErrorMessage
+);
+
 export const getUserDatas = createSelector(
   selectUserState,
   (state: UserDatas) => state
+);
+
+export const getUserFirstName = createSelector(
+  selectUserState,
+  (state: UserDatas) => {
+    const firstName = state.name.split(' ')[0]
+    return firstName
+  }
+);
+export const getUserLastNames = createSelector(
+  selectUserState,
+  (state: UserDatas) => {
+    let lastNames = state.name.split(' ').slice(1)
+
+    return lastNames.join("")
+  }
 );
 
 export const getUserInitial = createSelector(

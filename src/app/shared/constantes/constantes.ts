@@ -17,3 +17,14 @@ export interface UserDatas {
   email: string
   token?: string
 }
+
+
+
+export interface UserDatasStore {
+  name: string
+  password?: string
+  email: string
+  token?: string
+  loading?: boolean
+  requestErrorMessage?: string
+}

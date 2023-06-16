@@ -1,1 +1,24 @@
-<h1>Tableau de bord de {{username}} </h1>
+<div class="d-flex dashboard">
+  <div class="w-30 user-infos">
+    <div class="d-flex justify-content-center align-items-center user-initial">{{userInitial$ | async}}</div>
+    <div class="username"><span class="firstName"> {{firstName$ | async}}</span> <span class="lastNames"> {{lastNames$ |
+        async}} </span>
+    </div>
+    <div class="mt-1 mb-2 user-email">Email : {{(userDatas$ | async)?.email }}</div>
+    <div class="user-edit-div">
+      <button mat-flat-button color="accent" class="user-edit">
+        <span class="edit-text"> Edition du profil</span>
+        <mat-icon aria-hidden="false" color="accent" fontIcon="edit" class="pen"></mat-icon>
+      </button>
+
+    </div>
+    <div class="w-100 mt-3 accounts">
+      <h5>Mes comptes</h5>
+      <!-- <div *ngFor="let item of list" class="account-block"></div> -->
+    </div>
+    <button mat-flat-button class="user-edit disconnect-btn">Se déconnecter</button>
+  </div>
+  <div class="router-box">
+    <router-outlet></router-outlet>
+  </div>
+</div>

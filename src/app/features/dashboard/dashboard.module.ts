@@ -6,6 +6,8 @@ import { MainComponent } from './components/main/main.component';
 import { RouterModule, Routes } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { userReducer } from '../auth/store/user.reducer';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 const routes: Routes = [
   {
@@ -24,6 +26,8 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
+    MatButtonModule,
+    MatIconModule,
     RouterModule.forChild(routes),
     StoreModule.forFeature('userFeature', userReducer),
   ]

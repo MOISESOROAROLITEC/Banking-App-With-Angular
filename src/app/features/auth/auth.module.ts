@@ -15,6 +15,10 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthComponent } from './auth/auth.component';
 import { StoreModule } from '@ngrx/store';
 import { userReducer } from './store/user.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { UserEffects } from './store/user.effect';
+import * as userEffects from './store/user.actions';
+import { ToastrModule } from 'ngx-toastr';
 
 const routes: Routes = [
   {
@@ -43,7 +47,14 @@ const routes: Routes = [
     MatButtonModule,
     MatDividerModule,
     MatCheckboxModule,
+    ToastrModule.forRoot({
+      closeButton: true,
+      newestOnTop: true,
+      preventDuplicates: true,
+      resetTimeoutOnDuplicate: true
+    }),
     StoreModule.forFeature('userFeature', userReducer),
+    EffectsModule.forFeature(UserEffects),
     RouterModule.forChild(routes),
   ],
   providers: [AuthService]

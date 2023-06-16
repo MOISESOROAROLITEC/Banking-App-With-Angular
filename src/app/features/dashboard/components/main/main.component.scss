@@ -1,0 +1,74 @@
+.dashboard {
+  .user-infos {
+    width: 33%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 100vh;
+    .user-initial {
+      color: white;
+      $size: 150px;
+      width: $size;
+      height: $size;
+      background-color: #0079ff38;
+      border-radius: 50%;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 600;
+      font-size: 60px;
+      line-height: 117px;
+      margin-top: 30px;
+    }
+    .username {
+      margin: 15px 0 0 0;
+      .firstName {
+        font-weight: bold;
+      }
+    }
+    .user-email {
+    }
+    .user-edit {
+      background-color: #ff00601a;
+      color: #ff0060;
+      padding: 4px 20px;
+      border-radius: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: smaller;
+      &:hover {
+        background-color: #ff00622c;
+      }
+      &:active {
+        background-color: #ff00623a;
+      }
+      .edit-text {
+        margin: 0 10px 0 0;
+      }
+      .pen {
+        color: #ff0060;
+        margin: 0 -3px 0px 0;
+        size: 50;
+        order: 1;
+      }
+    }
+    .accounts {
+      margin: auto;
+      padding: 0 30px 0 30px;
+    }
+
+    .disconnect-btn {
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 4px 25px;
+      position: absolute;
+      bottom: 10px;
+    }
+  }
+
+  .router-box {
+    background-color: aliceblue;
+    width: 67%;
+    min-height: 100vh;
+  }
+}
