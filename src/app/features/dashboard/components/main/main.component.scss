@@ -25,8 +25,6 @@
         font-weight: bold;
       }
     }
-    .user-email {
-    }
     .user-edit {
       background-color: #ff00601a;
       color: #ff0060;
@@ -55,6 +53,9 @@
     .accounts {
       margin: auto;
       padding: 0 30px 0 30px;
+      .account-block {
+        background-color: #0079ff;
+      }
     }
 
     .disconnect-btn {

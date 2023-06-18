@@ -14,9 +14,12 @@
     </div>
     <div class="w-100 mt-3 accounts">
       <h5>Mes comptes</h5>
-      <!-- <div *ngFor="let item of list" class="account-block"></div> -->
+      <div class="account-block">
+        {{(userAccount$ | async)?.iban}}
+      </div>
+
     </div>
-    <button mat-flat-button class="user-edit disconnect-btn">Se déconnecter</button>
+    <button (click)="onDisconnect()" mat-flat-button class="user-edit disconnect-btn">Se déconnecter</button>
   </div>
   <div class="router-box">
     <router-outlet></router-outlet>
