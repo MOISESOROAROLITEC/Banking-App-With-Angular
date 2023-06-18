@@ -14,4 +14,9 @@ export class ToastService {
   success(message: string, title = "Succès") {
     this.toast.success(message, title)
   }
+
+  error(message: string, title = "Error") {
+    this.toast.error(message, title)
+  }
+
 }
