@@ -8,10 +8,14 @@ import { StoreModule } from '@ngrx/store';
 import { userReducer } from '../auth/store/user.reducer';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { userAccountsReducer } from './store/dashboard.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { DashboardEffects } from './store/dashboard.effect';
+import { RoutesGuard } from 'src/app/shared/guards/routes.guard';
 
 const routes: Routes = [
   {
-    path: "", component: MainComponent, children: [
+    path: "", component: MainComponent, canActivate: [RoutesGuard], children: [
 
     ]
   }
@@ -30,6 +34,8 @@ const routes: Routes = [
     MatIconModule,
     RouterModule.forChild(routes),
     StoreModule.forFeature('userFeature', userReducer),
+    StoreModule.forFeature('userAccounts', userAccountsReducer),
+    EffectsModule.forFeature(DashboardEffects),
   ]
 })
 export class DashboardModule { }

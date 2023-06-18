@@ -7,6 +7,9 @@ import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-br
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { ToastrModule, provideToastr } from 'ngx-toastr';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { UserHttpInterceptor } from './shared/interceptors/httpInterceptor';
+import { ActivateRoute } from './shared/guards/routes.guard';
 
 
 @NgModule({
@@ -17,18 +20,23 @@ import { ToastrModule, provideToastr } from 'ngx-toastr';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     ToastrModule.forRoot({
       closeButton: true,
       newestOnTop: true,
       preventDuplicates: true,
+      progressBar: true,
       resetTimeoutOnDuplicate: true
     }),
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
   ],
   providers: [
-    provideAnimations(),
-    provideToastr(),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserHttpInterceptor,
+      multi: true
+    }, ActivateRoute
   ],
   bootstrap: [AppComponent]
 })

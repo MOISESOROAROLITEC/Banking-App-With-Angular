@@ -5,21 +5,16 @@ export interface UserDatasSignUp {
   email: string,
   password: string,
 }
-
 export interface UserDatasLogin {
   email: string,
   password: string
 }
-
 export interface UserDatas {
   name: string
   password?: string
   email: string
   token?: string
 }
-
-
-
 export interface UserDatasStore {
   name: string
   password?: string
@@ -28,3 +23,27 @@ export interface UserDatasStore {
   loading?: boolean
   requestErrorMessage?: string
 }
+
+export interface Account {
+  iban: string;
+  balance: number;
+  currency: string;
+  bic: string;
+  type: string;
+  createAt?: string;
+  updateAt?: string,
+  userId?: string
+}
+export interface UserAccounts {
+  account: Account,
+  subAccount: Array<Account>,
+}
+
+export interface UserAccountsState {
+  account?: Account,
+  subAccount?: Array<Account>,
+  errorMessage?: string,
+  loading?: boolean
+}
+
+

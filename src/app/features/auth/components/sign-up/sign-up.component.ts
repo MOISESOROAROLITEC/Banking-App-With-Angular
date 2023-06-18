@@ -1,15 +1,11 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { UserDatas, UserDatasSignUp } from 'src/app/shared/constantes/constantes';
-import { Observable, Unsubscribable, of } from 'rxjs';
+import { Unsubscribable, of } from 'rxjs';
 import { createUser } from '../../store/user.actions';
-import { getRequestErrorMessage } from '../../store/user.selector';
-import { ToastrService } from 'ngx-toastr';
-import { ToastService } from 'src/app/shared/services/toast.service';
+import { ToastService } from 'src/app/shared/services/toast/toast.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -19,7 +15,6 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 })
 export class SignUpComponent implements OnDestroy {
   signUpForm: FormGroup;
-  // requestErroMessage: Observable<string | undefined> = this.store.select(getRequestErrorMessage)
   emailAlreadyExistError = ""
   hide: boolean
   check: boolean
@@ -43,7 +38,6 @@ export class SignUpComponent implements OnDestroy {
     this.hide = true
     this.check = false
 
-    // this.createUser = this.authService.createUser(this.userData)
   }
 
   changeCheckedState() {
@@ -51,7 +45,6 @@ export class SignUpComponent implements OnDestroy {
   }
 
   onInput() {
-    // this.requestErroMessage = of("")
     this.emailAlreadyExistError = ""
   }
 
@@ -72,38 +65,14 @@ export class SignUpComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.subscription.unsubscribe()
   }
 
-  onSubmit(type?: string) {
+  onSubmit() {
     if (this.signUpForm.valid) {
       let name = this.signUpForm.get('username')?.value
       let email = this.signUpForm.get('email')?.value
       let password = this.signUpForm.get('password')?.value
-      console.log("top user dispatvc");
       this.store.dispatch(createUser({ userDatas: { name, email, password } }))
-      // this.createUser.subscribe(
-      //   {
-      //     next: (response) => {
-      //       this.userCreated = true
-      //       const res = response as UserDatas
-      //       this.authService.saveUserDatas(res.name, res.email, res.token)
-      //       this.router.navigate(["/dashboard"])
-      //     },
-      //     error: (error) => {
-      //       if (error instanceof HttpErrorResponse) {
-      //         if (error.status == 401) {
-      //           this.emailAlreadyExistError = error.error.message
-      //         } else if (error.status == 400) {
-      //           this.emailAlreadyExistError = error.error.message
-      //         } else {
-      //           this.requestErroMessage = error.error.message
-      //         }
-      //       }
-      //     },
-      //     complete: () => { }
-      //   }
-      // )
     }
   }
 

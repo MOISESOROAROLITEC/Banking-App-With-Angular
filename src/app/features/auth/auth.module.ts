@@ -19,6 +19,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './store/user.effect';
 import * as userEffects from './store/user.actions';
 import { ToastrModule } from 'ngx-toastr';
+import { userAccountsReducer } from '../dashboard/store/dashboard.reducer';
+import { DashboardEffects } from '../dashboard/store/dashboard.effect';
 
 const routes: Routes = [
   {
@@ -54,7 +56,9 @@ const routes: Routes = [
       resetTimeoutOnDuplicate: true
     }),
     StoreModule.forFeature('userFeature', userReducer),
+    StoreModule.forFeature('userAccounts', userAccountsReducer),
     EffectsModule.forFeature(UserEffects),
+    EffectsModule.forFeature(DashboardEffects),
     RouterModule.forChild(routes),
   ],
   providers: [AuthService]

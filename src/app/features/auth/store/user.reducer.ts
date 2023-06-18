@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { UserDatas, UserDatasStore } from 'src/app/shared/constantes/constantes';
+import { UserDatasStore } from 'src/app/shared/constantes/constantes';
 import { changeUserEmail, changeUserName, changeUserToken, createUser, createUserFailed, createUserSuccess, updateUser } from './user.actions';
 
 const initialUserState: UserDatasStore = {
@@ -22,12 +22,11 @@ export const userReducer = createReducer(
   }),
 
   on(createUserFailed, (user, { message }) => {
-    console.log("dans le on messatge: ", message);
     return ({ ...user, loading: false, requestErrorMessage: message })
   }),
 
   on(updateUser, (user, { newDatas }) => {
-    localStorage.setItem("name", newDatas.name);
+    localStorage.setItem("username", newDatas.name);
     localStorage.setItem("email", newDatas.email);
     if (newDatas.token) {
       localStorage.setItem("token", newDatas.token);
