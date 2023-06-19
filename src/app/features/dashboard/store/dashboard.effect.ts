@@ -7,7 +7,13 @@ import { ToastService } from 'src/app/shared/services/toast/toast.service';
 import {
   getUserAccountsAction,
   getUserAccountsSucceed,
-  getUserAccountsFailed
+  getUserAccountsFailed,
+  createSaveAccountAction,
+  createSaveAccountSucceed,
+  createSaveAccountFailed,
+  createBlockedAccountAction,
+  createBlockedAccountSucceed,
+  createBlockedAccountFailed
 } from './dashboard.actions';
 
 @Injectable()
@@ -23,6 +29,40 @@ export class DashboardEffects {
           catchError((error) => {
             this.toast.error(error.error.message)
             return of({ type: getUserAccountsFailed.type, message: error.error.message })
+          })
+        )
+      )
+    )
+  )
+
+  createSaveAccountEffect$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(createSaveAccountAction.type),
+      exhaustMap(({ parentIban }) => this.dashboardService.createSaveAccounts(parentIban)
+        .pipe(
+          map((response) => {
+            return ({ type: createSaveAccountSucceed.type, subAccount: response })
+          }),
+          catchError((error) => {
+            this.toast.error(error.error.message)
+            return of({ type: createSaveAccountFailed.type, message: error.error.message })
+          })
+        )
+      )
+    )
+  )
+
+  createBlockedAccountEffect$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(createBlockedAccountAction.type),
+      exhaustMap(({ parentIban }) => this.dashboardService.createBlockedAccounts(parentIban)
+        .pipe(
+          map((response) => {
+            return ({ type: createBlockedAccountSucceed.type, subAccount: response })
+          }),
+          catchError((error) => {
+            this.toast.error(error.error.message)
+            return of({ type: createBlockedAccountFailed.type, message: error.error.message })
           })
         )
       )

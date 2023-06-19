@@ -1,27 +1,11 @@
 import { createReducer, on } from '@ngrx/store';
 
 import { UserAccountsState } from 'src/app/shared/constantes/constantes';
-import { getUserAccountsAction, getUserAccountsFailed, getUserAccountsSucceed } from './dashboard.actions';
+import { createBlockedAccountAction, createBlockedAccountFailed, createBlockedAccountSucceed, createSaveAccountAction, createSaveAccountFailed, createSaveAccountSucceed, getUserAccountsAction, getUserAccountsFailed, getUserAccountsSucceed } from './dashboard.actions';
 
 
 
 const initialUserAccountsState: UserAccountsState = {
-  account: {
-    iban: '',
-    type: '',
-    balance: 0,
-    currency: '',
-    bic: '',
-  },
-  subAccount: [
-    {
-      iban: '',
-      type: '',
-      balance: 0,
-      currency: '',
-      bic: '',
-    },
-  ],
   loading: false,
 };
 
@@ -30,12 +14,32 @@ export const userAccountsReducer = createReducer(
   on(getUserAccountsAction, (accountsStore) => {
     return ({ ...accountsStore, loading: true })
   }),
-
   on(getUserAccountsSucceed, (accountsStore, { userAccounts }) => {
     return ({ ...accountsStore, ...userAccounts, loading: false })
   }),
-
   on(getUserAccountsFailed, (accountsStore, { message }) => {
+    return ({ ...accountsStore, loading: false, requestErrorMessage: message })
+  }),
+
+
+  on(createSaveAccountAction, (accountsStore) => {
+    return ({ ...accountsStore, loading: true })
+  }),
+  on(createSaveAccountSucceed, (accountsStore, { subAccount }) => {
+    return ({ ...accountsStore, ...subAccount, loading: false })
+  }),
+  on(createSaveAccountFailed, (accountsStore, { message }) => {
+    return ({ ...accountsStore, loading: false, requestErrorMessage: message })
+  }),
+
+
+  on(createBlockedAccountAction, (accountsStore) => {
+    return ({ ...accountsStore, loading: true })
+  }),
+  on(createBlockedAccountSucceed, (accountsStore, { subAccount }) => {
+    return ({ ...accountsStore, ...subAccount, loading: false })
+  }),
+  on(createBlockedAccountFailed, (accountsStore, { message }) => {
     return ({ ...accountsStore, loading: false, requestErrorMessage: message })
   }),
 

@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { UserAccounts, UserDatas, UserDatasStore } from "src/app/shared/constantes/constantes";
+import { UserAccounts } from "src/app/shared/constantes/constantes";
 
 export const selectUserAccountsState = createFeatureSelector<UserAccounts>('userAccounts');
 

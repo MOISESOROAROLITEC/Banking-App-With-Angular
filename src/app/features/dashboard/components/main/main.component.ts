@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { getUserDatas, getUserFirstName, getUserInitial, getUserLastNames } from 'src/app/features/auth/store/user.selector';
-import { Account, UserAccounts, UserDatas } from 'src/app/shared/constantes/constantes';
+import { Account, SubAccount, UserAccounts, UserDatas } from 'src/app/shared/constantes/constantes';
 import { getUserAccount, getUserAccounts, getUserSubAccount } from '../../store/dashboard.selector';
-import { getUserAccountsAction } from '../../store/dashboard.actions';
+import { createBlockedAccountAction, createSaveAccountAction, getUserAccountsAction } from '../../store/dashboard.actions';
 import { DashboardService } from '../../services/dashboard.service';
 
 
@@ -21,23 +21,39 @@ export class MainComponent implements OnInit {
   lastNames$: Observable<string>
   userAccounts$: Observable<UserAccounts>
   userAccount$: Observable<Account>
-  userSubAccount$: Observable<Array<Account>>
+  userSubAccount$: Observable<Array<SubAccount>>
+  vieuxSold: boolean = true
 
   constructor(
     private store: Store<UserDatas>,
     private dashboardService: DashboardService
   ) {
-    this.userDatas$ = this.store.select(getUserDatas)
-    this.userInitial$ = this.store.select(getUserInitial)
-    this.firstName$ = this.store.select(getUserFirstName)
-    this.lastNames$ = this.store.select(getUserLastNames)
-    this.userAccounts$ = this.store.select(getUserAccounts)
-    this.userAccount$ = this.store.select(getUserAccount)
-    this.userSubAccount$ = this.store.select(getUserSubAccount)
+    this.userDatas$ = this.store.select(getUserDatas);
+    this.userInitial$ = this.store.select(getUserInitial);
+    this.firstName$ = this.store.select(getUserFirstName);
+    this.lastNames$ = this.store.select(getUserLastNames);
+    this.userAccounts$ = this.store.select(getUserAccounts);
+    this.userAccount$ = this.store.select(getUserAccount);
+    this.userSubAccount$ = this.store.select(getUserSubAccount);
   }
 
   ngOnInit() {
     this.store.dispatch(getUserAccountsAction());
+    this.userAccounts$.subscribe({
+      next: (value) => value
+    })
+    this.userSubAccount$.subscribe(
+      {
+        next: (value) => value
+      }
+    )
+  }
+
+  createSaveAccount(iban: string) {
+    this.store.dispatch(createSaveAccountAction({ parentIban: iban }))
+  }
+  createBlockedAccount(iban: string) {
+    this.store.dispatch(createBlockedAccountAction({ parentIban: iban }))
   }
 
   onDisconnect() {

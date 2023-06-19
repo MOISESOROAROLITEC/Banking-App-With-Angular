@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { userReducer } from '../auth/store/user.reducer';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { userAccountsReducer } from './store/dashboard.reducer';
 import { EffectsModule } from '@ngrx/effects';
@@ -16,7 +17,8 @@ import { RoutesGuard } from 'src/app/shared/guards/routes.guard';
 const routes: Routes = [
   {
     path: "", component: MainComponent, canActivate: [RoutesGuard], children: [
-
+      { path: "", redirectTo: 'transactions', pathMatch: "full" },
+      { path: "transactions", component: TransactionsComponent }
     ]
   }
 ]
@@ -32,6 +34,7 @@ const routes: Routes = [
     CommonModule,
     MatButtonModule,
     MatIconModule,
+    MatMenuModule,
     RouterModule.forChild(routes),
     StoreModule.forFeature('userFeature', userReducer),
     StoreModule.forFeature('userAccounts', userAccountsReducer),

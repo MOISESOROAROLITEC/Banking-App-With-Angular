@@ -1,11 +1,12 @@
 .dashboard {
   .user-infos {
     width: 33%;
+    min-width: 450px;
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
     min-height: 100vh;
+    border: 1px solid #0079ff;
     .user-initial {
       color: white;
       $size: 150px;
@@ -52,9 +53,28 @@
     }
     .accounts {
       margin: auto;
-      padding: 0 30px 0 30px;
+      padding: 0 10px 0 10px;
       .account-block {
         background-color: #0079ff;
+        margin: 10px 0;
+        padding: 3px 7px;
+        border-radius: 5px;
+        color: white;
+        justify-content: space-between;
+        font-size: 0.75rem;
+        .account-type {
+          font-weight: 600;
+        }
+        .number,
+        .sold {
+          font-weight: 800;
+        }
+        .account-other-infos {
+          justify-content: space-evenly;
+          .title {
+            font-size: 0.6rem;
+          }
+        }
       }
     }
 
@@ -68,8 +88,7 @@
   }
 
   .router-box {
-    background-color: aliceblue;
-    width: 67%;
+    width: 100%;
     min-height: 100vh;
   }
 }

@@ -34,14 +34,19 @@ export interface Account {
   updateAt?: string,
   userId?: string
 }
+
+export interface SubAccount extends Omit<Account, 'userId'> {
+  accountParentIban: string
+}
+
 export interface UserAccounts {
   account: Account,
-  subAccount: Array<Account>,
+  subAccount: Array<SubAccount>,
 }
 
 export interface UserAccountsState {
   account?: Account,
-  subAccount?: Array<Account>,
+  subAccount?: Array<SubAccount>,
   errorMessage?: string,
   loading?: boolean
 }
