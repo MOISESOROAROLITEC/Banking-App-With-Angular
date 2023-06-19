@@ -33,6 +33,29 @@ export class UserEffects {
     )
   )
 
+  loginUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(userActions.loginUser.type),
+      exhaustMap(({ loginDatas }) => this.userService.loginUser(loginDatas)
+        .pipe(
+          map((response) => {
+            localStorage.setItem("username", response.name);
+            localStorage.setItem("email", response.email);
+            if (response.token) {
+              localStorage.setItem("token", response.token);
+            }
+            this.router.navigate(['/dashboard'])
+            return ({ type: userActions.loginUserSuccess.type, userDatas: response })
+          }),
+          catchError((error) => {
+            this.toast.error(error.error.message)
+            return of({ type: userActions.loginUserFailed.type, message: error.error.message })
+          })
+        )
+      )
+    )
+  )
+
   constructor(
     private actions$: Actions,
     private userService: AuthService,

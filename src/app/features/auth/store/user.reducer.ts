@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
 import { UserDatasStore } from 'src/app/shared/constantes/constantes';
-import { changeUserEmail, changeUserName, changeUserToken, createUser, createUserFailed, createUserSuccess, updateUser } from './user.actions';
+import { changeUserEmail, changeUserName, changeUserToken, createUser, createUserFailed, createUserSuccess, loginUser, loginUserFailed, loginUserSuccess, updateUser } from './user.actions';
 
 const initialUserState: UserDatasStore = {
   name: localStorage.getItem("username") || "",
@@ -16,12 +16,20 @@ export const userReducer = createReducer(
   on(createUser, (user) => {
     return ({ ...user, loading: true })
   }),
-
   on(createUserSuccess, (user, { userDatas }) => {
     return ({ ...user, ...userDatas, loading: false })
   }),
-
   on(createUserFailed, (user, { message }) => {
+    return ({ ...user, loading: false, requestErrorMessage: message })
+  }),
+
+  on(loginUser, (user) => {
+    return ({ ...user, loading: true })
+  }),
+  on(loginUserSuccess, (user, { userDatas }) => {
+    return ({ ...user, ...userDatas, loading: false })
+  }),
+  on(loginUserFailed, (user, { message }) => {
     return ({ ...user, loading: false, requestErrorMessage: message })
   }),
 
@@ -42,7 +50,6 @@ export const userReducer = createReducer(
     localStorage.setItem("email", newEmail)
     return ({ ...user, email: newEmail })
   }),
-
 
   on(changeUserToken, (user, { newToken }) => {
     localStorage.setItem("token", newToken)

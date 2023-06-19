@@ -1,9 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { UserDatas, UserDatasLogin, UserDatasSignUp } from 'src/app/shared/constantes/constantes';
 import { changeUserEmail, changeUserName, changeUserToken } from '../store/user.actions';
 import { take } from 'rxjs';
+import { HttpService } from 'src/app/shared/services/http/http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,19 +13,18 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private store: Store
+    private store: Store,
+    private httpService: HttpService
   ) { }
 
   createUser(userDatas: UserDatasSignUp) {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
-    return this.http.post<UserDatas>(`user/create`, userDatas, httpOptions).pipe(
+    return this.http.post<UserDatas>(`user/create`, userDatas, this.httpService.getHeader()).pipe(
       take(1)
     )
   }
 
-  login(userDatas: UserDatasLogin) {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
-    return this.http.post(`auth/login`, userDatas, httpOptions)
+  loginUser(loginDatas: UserDatasLogin) {
+    return this.http.post<UserDatas>(`auth/login`, loginDatas, this.httpService.getHeader())
   }
 
   saveUserDatas(name: string, email: string, token: string | undefined) {
