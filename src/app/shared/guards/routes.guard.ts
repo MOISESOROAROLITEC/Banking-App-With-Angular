@@ -1,16 +1,16 @@
 import { CanActivateFn, Router } from '@angular/router';
-import { UserConnectStatusService } from '../services/user.connected.status.service';
 import { Injectable, inject } from '@angular/core';
+import { UserSharedService } from '../services/user.shared.service';
 
 @Injectable()
 export class ActivateRoute {
   constructor(
-    private userConnectStatus: UserConnectStatusService,
+    private userSharedService: UserSharedService,
     private router: Router,
   ) { }
 
   canActivate(): boolean {
-    if (this.userConnectStatus.isUserConnected()) {
+    if (this.userSharedService.isUserConnected()) {
       return true
     } else {
       this.router.navigate(["auth/login"])

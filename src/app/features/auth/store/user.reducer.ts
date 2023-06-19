@@ -1,7 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
 
 import { UserDatasStore } from 'src/app/shared/constantes/constantes';
-import { changeUserEmail, changeUserName, changeUserToken, createUser, createUserFailed, createUserSuccess, loginUser, loginUserFailed, loginUserSuccess, updateUser } from './user.actions';
+import {
+  changeUserEmail, changeUserName, changeUserToken,
+  createUser, createUserFailed, createUserSuccess,
+  loginUser, loginUserFailed, loginUserSuccess,
+  resetPasswordVerifyEmail, resetPasswordVerifyEmailFailed,
+  resetPasswordVerifyEmailSuccess, updateUser
+} from './user.actions';
 
 const initialUserState: UserDatasStore = {
   name: localStorage.getItem("username") || "",
@@ -30,6 +36,16 @@ export const userReducer = createReducer(
     return ({ ...user, ...userDatas, loading: false })
   }),
   on(loginUserFailed, (user, { message }) => {
+    return ({ ...user, loading: false, requestErrorMessage: message })
+  }),
+
+  on(resetPasswordVerifyEmail, (user) => {
+    return ({ ...user, loading: true })
+  }),
+  on(resetPasswordVerifyEmailSuccess, (user, { token }) => {
+    return ({ ...user, loading: false })
+  }),
+  on(resetPasswordVerifyEmailFailed, (user, { message }) => {
     return ({ ...user, loading: false, requestErrorMessage: message })
   }),
 

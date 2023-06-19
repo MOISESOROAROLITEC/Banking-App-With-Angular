@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { getUserDatas, getUserFirstName, getUserInitial, getUserLastNames } from 'src/app/features/auth/store/user.selector';
 import { Account, SubAccount, UserAccounts, UserDatas } from 'src/app/shared/constantes/constantes';
 import { getUserAccount, getUserAccounts, getUserSubAccount } from '../../store/dashboard.selector';
 import { createBlockedAccountAction, createSaveAccountAction, getUserAccountsAction } from '../../store/dashboard.actions';
-import { DashboardService } from '../../services/dashboard.service';
+import { UserSharedService } from 'src/app/shared/services/user.shared.service';
 
 
 
@@ -26,7 +26,7 @@ export class MainComponent implements OnInit {
 
   constructor(
     private store: Store<UserDatas>,
-    private dashboardService: DashboardService
+    private userSharedService: UserSharedService
   ) {
     this.userDatas$ = this.store.select(getUserDatas);
     this.userInitial$ = this.store.select(getUserInitial);
@@ -57,7 +57,7 @@ export class MainComponent implements OnInit {
   }
 
   onDisconnect() {
-    this.dashboardService.disconnectUser()
+    this.userSharedService.disconnectUser()
   }
 
 }

@@ -4,7 +4,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -17,10 +17,12 @@ import { StoreModule } from '@ngrx/store';
 import { userReducer } from './store/user.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './store/user.effect';
-import * as userEffects from './store/user.actions';
 import { ToastrModule } from 'ngx-toastr';
 import { userAccountsReducer } from '../dashboard/store/dashboard.reducer';
 import { DashboardEffects } from '../dashboard/store/dashboard.effect';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { NewPasswordComponent } from './components/new-password/new-password.component';
+import { PasswordResetSuccessfullyComponent } from './components/password-reset-successfully/password-reset-successfully.component';
 
 const routes: Routes = [
   {
@@ -28,6 +30,9 @@ const routes: Routes = [
       { path: "", redirectTo: 'login', pathMatch: "full" },
       { path: "sign-up", component: SignUpComponent },
       { path: "login", component: LoginComponent },
+      { path: "reset-password", component: ResetPasswordComponent },
+      { path: "reset-password/new-password", component: NewPasswordComponent },
+      { path: "reset-password/success", component: PasswordResetSuccessfullyComponent },
     ]
   },
 
@@ -37,7 +42,10 @@ const routes: Routes = [
   declarations: [
     SignUpComponent,
     LoginComponent,
-    AuthComponent
+    AuthComponent,
+    ResetPasswordComponent,
+    NewPasswordComponent,
+    PasswordResetSuccessfullyComponent,
   ],
   imports: [
     CommonModule,

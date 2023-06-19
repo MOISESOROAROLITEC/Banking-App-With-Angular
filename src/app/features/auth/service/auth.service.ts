@@ -27,6 +27,16 @@ export class AuthService {
     return this.http.post<UserDatas>(`auth/login`, loginDatas, this.httpService.getHeader())
   }
 
+  resetPasswordVerifyEmail(email: string) {
+    const resetData = { email: email }
+    return this.http.post<{ token: string }>(`user/reset-password/verify-email`, resetData, this.httpService.getHeader())
+  }
+
+  resetPasswordNewPassword(password: string) {
+    const newPassword = { password: password }
+    return this.http.post(`user/reset-password/new-password`, newPassword, this.httpService.getHeader())
+  }
+
   saveUserDatas(name: string, email: string, token: string | undefined) {
     localStorage.setItem('username', name)
     this.store.dispatch(changeUserName({ newName: name }))

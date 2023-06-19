@@ -1,8 +1,5 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { AuthService } from '../../service/auth.service';
-import { UserDatas, UserDatasLogin } from 'src/app/shared/constantes/constantes';
-import { Router } from '@angular/router';
+import { UserDatasLogin } from 'src/app/shared/constantes/constantes';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { loginUser } from '../../store/user.actions';
@@ -23,8 +20,6 @@ export class LoginComponent {
   userData: UserDatasLogin
 
   constructor(
-    private authService: AuthService,
-    private router: Router,
     private formBuilder: FormBuilder,
     private store: Store,
   ) {

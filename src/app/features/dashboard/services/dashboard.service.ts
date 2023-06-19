@@ -37,11 +37,4 @@ export class DashboardService {
     return this.http.post<SubAccount>("sub-account/create", datas, this.httpService.getHeader())
   }
 
-  disconnectUser() {
-    localStorage.removeItem("username")
-    localStorage.removeItem("email")
-    localStorage.removeItem("token")
-    this.router.navigate(["auth/login"])
-  }
-
 }

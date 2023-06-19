@@ -63,9 +63,6 @@
           </div>
         </div>
       </div>
-
-      <!-- ############################# -->
-
       <div *ngFor="let subAccount of userSubAccount$ | async" class="d-flex align-items-center account-block">
         <div class="account-type">
           Compte <span style="font-weight: 900;">{{subAccount.type}}</span>
@@ -114,12 +111,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class="account-block">
-        {{(userAccount$ | async)?.iban}}
-      </div>
-      <div class="account-block">
-        {{(userAccount$ | async)?.iban}}
-      </div> -->
     </div>
     <button (click)="onDisconnect()" mat-flat-button class="user-edit disconnect-btn">Se déconnecter</button>
   </div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
+import { catchError, exhaustMap, map } from 'rxjs/operators';
 import * as userActions from './user.actions';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
@@ -50,6 +50,44 @@ export class UserEffects {
           catchError((error) => {
             this.toast.error(error.error.message)
             return of({ type: userActions.loginUserFailed.type, message: error.error.message })
+          })
+        )
+      )
+    )
+  )
+
+  resetPasswordVerifyEmail$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(userActions.resetPasswordVerifyEmail.type),
+      exhaustMap(({ email }) => this.userService.resetPasswordVerifyEmail(email)
+        .pipe(
+          map((response) => {
+            localStorage.setItem("reset-token", response.token);
+            this.router.navigate(['/auth/reset-password/new-password'])
+            return ({ type: userActions.resetPasswordVerifyEmailSuccess.type, token: response })
+          }),
+          catchError((error) => {
+            this.toast.error(error.error.message)
+            return of({ type: userActions.resetPasswordVerifyEmailFailed.type, message: error.error.message })
+          })
+        )
+      )
+    )
+  )
+
+  resetPasswordChangePassword$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(userActions.resetPasswordNewPassword.type),
+      exhaustMap(({ password }) => this.userService.resetPasswordNewPassword(password)
+        .pipe(
+          map((response) => {
+            localStorage.removeItem('reset-token');
+            this.router.navigate(['/auth/reset-password/success'])
+            return ({ type: userActions.resetPasswordNewPasswordSuccess.type, message: response })
+          }),
+          catchError((error) => {
+            this.toast.error(error.error.message)
+            return of({ type: userActions.resetPasswordNewPasswordFailed.type, message: error.error.message })
           })
         )
       )

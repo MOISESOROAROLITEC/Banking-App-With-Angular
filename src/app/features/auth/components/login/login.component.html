@@ -22,11 +22,11 @@
     </mat-icon>
   </mat-form-field>
 
-  <button type="submit" (click)="onSubmit()" class="mb-2" [disabled]="!loginForm.valid" mat-flat-button color="primary"
+  <button type="submit" class="mb-2" [disabled]="!loginForm.valid" mat-flat-button color="primary"
     style="padding: 1.7rem 0.5rem; width: 100%;">Je me connecte</button>
 
   <div class="bottom-links mt-0">
-    <a [routerLink]="['/auth/forget-password']" class="mt-0 text-decoration-none"
+    <a [routerLink]="['/auth/reset-password']" class="mt-0 text-decoration-none"
       style="font-weight: bold; color: black;padding: 0 15px 0 0;">Mot
       de
       passe oublié ?</a>

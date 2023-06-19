@@ -32,6 +32,31 @@ export const loginUserSuccess = createAction(
   props<{ userDatas: UserDatas }>()
 );
 
+export const resetPasswordVerifyEmail = createAction(
+  '[User] resetPasswordVerifyEmail',
+  props<{ email: string }>()
+);
+export const resetPasswordVerifyEmailFailed = createAction(
+  '[User] resetPasswordVerifyEmailFailed',
+  props<{ message: string }>()
+);
+export const resetPasswordVerifyEmailSuccess = createAction(
+  '[User] resetPasswordVerifyEmailSuccess',
+  props<{ token: string }>()
+);
+
+export const resetPasswordNewPassword = createAction(
+  '[User] resetPasswordNewPassword',
+  props<{ password: string }>()
+);
+export const resetPasswordNewPasswordFailed = createAction(
+  '[User] resetPasswordNewPasswordFailed',
+  props<{ message: string }>()
+);
+export const resetPasswordNewPasswordSuccess = createAction(
+  '[User] resetPasswordNewPasswordSuccess'
+);
+
 export const changeUserName = createAction(
   '[User] changeUserName',
   props<{ newName: string }>()
