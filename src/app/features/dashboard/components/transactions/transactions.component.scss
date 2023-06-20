@@ -1,5 +1,46 @@
 .transactions {
   .header {
-    background: #c1c1c1;
+    background: #f5f5f5;
+    padding: 0 10px;
+    .title {
+      font-weight: bold;
+      width: 30%;
+      margin: 0 10px 0 0;
+      font-size: 13px;
+    }
+    .other-options {
+      width: 100%;
+      justify-content: space-between;
+      .form-fields {
+        font-size: 12px;
+        height: 56px;
+        margin: 6px 7px;
+        cursor: pointer;
+      }
+      .account-types {
+        max-width: 150px !important;
+        min-width: 150px !important;
+      }
+      .account-status {
+        max-width: 120px !important;
+        min-width: 120px !important;
+      }
+      .datepicker {
+        max-width: 130px !important;
+        min-width: 130px !important;
+      }
+      .do-transaction-btn {
+        max-width: 150px !important;
+        min-width: 150px !important;
+        padding: 0 5px;
+      }
+      .search-field {
+        max-width: 180px !important;
+        min-width: 180px !important;
+      }
+    }
+  }
+  .transaction-table {
+    padding: 20px 60px;
   }
 }

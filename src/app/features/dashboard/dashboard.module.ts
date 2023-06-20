@@ -9,10 +9,20 @@ import { userReducer } from '../auth/store/user.reducer';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
-import { userAccountsReducer } from './store/dashboard.reducer';
+import { MatSelectModule } from '@angular/material/select';
+
+import { userAccountsReducer } from './store/reducer/accouts.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { DashboardEffects } from './store/dashboard.effect';
+import { DashboardEffects } from './store/effect/accounts.effect';
 import { RoutesGuard } from 'src/app/shared/guards/routes.guard';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { NgFor } from '@angular/common';
+import { MatTableModule } from '@angular/material/table';
+import { userTransactionsReducer } from './store/reducer/transactions.reducer';
+import { TransactionEffects } from './store/effect/transactions.effect';
 
 const routes: Routes = [
   {
@@ -35,10 +45,16 @@ const routes: Routes = [
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
+    MatSelectModule,
+    MatTableModule,
+    NgFor,
+    MatFormFieldModule, MatInputModule, MatNativeDateModule, MatDatepickerModule,
     RouterModule.forChild(routes),
     StoreModule.forFeature('userFeature', userReducer),
     StoreModule.forFeature('userAccounts', userAccountsReducer),
+    StoreModule.forFeature('userTransactions', userTransactionsReducer),
     EffectsModule.forFeature(DashboardEffects),
+    EffectsModule.forFeature(TransactionEffects),
   ]
 })
 export class DashboardModule { }

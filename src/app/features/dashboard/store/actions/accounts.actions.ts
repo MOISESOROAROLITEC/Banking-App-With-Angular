@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { SubAccount, UserAccounts, UserDatas, UserDatasSignUp } from 'src/app/shared/constantes/constantes';
+import { SubAccount, UserAccounts, UserDatas, UserDatasSignUp, UserTransactions } from 'src/app/shared/constantes/constantes';
 
 export const getUserAccountsAction = createAction(
   '[accounts] getUserAccounts',
@@ -38,3 +38,4 @@ export const createSaveAccountFailed = createAction(
   '[subAccount] createSaveAccountFailed',
   props<{ message: string }>()
 );
+

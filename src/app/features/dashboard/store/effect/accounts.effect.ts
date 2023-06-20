@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { DashboardService } from '../services/dashboard.service';
+import { DashboardService } from '../../services/dashboard.service';
 import { ToastService } from 'src/app/shared/services/toast/toast.service';
 import {
   getUserAccountsAction,
@@ -13,8 +13,8 @@ import {
   createSaveAccountFailed,
   createBlockedAccountAction,
   createBlockedAccountSucceed,
-  createBlockedAccountFailed
-} from './dashboard.actions';
+  createBlockedAccountFailed,
+} from '../actions/accounts.actions';
 
 @Injectable()
 export class DashboardEffects {

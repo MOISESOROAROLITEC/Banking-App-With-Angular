@@ -51,4 +51,25 @@ export interface UserAccountsState {
   loading?: boolean
 }
 
+export interface Transaction {
+  id?: number,
+  amount?: number,
+  transactionType?: string,
+  accountReciver?: string,
+  createAt?: string,
+  updateAt?: string,
+  accountEmmiterIban?: string
+  subAccountIban?: string,
+}
+
+export interface UserTransactions {
+  transactions?: Transaction[],
+}
+
+export interface UserTransactionsReducer extends UserTransactions {
+  transactions?: Transaction[];
+  loading: boolean;
+  requestErrorMessage?: string;
+}
+
 

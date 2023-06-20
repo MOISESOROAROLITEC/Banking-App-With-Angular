@@ -3,8 +3,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { getUserDatas, getUserFirstName, getUserInitial, getUserLastNames } from 'src/app/features/auth/store/user.selector';
 import { Account, SubAccount, UserAccounts, UserDatas } from 'src/app/shared/constantes/constantes';
-import { getUserAccount, getUserAccounts, getUserSubAccount } from '../../store/dashboard.selector';
-import { createBlockedAccountAction, createSaveAccountAction, getUserAccountsAction } from '../../store/dashboard.actions';
+import { getUserAccount, getUserAccounts, getUserSubAccount } from '../../store/selector/accounts.selector';
+import { createBlockedAccountAction, createSaveAccountAction, getUserAccountsAction } from '../../store/actions/accounts.actions';
 import { UserSharedService } from 'src/app/shared/services/user.shared.service';
 
 

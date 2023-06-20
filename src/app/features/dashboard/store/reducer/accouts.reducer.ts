@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
 import { UserAccountsState } from 'src/app/shared/constantes/constantes';
-import { createBlockedAccountAction, createBlockedAccountFailed, createBlockedAccountSucceed, createSaveAccountAction, createSaveAccountFailed, createSaveAccountSucceed, getUserAccountsAction, getUserAccountsFailed, getUserAccountsSucceed } from './dashboard.actions';
+import { createBlockedAccountAction, createBlockedAccountFailed, createBlockedAccountSucceed, createSaveAccountAction, createSaveAccountFailed, createSaveAccountSucceed, getUserAccountsAction, getUserAccountsFailed, getUserAccountsSucceed } from '../actions/accounts.actions';
 
 
 
@@ -21,7 +21,6 @@ export const userAccountsReducer = createReducer(
     return ({ ...accountsStore, loading: false, requestErrorMessage: message })
   }),
 
-
   on(createSaveAccountAction, (accountsStore) => {
     return ({ ...accountsStore, loading: true })
   }),
@@ -32,7 +31,6 @@ export const userAccountsReducer = createReducer(
     return ({ ...accountsStore, loading: false, requestErrorMessage: message })
   }),
 
-
   on(createBlockedAccountAction, (accountsStore) => {
     return ({ ...accountsStore, loading: true })
   }),
@@ -42,5 +40,4 @@ export const userAccountsReducer = createReducer(
   on(createBlockedAccountFailed, (accountsStore, { message }) => {
     return ({ ...accountsStore, loading: false, requestErrorMessage: message })
   }),
-
 )

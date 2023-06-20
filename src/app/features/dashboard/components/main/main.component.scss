@@ -1,7 +1,8 @@
 .dashboard {
+  overflow: hidden;
   .user-infos {
-    width: 33%;
-    min-width: 450px;
+    width: 25%;
+    min-width: 415px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -90,5 +91,6 @@
   .router-box {
     width: 100%;
     min-height: 100vh;
+    overflow-x: auto;
   }
 }
