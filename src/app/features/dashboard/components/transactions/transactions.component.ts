@@ -11,7 +11,7 @@ import { getUserTransactionsAction } from '../../store/actions/transactions.acti
   styleUrls: ['./transactions.component.scss']
 })
 export class TransactionsComponent implements OnInit {
-  displayedColumns: string[] = ["subAccountIban", "accountEmmiterIban", "transactionType", "amount", "reciver.name", "createAt",];
+  displayedColumns: string[] = ["subAccountIban", "transactionType", "amount", "reciver.name", "createAt", "status"];
   userTransactions$: Observable<Transaction[] | undefined>;
   datasources: any
 
@@ -25,8 +25,8 @@ export class TransactionsComponent implements OnInit {
     this.store.dispatch(getUserTransactionsAction())
     this.userTransactions$.subscribe({
       next: (value) => {
-        console.log("la valeur est : ", value);
         this.datasources = value
+        console.log("la val : ", value);
       }
     })
   }

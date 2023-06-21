@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { DashboardService } from '../../services/dashboard.service';
+import { DashboardService } from '../services/dashboard.service';
 import { ToastService } from 'src/app/shared/services/toast/toast.service';
 import {
   getUserAccountsAction,
@@ -15,6 +15,7 @@ import {
   createBlockedAccountSucceed,
   createBlockedAccountFailed,
 } from '../actions/accounts.actions';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class DashboardEffects {
@@ -41,6 +42,7 @@ export class DashboardEffects {
       exhaustMap(({ parentIban }) => this.dashboardService.createSaveAccounts(parentIban)
         .pipe(
           map((response) => {
+            this.store.dispatch(getUserAccountsAction());
             return ({ type: createSaveAccountSucceed.type, subAccount: response })
           }),
           catchError((error) => {
@@ -58,6 +60,7 @@ export class DashboardEffects {
       exhaustMap(({ parentIban }) => this.dashboardService.createBlockedAccounts(parentIban)
         .pipe(
           map((response) => {
+            this.store.dispatch(getUserAccountsAction());
             return ({ type: createBlockedAccountSucceed.type, subAccount: response })
           }),
           catchError((error) => {
@@ -73,6 +76,7 @@ export class DashboardEffects {
     private actions$: Actions,
     private dashboardService: DashboardService,
     private toast: ToastService,
+    private store: Store
   ) { }
 
 }
