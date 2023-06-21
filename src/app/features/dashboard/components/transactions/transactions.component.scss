@@ -42,5 +42,11 @@
   }
   .transaction-table {
     padding: 20px 60px;
+    .not-transaction-yet {
+      text-align: center;
+      width: 100%;
+      margin-top: 25vh;
+      font-size: 1.4rem;
+    }
   }
 }
