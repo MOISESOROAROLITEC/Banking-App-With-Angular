@@ -12,7 +12,7 @@
       </button>
 
     </div>
-    <div class="w-100 mt-3 mb-5 accounts">
+    <div class="w-100 mt-3 accounts">
       <h5 class="fw-bold mb-0">Mes comptes</h5>
       <div class="d-flex align-items-center account-block">
         <div class="account-type">
@@ -52,7 +52,7 @@
               <button (click)="createSaveAccount(accountNomber.innerText)" mat-menu-item class="d-flex menu-btn"
                 style="justify-content: space-between;">
                 <span>Créer un compte d'Epargne</span>
-                <mat-icon style="order: 1 !important; margin-left: 10px;">add</mat-icon>
+                <mat-icon style="order: 1 !important;">add</mat-icon>
               </button>
               <button (click)="createBlockedAccount(accountNomber.innerText)" mat-menu-item class="d-flex menu-btn"
                 style="justify-content: space-between;">
@@ -63,54 +63,14 @@
           </div>
         </div>
       </div>
-      <div *ngFor="let subAccount of userSubAccount$ | async" class="d-flex align-items-center account-block">
-        <div class="account-type">
-          Compte <span style="font-weight: 900;">{{subAccount.type}}</span>
-        </div>
-        <div class="d-flex align-items-center account-other-infos">
-          <div class="number-title">
-            <div class="title">
-              Numéro de compte
-            </div>
-            <div class="number" #accountNomber>
-              {{subAccount.iban}}
-            </div>
-          </div>
-          <div class="sold-title" style="margin-left: 10px;">
-            <div class="title">
-              Solde disponible
-            </div>
-            <div class="d-flex justify-content-between align-items-center sold-view">
-              <div *ngIf="vieuxSold" class="sold text-center  ">
-                {{subAccount.balance}} XOF
-              </div>
-              <div *ngIf="!vieuxSold" class="d-flex align-items-center text-center pb-2 sold sold-hiden">
-                ........
-              </div>
-              <mat-icon style="margin-left: 5px;" matSuffix (click)="vieuxSold = !vieuxSold">{{vieuxSold
-                ?
-                'visibility_off' : 'visibility'}}
-              </mat-icon>
-            </div>
-          </div>
-          <div class="option">
-            <button mat-icon-button [matMenuTriggerFor]="menu">
-              <mat-icon style="color: white; font-weight: bold;">more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button (click)="createBlockedAccount(accountNomber.innerText)" mat-menu-item class="d-flex menu-btn"
-                style="justify-content: space-between;">
-                <span>Créer un compte d'Epargne</span>
-                <mat-icon style="order: 1 !important; margin-left: 10px;">add</mat-icon>
-              </button>
-              <button mat-menu-item class="d-flex menu-btn" style="justify-content: space-between;">
-                <span>Créer un compte Blocké</span>
-                <mat-icon style="order: 1 !important; margin-left: 10px;">add</mat-icon>
-              </button>
-            </mat-menu>
-          </div>
-        </div>
+      <div *ngFor="let subAccount of userSubAccount$ | async | slice:0:2">
+        <app-account [subAccountInput]="subAccount"></app-account>
       </div>
+    </div>
+    <div *ngIf="(userSubAccount$ | async) as userSubAccount" class=" mb-5 view-account-list">
+      <a [routerLink]="['/dashboard/accounts']" *ngIf="userSubAccount.length > 2" class="accounts-list">
+        Voire La liste complette des comptes
+      </a>
     </div>
     <button (click)="onDisconnect()" mat-flat-button class="user-edit disconnect-btn">Se déconnecter</button>
   </div>

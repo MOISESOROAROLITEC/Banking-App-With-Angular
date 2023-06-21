@@ -53,7 +53,6 @@
       }
     }
     .accounts {
-      margin: auto;
       padding: 0 10px 0 10px;
       .account-block {
         background-color: #0079ff;
@@ -76,6 +75,20 @@
             font-size: 0.6rem;
           }
         }
+      }
+      .mat-icon {
+        width: 28px;
+      }
+    }
+
+    .view-account-list {
+      width: 100%;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 0 10px;
+      .accounts-list {
+        color: black;
+        text-decoration: none;
       }
     }
 

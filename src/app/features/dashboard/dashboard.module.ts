@@ -22,6 +22,7 @@ import { NgFor } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { userTransactionsReducer } from './store/reducer/transactions.reducer';
 import { TransactionEffects } from './store/effect/transactions.effect';
+import { AccountComponent } from './components/account/account.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,7 @@ const routes: Routes = [
   declarations: [
     MainComponent,
     TransactionsComponent,
+    AccountComponent,
   ],
   imports: [
     CommonModule,

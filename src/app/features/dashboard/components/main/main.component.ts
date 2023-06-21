@@ -14,7 +14,7 @@ import { UserSharedService } from 'src/app/shared/services/user.shared.service';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent {
+export class MainComponent implements OnInit {
   userDatas$: Observable<UserDatas>
   userInitial$: Observable<string>
   firstName$: Observable<string>
@@ -36,6 +36,10 @@ export class MainComponent {
     this.userAccounts$ = this.store.select(getUserAccounts);
     this.userAccount$ = this.store.select(getUserAccount);
     this.userSubAccount$ = this.store.select(getUserSubAccount);
+  }
+
+  ngOnInit(): void {
+    console.log("je suis là");
   }
 
   createSaveAccount(iban: string) {
