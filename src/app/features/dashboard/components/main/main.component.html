@@ -69,7 +69,7 @@
     </div>
     <div *ngIf="(userSubAccount$ | async) as userSubAccount" class=" mb-5 view-account-list">
       <a [routerLink]="['/dashboard/accounts']" *ngIf="userSubAccount.length > 2" class="accounts-list">
-        Voire La liste complette des comptes
+        Voir la liste complète des comptes
       </a>
     </div>
     <button (click)="onDisconnect()" mat-flat-button class="user-edit disconnect-btn">Se déconnecter</button>

@@ -26,7 +26,6 @@ export class TransactionsComponent implements OnInit {
     this.userTransactions$.subscribe({
       next: (value) => {
         this.datasources = value
-        console.log("la val : ", value);
       }
     })
   }

@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
 import { UserAccountsState } from 'src/app/shared/constantes/constantes';
-import { createBlockedAccountAction, createBlockedAccountFailed, createBlockedAccountSucceed, createSaveAccountAction, createSaveAccountFailed, createSaveAccountSucceed, getUserAccountsAction, getUserAccountsFailed, getUserAccountsSucceed } from '../actions/accounts.actions';
+import { blockAccountAction, blockAccountFailed, blockAccountSucceed, createBlockedAccountAction, createBlockedAccountFailed, createBlockedAccountSucceed, createSaveAccountAction, createSaveAccountFailed, createSaveAccountSucceed, deblockAccountAction, deblockAccountFailed, deblockAccountSucceed, getUserAccountsAction, getUserAccountsFailed, getUserAccountsSucceed } from '../actions/accounts.actions';
 
 
 
@@ -38,6 +38,26 @@ export const userAccountsReducer = createReducer(
     return ({ ...accountsStore, ...subAccount, loading: false })
   }),
   on(createBlockedAccountFailed, (accountsStore, { message }) => {
+    return ({ ...accountsStore, loading: false, requestErrorMessage: message })
+  }),
+
+  on(blockAccountAction, (accountsStore) => {
+    return ({ ...accountsStore, loading: true })
+  }),
+  on(blockAccountSucceed, (accountsStore, { subAccount }) => {
+    return ({ ...accountsStore, ...subAccount, loading: false })
+  }),
+  on(blockAccountFailed, (accountsStore, { message }) => {
+    return ({ ...accountsStore, loading: false, requestErrorMessage: message })
+  }),
+
+  on(deblockAccountAction, (accountsStore) => {
+    return ({ ...accountsStore, loading: true })
+  }),
+  on(deblockAccountSucceed, (accountsStore, { subAccount }) => {
+    return ({ ...accountsStore, ...subAccount, loading: false })
+  }),
+  on(deblockAccountFailed, (accountsStore, { message }) => {
     return ({ ...accountsStore, loading: false, requestErrorMessage: message })
   }),
 )

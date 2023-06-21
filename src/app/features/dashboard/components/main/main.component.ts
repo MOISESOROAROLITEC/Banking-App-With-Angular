@@ -38,8 +38,7 @@ export class MainComponent implements OnInit {
     this.userSubAccount$ = this.store.select(getUserSubAccount);
   }
 
-  ngOnInit(): void {
-    console.log("je suis là");
+  ngOnInit() {
   }
 
   createSaveAccount(iban: string) {

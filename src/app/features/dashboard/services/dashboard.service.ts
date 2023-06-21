@@ -37,6 +37,22 @@ export class DashboardService {
     return this.http.post<SubAccount>("sub-account/create", datas, this.httpService.getHeader())
   }
 
+  blockAccount(accountIban: string): Observable<SubAccount> {
+    const data = {
+      iban: accountIban,
+      newType: "Bloqué"
+    }
+    return this.http.patch<SubAccount>("account/change-type", data);
+  }
+
+  deblockAccount(accountIban: string): Observable<SubAccount> {
+    const data = {
+      iban: accountIban,
+      newType: "Epargne"
+    }
+    return this.http.patch<SubAccount>("account/change-type", data);
+  }
+
   getUserTransactions(): Observable<Transaction[]> {
     return this.http.get<Transaction[]>("transaction/user-transactions")
   }

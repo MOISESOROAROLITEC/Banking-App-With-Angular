@@ -39,3 +39,29 @@ export const createSaveAccountFailed = createAction(
   props<{ message: string }>()
 );
 
+export const blockAccountAction = createAction(
+  '[subAccount] blockAccountAction',
+  props<{ accountIban: string }>()
+);
+export const blockAccountSucceed = createAction(
+  '[subAccount] blockAccountSucceed',
+  props<{ subAccount: SubAccount }>()
+);
+export const blockAccountFailed = createAction(
+  '[subAccount] blockAccountFailed',
+  props<{ message: string }>()
+);
+
+export const deblockAccountAction = createAction(
+  '[subAccount] deblockAccount',
+  props<{ accountIban: string }>()
+);
+export const deblockAccountSucceed = createAction(
+  '[subAccount] deblockAccountSucceed',
+  props<{ subAccount: SubAccount }>()
+);
+export const deblockAccountFailed = createAction(
+  '[subAccount] deblockAccountFailed',
+  props<{ message: string }>()
+);
+
