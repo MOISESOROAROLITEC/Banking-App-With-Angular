@@ -2,11 +2,17 @@
   min-height: 100vh;
   max-height: 100vh;
   width: 100%;
+  overflow: hidden;
   &-form {
     max-width: 450px;
     margin: auto;
   }
   .right-item {
+    overflow-y: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+    margin-top: 5px;
     .app-logo {
       margin-top: 20px;
     }

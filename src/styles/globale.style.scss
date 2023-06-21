@@ -17,3 +17,21 @@
 .menu-btn:hover {
   color: #0079ff !important;
 }
+
+.transaction-status {
+  border-radius: 15px;
+  padding: 5px 15px;
+}
+.transaction-approuved {
+  .mat-column-status {
+    background-color: #00dfa2;
+  }
+}
+.transaction-rejected,
+mat-column-status {
+  background-color: #ff0060;
+}
+.transaction-processing,
+mat-column-status {
+  background-color: #f6fa70;
+}

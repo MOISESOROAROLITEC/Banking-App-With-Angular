@@ -10,11 +10,13 @@ import { ToastrModule, provideToastr } from 'ngx-toastr';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { UserHttpInterceptor } from './shared/interceptors/httpInterceptor';
 import { ActivateRoute } from './shared/guards/routes.guard';
+import { TransactionStatusColorPipe } from './shared/pipe/transaction/transaction-status-color.pipe';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    TransactionStatusColorPipe,
   ],
   imports: [
     BrowserModule,
