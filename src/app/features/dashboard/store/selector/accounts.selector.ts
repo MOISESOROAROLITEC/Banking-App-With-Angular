@@ -1,11 +1,18 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { UserAccounts } from "src/app/shared/constantes/constantes";
+import { Account, UserAccounts } from "src/app/shared/constantes/constantes";
 
 export const selectUserAccountsState = createFeatureSelector<UserAccounts>('userAccounts');
 
 export const getUserAccounts = createSelector(
   selectUserAccountsState,
   (state: UserAccounts) => state
+);
+
+export const getUserAllAccounts = createSelector(
+  selectUserAccountsState,
+  (state: UserAccounts) => {
+    return state
+  }
 );
 
 export const getUserAccount = createSelector(
@@ -15,5 +22,7 @@ export const getUserAccount = createSelector(
 
 export const getUserSubAccount = createSelector(
   selectUserAccountsState,
-  (state: UserAccounts) => state.subAccount
+  (state: UserAccounts) => {
+    return state.subAccount
+  }
 );

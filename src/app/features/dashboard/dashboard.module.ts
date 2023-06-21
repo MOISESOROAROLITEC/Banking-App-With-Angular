@@ -23,12 +23,16 @@ import { MatTableModule } from '@angular/material/table';
 import { userTransactionsReducer } from './store/reducer/transactions.reducer';
 import { TransactionEffects } from './store/effect/transactions.effect';
 import { AccountComponent } from './components/account/account.component';
+import { TransfertComponent } from './components/transfert/transfert.component';
+import { AccountAndSubAccountEffects } from './store/effect/allAccounts.effect';
+import { allAccountsReducer, allSubAccountsReducer } from './store/reducer/allAccounts.reducer';
 
 const routes: Routes = [
   {
     path: "", component: MainComponent, canActivate: [RoutesGuard], children: [
       { path: "", redirectTo: 'transactions', pathMatch: "full" },
-      { path: "transactions", component: TransactionsComponent }
+      { path: "transactions", component: TransactionsComponent },
+      { path: "transfert", component: TransfertComponent },
     ]
   }
 ]
@@ -38,6 +42,7 @@ const routes: Routes = [
     MainComponent,
     TransactionsComponent,
     AccountComponent,
+    TransfertComponent,
   ],
   imports: [
     CommonModule,
@@ -52,8 +57,11 @@ const routes: Routes = [
     StoreModule.forFeature('userFeature', userReducer),
     StoreModule.forFeature('userAccounts', userAccountsReducer),
     StoreModule.forFeature('userTransactions', userTransactionsReducer),
+    StoreModule.forFeature('allAccounts', allAccountsReducer),
+    StoreModule.forFeature('allSubAccounts', allSubAccountsReducer),
     EffectsModule.forFeature(DashboardEffects),
     EffectsModule.forFeature(TransactionEffects),
+    EffectsModule.forFeature(AccountAndSubAccountEffects),
   ]
 })
 export class DashboardModule { }

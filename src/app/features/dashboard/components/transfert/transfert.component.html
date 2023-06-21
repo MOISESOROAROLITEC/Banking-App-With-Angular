@@ -1,0 +1,35 @@
+<div class="transfert">
+  <div class="header">
+    <button
+      mat-button
+      [matMenuTriggerFor]="belowMenu"
+      class="d-flex align-items-center justify-content-between select-account"
+      style="background-color: #f5f5f5 !important; opacity: 100%"
+    >
+      Compte
+      <mat-icon
+        matIconSuffix
+        style="order: 1; font-weight: bold; font-size: 25px; margin-left: 10px"
+        >expand_more</mat-icon
+      >
+    </button>
+    <mat-menu #belowMenu="matMenu" yPosition="below">
+      <button
+        *ngFor="let account of allAccounts | async"
+        (click)="selectAccount(account)"
+        mat-menu-item
+      >
+        {{ account.iban }}
+      </button>
+      <button
+        *ngFor="let subaccount of allSubAccounts | async"
+        (click)="selectAccount(subaccount)"
+        mat-menu-item
+      >
+        {{ subaccount.iban }}
+      </button>
+    </mat-menu>
+    <div class="account-number"></div>
+    <div class="account-sold"></div>
+  </div>
+</div>

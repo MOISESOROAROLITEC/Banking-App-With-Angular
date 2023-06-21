@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { SubAccount, Transaction, UserAccounts, UserTransactions } from 'src/app/shared/constantes/constantes';
+import { Account, SubAccount, Transaction, UserAccounts, UserTransactions } from 'src/app/shared/constantes/constantes';
 import { HttpService } from 'src/app/shared/services/http/http.service';
 
 @Injectable({
@@ -54,7 +54,15 @@ export class DashboardService {
   }
 
   getUserTransactions(): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>("transaction/user-transactions")
+    return this.http.get<Transaction[]>("transaction/user-transactions");
+  }
+
+  getAllAccounts(): Observable<Account[]> {
+    return this.http.get<Account[]>("account/accounts")
+  }
+
+  getAllSubAccounts(): Observable<Account[]> {
+    return this.http.get<SubAccount[]>("sub-account/sub-accounts")
   }
 
 }

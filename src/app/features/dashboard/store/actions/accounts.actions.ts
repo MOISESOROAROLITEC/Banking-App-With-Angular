@@ -64,4 +64,3 @@ export const deblockAccountFailed = createAction(
   '[subAccount] deblockAccountFailed',
   props<{ message: string }>()
 );
-

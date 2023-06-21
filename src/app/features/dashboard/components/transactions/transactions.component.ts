@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Transaction, UserTransactions } from 'src/app/shared/constantes/constantes';
 import { getUserTransactionsSelector } from '../../store/selector/transaction.selector';
 import { getUserTransactionsAction } from '../../store/actions/transactions.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-transactions',
@@ -17,6 +18,7 @@ export class TransactionsComponent implements OnInit {
 
   constructor(
     private store: Store<UserTransactions>,
+    private router: Router,
   ) {
     this.userTransactions$ = this.store.select(getUserTransactionsSelector)
   }
@@ -28,6 +30,10 @@ export class TransactionsComponent implements OnInit {
         this.datasources = value
       }
     })
+  }
+
+  doTransfert() {
+    this.router.navigate(["/dashboard/transfert"])
   }
 
   onSubmit(event: Event) {

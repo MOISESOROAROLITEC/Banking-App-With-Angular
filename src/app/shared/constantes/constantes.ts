@@ -35,13 +35,16 @@ export interface Account {
   userId?: string
 }
 
-export interface SubAccount extends Omit<Account, 'userId'> {
+export interface SubAccount extends Account {
   accountParentIban: string
 }
 
 export interface UserAccounts {
   account: Account,
   subAccount: Array<SubAccount>,
+}
+
+export interface UserAllAccounts {
 }
 
 export interface UserAccountsState {
@@ -71,5 +74,3 @@ export interface UserTransactionsReducer extends UserTransactions {
   loading: boolean;
   requestErrorMessage?: string;
 }
-
-
