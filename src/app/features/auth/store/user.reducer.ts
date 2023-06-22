@@ -13,6 +13,7 @@ const initialUserState: UserDatasStore = {
   name: localStorage.getItem("username") || "",
   email: localStorage.getItem("email") || "",
   token: localStorage.getItem("token") || "",
+  role: "",
   loading: false,
 
 };

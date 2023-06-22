@@ -4,7 +4,6 @@ import { catchError, exhaustMap, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { DashboardService } from '../../services/dashboard.service';
 import { ToastService } from 'src/app/shared/services/toast/toast.service';
-// import { Store } from '@ngrx/store';
 import { getAllAccountsAction, getAllAccountsFailed, getAllAccountsSucceed, getAllSubAccountsAction, getAllSubAccountsFailed, getAllSubAccountsSucceed } from '../actions/allAccounts.action';
 
 @Injectable()
@@ -18,7 +17,11 @@ export class AccountAndSubAccountEffects {
             return ({ type: getAllAccountsSucceed.type, allAccounts: response })
           }),
           catchError((error) => {
-            this.toast.error(error.error.message)
+            if (error.error.message) {
+              this.toast.error(error.error.message)
+            } else {
+              this.toast.error("Impossible de contacter le serveur")
+            }
             return of({ type: getAllAccountsFailed.type })
           })
         )
@@ -32,11 +35,14 @@ export class AccountAndSubAccountEffects {
       exhaustMap(() => this.dashboardService.getAllSubAccounts()
         .pipe(
           map((response) => {
-            // this.store.dispatch(getUserAccountsAction());
             return ({ type: getAllSubAccountsSucceed.type, allSubAccounts: response })
           }),
           catchError((error) => {
-            this.toast.error(error.error.message)
+            if (error.error.message) {
+              this.toast.error(error.error.message)
+            } else {
+              this.toast.error("Impossible de contacter le serveur")
+            }
             return of({ type: getAllSubAccountsFailed.type })
           })
         )
@@ -48,7 +54,6 @@ export class AccountAndSubAccountEffects {
     private actions$: Actions,
     private dashboardService: DashboardService,
     private toast: ToastService,
-    // private store: Store
   ) { }
 
 }

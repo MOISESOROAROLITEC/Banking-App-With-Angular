@@ -25,7 +25,11 @@ export class UserEffects {
             return ({ type: userActions.createUserSuccess.type, payload: response })
           }),
           catchError((error) => {
-            this.toast.error(error.error.message)
+            if (error.error.message) {
+              this.toast.error(error.error.message)
+            } else {
+              this.toast.error("Impossible de contacter le serveur")
+            }
             return of({ type: userActions.createUserFailed.type, message: error.error.message })
           })
         )
@@ -48,7 +52,11 @@ export class UserEffects {
             return ({ type: userActions.loginUserSuccess.type, userDatas: response })
           }),
           catchError((error) => {
-            this.toast.error(error.error.message)
+            if (error.error.message) {
+              this.toast.error(error.error.message)
+            } else {
+              this.toast.error("Impossible de contacter le serveur")
+            }
             return of({ type: userActions.loginUserFailed.type, message: error.error.message })
           })
         )
@@ -67,7 +75,11 @@ export class UserEffects {
             return ({ type: userActions.resetPasswordVerifyEmailSuccess.type, token: response })
           }),
           catchError((error) => {
-            this.toast.error(error.error.message)
+            if (error.error.message) {
+              this.toast.error(error.error.message)
+            } else {
+              this.toast.error("Impossible de contacter le serveur")
+            }
             return of({ type: userActions.resetPasswordVerifyEmailFailed.type, message: error.error.message })
           })
         )
@@ -86,7 +98,11 @@ export class UserEffects {
             return ({ type: userActions.resetPasswordNewPasswordSuccess.type, message: response })
           }),
           catchError((error) => {
-            this.toast.error(error.error.message)
+            if (error.error.message) {
+              this.toast.error(error.error.message)
+            } else {
+              this.toast.error("Impossible de contacter le serveur")
+            }
             return of({ type: userActions.resetPasswordNewPasswordFailed.type, message: error.error.message })
           })
         )

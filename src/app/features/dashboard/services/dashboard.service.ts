@@ -29,7 +29,7 @@ export class DashboardService {
 
   createSubAccounts(parentIban: string, accountType: "Bloqué" | "Epargne"): Observable<SubAccount> {
     const datas = {
-      currency: "OXF",
+      currency: "OFX",
       type: accountType,
       bic: "UBA",
       parentAccountIban: parentIban

@@ -34,7 +34,11 @@ export class DashboardEffects {
             return ({ type: getUserAccountsSucceed.type, userAccounts: response })
           }),
           catchError((error) => {
-            this.toast.error(error.error.message)
+            if (error.error.message) {
+              this.toast.error(error.error.message)
+            } else {
+              this.toast.error("Impossible de contacter le serveur")
+            }
             return of({ type: getUserAccountsFailed.type, message: error.error.message })
           })
         )
@@ -52,7 +56,11 @@ export class DashboardEffects {
             return ({ type: createSaveAccountSucceed.type, subAccount: response })
           }),
           catchError((error) => {
-            this.toast.error(error.error.message)
+            if (error.error.message) {
+              this.toast.error(error.error.message)
+            } else {
+              this.toast.error("Impossible de contacter le serveur")
+            }
             return of({ type: createSaveAccountFailed.type, message: error.error.message })
           })
         )
@@ -70,7 +78,11 @@ export class DashboardEffects {
             return ({ type: createBlockedAccountSucceed.type, subAccount: response })
           }),
           catchError((error) => {
-            this.toast.error(error.error.message)
+            if (error.error.message) {
+              this.toast.error(error.error.message)
+            } else {
+              this.toast.error("Impossible de contacter le serveur")
+            }
             return of({ type: createBlockedAccountFailed.type, message: error.error.message })
           })
         )
@@ -88,7 +100,11 @@ export class DashboardEffects {
             return ({ type: blockAccountSucceed.type, subAccount: response })
           }),
           catchError((error) => {
-            this.toast.error(error.error.message)
+            if (error.error.message) {
+              this.toast.error(error.error.message)
+            } else {
+              this.toast.error("Impossible de contacter le serveur")
+            }
             return of({ type: blockAccountFailed.type, message: error.error.message })
           })
         )
@@ -106,7 +122,11 @@ export class DashboardEffects {
             return ({ type: deblockAccountSucceed.type, subAccount: response })
           }),
           catchError((error) => {
-            this.toast.error(error.error.message)
+            if (error.error.message) {
+              this.toast.error(error.error.message)
+            } else {
+              this.toast.error("Impossible de contacter le serveur")
+            }
             return of({ type: deblockAccountFailed.type, message: error.error.message })
           })
         )

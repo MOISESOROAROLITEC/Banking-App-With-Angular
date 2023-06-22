@@ -1,26 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import * as transactionsActions from './transaction.actions'
 import { of } from 'rxjs';
-import { DashboardService } from '../../services/dashboard.service';
 import { ToastService } from 'src/app/shared/services/toast/toast.service';
-
-import {
-  getUserTransactionsAction,
-  getUserTransactionsSucceed,
-  getUserTransactionsFailed
-} from '../actions/transactions.actions';
+import { AdminService } from '../services/admin.service';
 
 @Injectable()
-export class TransactionEffects {
+export class AdminEffects {
 
-  getUserTransactionsEffect$ = createEffect(() =>
+  getAllUsersTransactionsUser$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(getUserTransactionsAction.type),
-      exhaustMap(() => this.dashboardService.getUserTransactions()
+      ofType(transactionsActions.getUsersTransactionsAction.type),
+      exhaustMap(() => this.adminServices.getUsersTransactions()
         .pipe(
           map((response) => {
-            return ({ type: getUserTransactionsSucceed.type, transactions: response })
+            return ({ type: transactionsActions.getUsersTransactionsSucceed.type, usersTransactions: response })
           }),
           catchError((error) => {
             if (error.error.message) {
@@ -28,7 +24,7 @@ export class TransactionEffects {
             } else {
               this.toast.error("Impossible de contacter le serveur")
             }
-            return of({ type: getUserTransactionsFailed.type, message: error.error.message })
+            return of({ type: transactionsActions.getUsersTransactionsFailed.type })
           })
         )
       )
@@ -37,7 +33,8 @@ export class TransactionEffects {
 
   constructor(
     private actions$: Actions,
-    private dashboardService: DashboardService,
+    private adminServices: AdminService,
+    private router: Router,
     private toast: ToastService,
   ) { }
 

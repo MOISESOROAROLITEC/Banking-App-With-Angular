@@ -50,18 +50,21 @@ export class TransfertComponent implements OnInit {
 
   onSubmit() {
     if (this.transfertForm.valid) {
+      if (!this.accountSelected?.iban || this.transfertForm.get('reciverAccountNumber')?.value) {
+        return
+      }
       this.store.dispatch(doTransfertAction(
         {
           transfertData: {
             transactionType: "transfer",
-            accountEmmiterIban: this.accountSelected?.iban || "",
-            accountReciver: String(this.transfertForm.get('reciverAccountNumber')?.value) || "",
+            accountEmmiterIban: this.accountSelected.iban,
+            accountReciver: String(this.transfertForm.get('reciverAccountNumber')?.value),
             amount: this.transfertForm.get("ammount")?.value
           }
         }
       ))
     }
-    console.log("valide");
+
   }
 
 }

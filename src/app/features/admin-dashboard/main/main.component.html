@@ -1,8 +1,7 @@
-<div class="transactions">
+<div class="admin-dash">
   <div class="d-flex justify-content-between align-items-center header">
-    <div class="title">Mes transactions</div>
+    <div class="title">Transactions</div>
     <form
-      (ngSubmit)="onSubmit($event)"
       class="d-flex justify-content-between align-items-center other-options"
     >
       <mat-form-field class="form-fields account-types" appearance="outline">
@@ -45,30 +44,6 @@
         <input matInput placeholder="Beneficiaire ou montant" />
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
-      <button
-        (click)="onSubmit($event)"
-        [matMenuTriggerFor]="menu"
-        class="mb-2 form-fields do-transaction-btn"
-        mat-flat-button
-        extended
-        color="primary"
-      >
-        <mat-icon
-          matIconSuffix
-          style="order: 1; font-weight: bold; font-size: 20px"
-          >expand_more</mat-icon
-        >
-        Selectionner une action
-      </button>
-      <mat-menu #menu="matMenu">
-        <button
-          (click)="doTransfert()"
-          mat-menu-item
-          style="margin-right: 100px"
-        >
-          Transfert
-        </button>
-      </mat-menu>
     </form>
   </div>
   <div *ngIf="datasources" class="transaction-table">

@@ -18,7 +18,7 @@ export class AuthService {
   ) { }
 
   createUser(userDatas: UserDatasSignUp) {
-    return this.http.post<UserDatas>(`user/create`, userDatas, this.httpService.getHeader()).pipe(
+    return this.http.post<UserDatas>(`user/create`, { ...userDatas, role: 'user' }, this.httpService.getHeader()).pipe(
       take(1)
     )
   }

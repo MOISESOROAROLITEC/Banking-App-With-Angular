@@ -13,12 +13,14 @@ export interface UserDatas {
   name: string
   password?: string
   email: string
+  role: string
   token?: string
 }
 export interface UserDatasStore {
   name: string
   password?: string
   email: string
+  role: string
   token?: string
   loading?: boolean
   requestErrorMessage?: string
@@ -86,4 +88,19 @@ export interface DoTransfert {
 export interface TransfertState {
   transactionState: boolean | undefined;
   errorMessage: string
+}
+
+export interface AdminTransactions extends Transaction {
+  reciver: string
+}
+
+export interface AllTransactions {
+  totalRecords: number;
+  totalPages: number;
+  currentPage: number;
+  transactions: Array<AdminTransactions>;
+}
+
+export interface AllTransactionsState extends AllTransactions {
+  loading: boolean
 }
