@@ -11,5 +11,27 @@
     .select-account:hover {
       background-color: #fff !important;
     }
+    .account-number {
+      margin-left: 2rem;
+      .title {
+        font-size: 12px;
+      }
+      .number {
+        font-weight: bold;
+      }
+    }
+  }
+  .title {
+    font-weight: bold;
+  }
+  &-form {
+  }
+  &-recap {
+    &-content {
+      margin-left: 15%;
+      .value {
+        font-weight: bold;
+      }
+    }
   }
 }

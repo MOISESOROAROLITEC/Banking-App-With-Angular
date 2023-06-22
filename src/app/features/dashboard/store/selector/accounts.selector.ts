@@ -20,7 +20,7 @@ export const getUserAccount = createSelector(
   (state: UserAccounts) => state.account
 );
 
-export const getUserSubAccount = createSelector(
+export const getUserSubAccounts = createSelector(
   selectUserAccountsState,
   (state: UserAccounts) => {
     return state.subAccount

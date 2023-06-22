@@ -26,6 +26,14 @@ import { AccountComponent } from './components/account/account.component';
 import { TransfertComponent } from './components/transfert/transfert.component';
 import { AccountAndSubAccountEffects } from './store/effect/allAccounts.effect';
 import { allAccountsReducer, allSubAccountsReducer } from './store/reducer/allAccounts.reducer';
+import { TransactionStatusColorPipe } from 'src/app/shared/pipe/transaction/transaction-status-color.pipe';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TransfertEffects } from './store/effect/transfert.effect';
+import { userTransfertReducer } from './store/reducer/transfert.reducer';
+import { TransfertSuccesComponent } from './components/transfert-succes/transfert-succes.component';
+import { TransfertFaileComponent } from './components/transfert-faile/transfert-faile.component';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 const routes: Routes = [
   {
@@ -43,6 +51,9 @@ const routes: Routes = [
     TransactionsComponent,
     AccountComponent,
     TransfertComponent,
+    TransactionStatusColorPipe,
+    TransfertSuccesComponent,
+    TransfertFaileComponent,
   ],
   imports: [
     CommonModule,
@@ -52,6 +63,9 @@ const routes: Routes = [
     MatSelectModule,
     MatTableModule,
     NgFor,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatButtonModule,
     MatFormFieldModule, MatInputModule, MatNativeDateModule, MatDatepickerModule,
     RouterModule.forChild(routes),
     StoreModule.forFeature('userFeature', userReducer),
@@ -59,9 +73,11 @@ const routes: Routes = [
     StoreModule.forFeature('userTransactions', userTransactionsReducer),
     StoreModule.forFeature('allAccounts', allAccountsReducer),
     StoreModule.forFeature('allSubAccounts', allSubAccountsReducer),
+    StoreModule.forFeature('userTransfert', userTransfertReducer),
     EffectsModule.forFeature(DashboardEffects),
     EffectsModule.forFeature(TransactionEffects),
     EffectsModule.forFeature(AccountAndSubAccountEffects),
+    EffectsModule.forFeature(TransfertEffects),
   ]
 })
 export class DashboardModule { }

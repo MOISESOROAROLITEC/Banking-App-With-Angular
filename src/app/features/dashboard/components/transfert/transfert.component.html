@@ -1,12 +1,12 @@
 <div class="transfert">
-  <div class="header">
+  <div class="d-flex header">
     <button
       mat-button
       [matMenuTriggerFor]="belowMenu"
       class="d-flex align-items-center justify-content-between select-account"
       style="background-color: #f5f5f5 !important; opacity: 100%"
     >
-      Compte
+      Compte {{ accountSelected?.type }}
       <mat-icon
         matIconSuffix
         style="order: 1; font-weight: bold; font-size: 25px; margin-left: 10px"
@@ -14,22 +14,141 @@
       >
     </button>
     <mat-menu #belowMenu="matMenu" yPosition="below">
+      <div *ngIf="UserAccount | async as userAccount" class="account">
+        <button
+          (click)="selectAccount(userAccount)"
+          mat-menu-item
+          style="width: 100%"
+        >
+          <div class="title" style="font-size: small; font-weight: bold">
+            Compte {{ userAccount?.type }}
+          </div>
+          {{ userAccount?.iban }}
+        </button>
+      </div>
       <button
-        *ngFor="let account of allAccounts | async"
+        *ngFor="let account of UserSubAccounts | async"
         (click)="selectAccount(account)"
         mat-menu-item
+        style="width: 100%"
       >
+        <div class="title" style="font-size: small; font-weight: bold">
+          Compte {{ account.type }}
+        </div>
         {{ account.iban }}
       </button>
-      <button
-        *ngFor="let subaccount of allSubAccounts | async"
-        (click)="selectAccount(subaccount)"
-        mat-menu-item
-      >
-        {{ subaccount.iban }}
-      </button>
     </mat-menu>
-    <div class="account-number"></div>
-    <div class="account-sold"></div>
+    <div class="account-number">
+      <div class="title">Numéro de compte</div>
+      <div class="number">
+        {{ accountSelected?.iban }}
+      </div>
+    </div>
+    <div class="account-number">
+      <div class="title">Solde disponible</div>
+      <div class="number">
+        {{ accountSelected?.balance }}
+      </div>
+    </div>
   </div>
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="transfertForm"
+    class="container mt-3 sign-up-form"
+  >
+    <div class="row">
+      <div class="col-6 transfert-form">
+        <h5 class="title">Transfert d'argent</h5>
+        <mat-form-field appearance="outline" class="col-12">
+          <input
+            required
+            (input)="onInput()"
+            type="number"
+            matInput
+            id="reciverAccountNumber"
+            formControlName="reciverAccountNumber"
+            name="reciverAccountNumber"
+            placeholder="Numéro de compte du bénéficiaire*"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-12">
+          <input
+            required
+            (input)="onInput()"
+            type="number"
+            matInput
+            id="ammount"
+            formControlName="ammount"
+            name="reciverAccountNumber"
+            placeholder="Montant*"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-12">
+          <textarea
+            (input)="onInput()"
+            matInput
+            id="reciverAccountNumber"
+            formControlName="raison"
+            name="reciverAccountNumber"
+            placeholder="Motif"
+            style="height: 110px; resize: none"
+          ></textarea>
+        </mat-form-field>
+      </div>
+      <div
+        class="col-6 d-flex justify-content-center align-items-end transfert-recap"
+      >
+        <div class="transfert-recap-content">
+          <h5 class="mb-4 title">Récapitulatif de la transaction</h5>
+          <div class="row recap-values">
+            <div class="col-6 mb-3 thin-color ammount-to-send">
+              Montant à transférer :
+            </div>
+            <span class="col-6 value ammount">
+              {{ transfertForm.get("ammount")?.value }}
+            </span>
+            <div class="col-6 mb-3 thin-color ammount-to-send">Motif :</div>
+            <span class="col-6 value ammount">
+              {{ transfertForm.get("raison")?.value | slice : 0 : 15 }}
+              <span *ngIf="transfertForm.get('raison')?.value.length > 15"
+                >...</span
+              >
+            </span>
+            <div class="col-6 mb-3 thin-color ammount-to-send">
+              Nouveau solde :
+            </div>
+            <span class="col-6 value ammount">
+              {{
+                (accountSelected?.balance || 0) -
+                  (transfertForm.get("ammount")?.value || 0)
+              }}
+            </span>
+          </div>
+          <div class="w-100 btn-bloc">
+            <button
+              type="submit"
+              mat-flat-button
+              color="primary"
+              style="
+                padding: 1.7rem 0.5rem;
+                width: 50%;
+                margin: 1.7rem 25% 0 15%;
+              "
+              [disabled]="
+                !transfertForm.valid ||
+                (accountSelected?.balance || 0) -
+                  (transfertForm.get('ammount')?.value || 0) <
+                  0
+              "
+            >
+              Envoyer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <a [routerLink]="['/dashboard']" class="accounts-list">
+    Liste des transactions
+  </a>
 </div>

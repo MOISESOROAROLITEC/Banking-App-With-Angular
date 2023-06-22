@@ -36,6 +36,7 @@ export interface Account {
 }
 
 export interface SubAccount extends Account {
+
   accountParentIban: string
 }
 
@@ -73,4 +74,16 @@ export interface UserTransactionsReducer extends UserTransactions {
   transactions?: Transaction[];
   loading: boolean;
   requestErrorMessage?: string;
+}
+
+export interface DoTransfert {
+  transactionType: string;
+  accountEmmiterIban: string;
+  accountReciver: string;
+  amount: number
+}
+
+export interface TransfertState {
+  transactionState: boolean | undefined;
+  errorMessage: string
 }

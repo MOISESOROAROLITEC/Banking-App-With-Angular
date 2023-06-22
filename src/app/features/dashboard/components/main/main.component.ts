@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { getUserDatas, getUserFirstName, getUserInitial, getUserLastNames } from 'src/app/features/auth/store/user.selector';
 import { Account, SubAccount, UserAccounts, UserDatas } from 'src/app/shared/constantes/constantes';
-import { getUserAccount, getUserAccounts, getUserSubAccount } from '../../store/selector/accounts.selector';
+import { getUserAccount, getUserAccounts, getUserSubAccounts } from '../../store/selector/accounts.selector';
 import { createBlockedAccountAction, createSaveAccountAction, getUserAccountsAction } from '../../store/actions/accounts.actions';
 import { UserSharedService } from 'src/app/shared/services/user.shared.service';
 
@@ -35,7 +35,7 @@ export class MainComponent implements OnInit {
     this.lastNames$ = this.store.select(getUserLastNames);
     this.userAccounts$ = this.store.select(getUserAccounts);
     this.userAccount$ = this.store.select(getUserAccount);
-    this.userSubAccount$ = this.store.select(getUserSubAccount);
+    this.userSubAccount$ = this.store.select(getUserSubAccounts);
   }
 
   ngOnInit() {

@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, map, take, tap } from 'rxjs';
+import { Observable, map, merge, mergeAll, mergeMap, take, tap } from 'rxjs';
 import { Account, SubAccount, UserAccounts } from 'src/app/shared/constantes/constantes';
-import { getUserAccount, getUserAccounts, getUserAllAccounts, getUserSubAccount } from '../../store/selector/accounts.selector';
-import { getAllAccountsSelector } from '../../store/selector/allAccounts.selector';
+import { getUserAccount, getUserAccounts, getUserAllAccounts, getUserSubAccounts } from '../../store/selector/accounts.selector';
+import { getAllAccountsSelector, getAllSubAccountsSelector } from '../../store/selector/allAccounts.selector';
 import { getUserAccountsAction } from '../../store/actions/accounts.actions';
 import { getAllAccountsAction, getAllSubAccountsAction } from '../../store/actions/allAccounts.action';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { doTransfertAction } from '../../store/actions/transfert.actions';
 
 @Component({
   selector: 'app-transfert',
@@ -13,48 +15,53 @@ import { getAllAccountsAction, getAllSubAccountsAction } from '../../store/actio
   styleUrls: ['./transfert.component.scss']
 })
 export class TransfertComponent implements OnInit {
-  allAccounts: Observable<Account[]>
-  allSubAccounts: Observable<SubAccount[]>
+
+  UserSubAccounts: Observable<SubAccount[]>
+  UserAccount: Observable<Account>
   accountSelected: Account | SubAccount | undefined
+  transfertForm: FormGroup
 
   constructor(
+    private fb: FormBuilder,
     private store: Store,
   ) {
-    this.store.dispatch(getAllAccountsAction())
-    this.store.dispatch(getAllSubAccountsAction())
-    this.allAccounts = this.store.select(getAllAccountsSelector).pipe(
-      map((value) => {
-        return [...Object.values(value)]
-      })
-    )
-    this.allSubAccounts = this.store.select(getUserSubAccount).pipe(
-      map((value) => {
-        return [...Object.values(value)]
-      })
-    )
+    this.transfertForm = this.fb.group({
+      reciverAccountNumber: ["", [Validators.required, Validators.pattern("^.{16}$")]],
+      ammount: ["", [Validators.required, Validators.min(1)]],
+      raison: [""],
+    })
+
+    this.UserSubAccounts = this.store.select(getUserSubAccounts)
+    this.UserAccount = this.store.select(getUserAccount)
+
   }
 
   ngOnInit() {
-    this.allAccounts.subscribe(
-      {
-        next: (value) => {
-          console.log(value);
-          this.accountSelected = value[0]
-        }
-      }
-    )
-    this.allSubAccounts.subscribe(
-      {
-        next: (value) => {
-          console.log(value);
-          this.accountSelected = value[0]
-        }
-      }
-    )
+    this.UserAccount.subscribe({
+      next: (value) => this.accountSelected = value
+    })
   }
 
-  selectAccount(account: Account | SubAccount) {
-    console.log("le select : ", account);
+  onInput() { }
+
+  selectAccount(account?: Account | SubAccount) {
+    this.accountSelected = account
+  }
+
+  onSubmit() {
+    if (this.transfertForm.valid) {
+      this.store.dispatch(doTransfertAction(
+        {
+          transfertData: {
+            transactionType: "transfer",
+            accountEmmiterIban: this.accountSelected?.iban || "",
+            accountReciver: String(this.transfertForm.get('reciverAccountNumber')?.value) || "",
+            amount: this.transfertForm.get("ammount")?.value
+          }
+        }
+      ))
+    }
+    console.log("valide");
   }
 
 }

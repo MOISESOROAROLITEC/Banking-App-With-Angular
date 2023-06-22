@@ -18,20 +18,20 @@
   color: #0079ff !important;
 }
 
+.thin-color {
+  color: #686868;
+}
+
 .transaction-status {
   border-radius: 15px;
   padding: 5px 15px;
 }
 .transaction-approuved {
-  .mat-column-status {
-    background-color: #00dfa2;
-  }
+  background-color: #00dfa2;
 }
-.transaction-rejected,
-mat-column-status {
+.transaction-rejected {
   background-color: #ff0060;
 }
-.transaction-processing,
-mat-column-status {
+.transaction-processing {
   background-color: #f6fa70;
 }
