@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { ToastService } from 'src/app/shared/services/toast/toast.service';
 import { UserSharedService } from 'src/app/shared/services/user.shared.service';
+import { DashboardService } from '../../dashboard/services/dashboard.service';
 
 @Injectable()
 export class UserEffects {
@@ -17,12 +18,12 @@ export class UserEffects {
       exhaustMap(({ userDatas }) => this.userService.createUser(userDatas)
         .pipe(
           map((response) => {
-            localStorage.setItem("username", response.name);
-            localStorage.setItem("email", response.email);
+            // localStorage.setItem("username", response.name);
+            // localStorage.setItem("email", response.email);
             if (response.token) {
               localStorage.setItem("token", response.token);
             }
-            localStorage.setItem("role", response.role)
+            // localStorage.setItem("role", response.role)
             if (response.role !== "admin") {
               this.router.navigate(['/dashboard'])
             } else {
@@ -49,6 +50,9 @@ export class UserEffects {
       exhaustMap(() => this.userSharedService.getUserInformations()
         .pipe(
           map((response) => {
+            if (response.token) {
+              localStorage.setItem('token', response.token)
+            }
             return ({ type: userActions.getUserInformationsSucceed.type, userDatas: response })
           }),
           catchError((error) => {
@@ -65,12 +69,12 @@ export class UserEffects {
       exhaustMap(({ loginDatas }) => this.userService.loginUser(loginDatas)
         .pipe(
           map((response) => {
-            localStorage.setItem("username", response.name);
-            localStorage.setItem("email", response.email);
+            // localStorage.setItem("username", response.name);
+            // localStorage.setItem("email", response.email);
             if (response.token) {
               localStorage.setItem("token", response.token);
             }
-            localStorage.setItem("role", response.role)
+            // localStorage.setItem("role", response.role)
             if (response.role !== "admin") {
               this.router.navigate(['/dashboard'])
             } else {
@@ -85,6 +89,27 @@ export class UserEffects {
               this.toast.error("Impossible de contacter le serveur")
             }
             return of({ type: userActions.loginUserFailed.type, message: error.error.message })
+          })
+        )
+      )
+    )
+  )
+
+  updateUserInformationsEffect$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(userActions.updateUserInformationsAction.type),
+      exhaustMap(({ data }) => this.dashboardService.editUserDatas(data)
+        .pipe(
+          map((response) => {
+            if (response.token) {
+              localStorage.setItem('token', response.token)
+            }
+            this.toast.success("Mise à jour éffectué avec succès")
+            return ({ type: userActions.updateUserInformationsSucceed.type, userDatas: response })
+          }),
+          catchError((error) => {
+            this.toast.error(error.error.message)
+            return of({ type: userActions.updateUserInformationsFailed.type, message: error.error.message })
           })
         )
       )
@@ -143,6 +168,7 @@ export class UserEffects {
     private router: Router,
     private toast: ToastService,
     private userSharedService: UserSharedService,
+    private readonly dashboardService: DashboardService
   ) { }
 
 }

@@ -101,7 +101,7 @@
       </ng-container>
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef>Status</th>
-        <td mat-cell *matCellDef="let element" style="width: 100%">
+        <td mat-cell *matCellDef="let element" style="white-space: nowrap">
           <span
             class="{{ element.status | transactionStatusColor }}"
             style="font-size: small"

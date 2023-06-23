@@ -1,17 +1,13 @@
 import { Component, OnDestroy } from '@angular/core';
-import { AuthService } from '../../service/auth.service';
-import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Unsubscribable, of } from 'rxjs';
 import { createUser } from '../../store/user.actions';
-import { ToastService } from 'src/app/shared/services/toast/toast.service';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss'],
-
 })
 export class SignUpComponent implements OnDestroy {
   signUpForm: FormGroup;
@@ -22,11 +18,8 @@ export class SignUpComponent implements OnDestroy {
   subscription!: Unsubscribable;
 
   constructor(
-    private authService: AuthService,
-    private router: Router,
     private formBuilder: FormBuilder,
     private store: Store,
-    private toast: ToastService
   ) {
 
     this.signUpForm = this.formBuilder.group({

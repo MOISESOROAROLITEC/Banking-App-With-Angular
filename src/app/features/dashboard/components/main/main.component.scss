@@ -117,4 +117,9 @@
     overflow-x: auto;
     margin-left: $user-info-box-width;
   }
+  .mat-drawer-edit-user-infos {
+    max-height: 100vh;
+    position: fixed;
+    width: 400px !important;
+  }
 }

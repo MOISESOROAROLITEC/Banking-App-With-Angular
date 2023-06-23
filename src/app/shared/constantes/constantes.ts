@@ -17,6 +17,12 @@ export interface UserDatas {
   token?: string
 }
 
+export interface UpdateUserDatas {
+  name: string | undefined;
+  email: string | undefined;
+  password: string | undefined
+}
+
 export interface UserDatasState extends UserDatas {
   loading: boolean
 }

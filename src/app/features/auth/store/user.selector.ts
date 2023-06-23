@@ -46,7 +46,8 @@ export const getUserLastNames = createSelector(
 export const getUserInitial = createSelector(
   selectUserState,
   (state: UserDatas) => {
-    const splitName = state.name.split(" ");
+    const splitName = state.name.trim().split(" ");
+
     let userInitial = ''
     for (let i = 0; i < splitName.length; i++) {
       userInitial = userInitial + splitName[i][0]?.toUpperCase();

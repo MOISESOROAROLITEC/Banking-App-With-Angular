@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { UserDatas, UserDatasLogin, UserDatasSignUp } from 'src/app/shared/constantes/constantes';
+import { UpdateUserDatas, UserDatas, UserDatasLogin, UserDatasSignUp } from 'src/app/shared/constantes/constantes';
 
 export const updateUser = createAction(
   '[User] updateUser',
@@ -80,5 +80,18 @@ export const getUserInformationsSucceed = createAction(
 );
 export const getUserInformationsFailed = createAction(
   '[user] getUserInformationsFailed',
+  props<{ message: string }>()
+);
+
+export const updateUserInformationsAction = createAction(
+  '[user] updateUserInformationsAction',
+  props<{ data: UpdateUserDatas }>()
+);
+export const updateUserInformationsSucceed = createAction(
+  '[user] updateUserInformationsSucceed',
+  props<{ userDatas: UserDatas }>()
+);
+export const updateUserInformationsFailed = createAction(
+  '[user] updateUserInformationsFailed',
   props<{ message: string }>()
 );

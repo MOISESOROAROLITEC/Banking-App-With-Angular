@@ -132,8 +132,9 @@
     #drawer
     mode="over"
     position="end"
-    style="max-height: 100vh; position: fixed; width: 400px"
+    style="max-height: 100vh; position: fixed; width: 400px !important"
+    class="mat-drawer-edit-user-infos"
   >
-    <app-edit-user-infos></app-edit-user-infos>
+    <app-edit-user-infos [drawer]="drawer"></app-edit-user-infos>
   </mat-drawer>
 </mat-drawer-container>

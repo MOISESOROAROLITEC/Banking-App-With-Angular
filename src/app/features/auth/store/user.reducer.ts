@@ -9,7 +9,7 @@ import {
   getUserInformationsSucceed,
   loginUser, loginUserFailed, loginUserSuccess,
   resetPasswordVerifyEmail, resetPasswordVerifyEmailFailed,
-  resetPasswordVerifyEmailSuccess, updateUser
+  resetPasswordVerifyEmailSuccess, updateUser, updateUserInformationsAction, updateUserInformationsFailed, updateUserInformationsSucceed
 } from './user.actions';
 
 const initialUserState: UserDatasStore = {
@@ -53,6 +53,16 @@ export const userReducer = createReducer(
     return ({ ...user, loading: false, requestErrorMessage: message })
   }),
 
+  on(updateUserInformationsAction, (user) => {
+    return ({ ...user, loading: true })
+  }),
+  on(updateUserInformationsSucceed, (user, { userDatas }) => {
+    return ({ ...user, ...userDatas, loading: false })
+  }),
+  on(updateUserInformationsFailed, (user, { message }) => {
+    return ({ ...user, loading: false, requestErrorMessage: message })
+  }),
+
   on(resetPasswordVerifyEmail, (user) => {
     return ({ ...user, loading: true })
   }),
@@ -64,8 +74,8 @@ export const userReducer = createReducer(
   }),
 
   on(updateUser, (user, { newDatas }) => {
-    localStorage.setItem("username", newDatas.name);
-    localStorage.setItem("email", newDatas.email);
+    // localStorage.setItem("username", newDatas.name);
+    // localStorage.setItem("email", newDatas.email);
     if (newDatas.token) {
       localStorage.setItem("token", newDatas.token);
     }
@@ -77,7 +87,7 @@ export const userReducer = createReducer(
   }),
 
   on(changeUserEmail, (user, { newEmail }) => {
-    localStorage.setItem("email", newEmail)
+    // localStorage.setItem("email", newEmail)
     return ({ ...user, email: newEmail })
   }),
 

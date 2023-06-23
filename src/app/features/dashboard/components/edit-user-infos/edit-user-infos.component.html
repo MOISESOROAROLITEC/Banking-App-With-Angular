@@ -1,10 +1,113 @@
-<div class="edit">
-  <div class="edit-title">Edition d’information personnelle</div>
-  <div class="edit-box edit-username">
-    <div class="title">Nom d’utilisateur</div>
-    <div class="input"></div>
-    <div class="save"></div>
+<div class="col-12 mt-4 sign-up-form">
+  <div class="edit">
+    <div class="mb-2 edit-title">Edition d’information personnelle</div>
+    <form
+      (ngSubmit)="onSubmitUsername()"
+      [formGroup]="editFormUsername"
+      class="edit-box edit-username"
+    >
+      <div class="title">Nom d’utilisateur</div>
+      <mat-form-field appearance="outline" class="col-12 mt-1 edit-field">
+        <input
+          required
+          matInput
+          id="username"
+          formControlName="username"
+          placeholder="Nom"
+        />
+        <mat-icon matSuffix [ngClass]="changeUsernameIconColor('username')"
+          >check_circle</mat-icon
+        >
+      </mat-form-field>
+      <div class="w-100 d-flex justify-content-end buton-box">
+        <button [disabled]="!editFormUsername.valid" mat-stroked-button>
+          Enregister
+        </button>
+      </div>
+    </form>
+    <form
+      (ngSubmit)="onSubmitEmail()"
+      [formGroup]="editFormEmail"
+      class="edit-box edit-email"
+    >
+      <div class="title">Email</div>
+      <mat-form-field appearance="outline" class="col-12 mt-1 edit-field">
+        <input
+          required
+          matInput
+          id="email"
+          formControlName="email"
+          placeholder="Email"
+        />
+        <mat-icon matSuffix [ngClass]="changeEmailIconColor('email')"
+          >check_circle</mat-icon
+        >
+      </mat-form-field>
+      <div class="w-100 d-flex justify-content-end buton-box">
+        <button [disabled]="!editFormEmail.valid" mat-stroked-button>
+          Enregister
+        </button>
+      </div>
+    </form>
+    <form
+      (ngSubmit)="onSubmitPassword()"
+      [formGroup]="editFormPassword"
+      class="edit-box edit-password"
+    >
+      <div class="title">Mot de passe</div>
+      <mat-form-field appearance="outline" class="col-12 mt-1 edit-field">
+        <input
+          required
+          matInput
+          id="password"
+          formControlName="password"
+          placeholder="Ancien mot de passe"
+        />
+        <mat-icon matSuffix [ngClass]="changePasswordIconColor('password')"
+          >check_circle</mat-icon
+        >
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="col-12 mt-1 edit-field">
+        <input
+          required
+          matInput
+          id="newPassword"
+          formControlName="newPassword"
+          placeholder="Nouveau mot de passe"
+        />
+        <mat-icon matSuffix [ngClass]="changePasswordIconColor('newPassword')"
+          >check_circle</mat-icon
+        >
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="col-12 mt-1 edit-field">
+        <input
+          required
+          matInput
+          id="confirmPassword"
+          formControlName="confirmPassword"
+          placeholder="Confirmer le mot de passe"
+        />
+        <mat-icon
+          matSuffix
+          [ngClass]="changePasswordIconColor('confirmPassword')"
+          >check_circle</mat-icon
+        >
+      </mat-form-field>
+      <div class="w-100 d-flex justify-content-end buton-box">
+        <button [disabled]="!editFormPassword.valid" mat-stroked-button>
+          Enregister
+        </button>
+      </div>
+    </form>
   </div>
-  <div class="edit-email"></div>
-  <div class="edit-password"></div>
+</div>
+<div class="w-100 mb-2 d-flex justify-content-center buton-box">
+  <button
+    (click)="drawer.close()"
+    style="padding: 0px 40px"
+    mat-stroked-button
+    color="warn"
+  >
+    Quiter
+  </button>
 </div>
