@@ -1,80 +1,139 @@
-<div class="d-flex dashboard">
-  <div class="w-30 user-infos" style="height: 100vh; overflow-y: auto;">
-    <div class="d-flex justify-content-center align-items-center user-initial">{{userInitial$ | async}}</div>
-    <div class="username"><span class="firstName"> {{firstName$ | async}}</span> <span class="lastNames"> {{lastNames$ |
-        async}} </span>
-    </div>
-    <div class="mt-1 mb-2 user-email">Email : {{(userDatas$ | async)?.email }}</div>
-    <div class="user-edit-div">
-      <button mat-flat-button color="accent" class="user-edit">
-        <span class="edit-text"> Edition du profil</span>
-        <mat-icon aria-hidden="false" color="accent" fontIcon="edit" class="pen"></mat-icon>
-      </button>
-
-    </div>
-    <div class="w-100 mt-3 accounts">
-      <h5 class="fw-bold mb-0">Mes comptes</h5>
-      <div class="d-flex align-items-center account-block">
-        <div class="account-type">
-          Compte <span style="font-weight: 900;">{{(userAccount$ | async)?.type}}</span>
+<mat-drawer-container>
+  <div class="d-flex dashboard">
+    <div class="w-30 user-infos" style="height: 100vh; overflow-y: auto">
+      <div
+        class="d-flex justify-content-center align-items-center user-initial"
+      >
+        {{ userInitial$ | async }}
+      </div>
+      <div class="username">
+        <span class="firstName"> {{ firstName$ | async }}</span>
+        <span class="lastNames"> {{ lastNames$ | async }} </span>
+      </div>
+      <div class="mt-1 mb-2 user-email">
+        Email : {{ (userDatas$ | async)?.email }}
+      </div>
+      <div class="user-edit-div">
+        <button
+          (click)="drawer.toggle()"
+          mat-flat-button
+          color="accent"
+          class="user-edit"
+        >
+          <span class="edit-text"> Edition du profil</span>
+          <mat-icon
+            aria-hidden="false"
+            color="accent"
+            fontIcon="edit"
+            class="pen"
+          ></mat-icon>
+        </button>
+      </div>
+      <div class="w-100 mt-3 accounts">
+        <h5 class="fw-bold mb-0">Mes comptes</h5>
+        <div class="d-flex align-items-center account-block">
+          <div class="account-type">
+            Compte
+            <span style="font-weight: 900">{{
+              (userAccount$ | async)?.type
+            }}</span>
+          </div>
+          <div class="d-flex align-items-center account-other-infos">
+            <div class="number-title">
+              <div class="title">Numéro de compte</div>
+              <div class="number" #accountNomber>
+                {{ (userAccount$ | async)?.iban }}
+              </div>
+            </div>
+            <div class="sold-title" style="margin-left: 10px">
+              <div class="title">Solde disponible</div>
+              <div
+                class="d-flex justify-content-between align-items-center sold-view"
+              >
+                <div *ngIf="vieuxSold" class="sold text-center">
+                  {{ (userAccount$ | async)?.balance }} XOF
+                </div>
+                <div
+                  *ngIf="!vieuxSold"
+                  class="d-flex align-items-center text-center pb-2 sold sold-hiden"
+                >
+                  ........
+                </div>
+                <mat-icon
+                  style="margin-left: 5px"
+                  matSuffix
+                  (click)="vieuxSold = !vieuxSold"
+                  >{{ vieuxSold ? "visibility_off" : "visibility" }}
+                </mat-icon>
+              </div>
+            </div>
+            <div class="option">
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon style="color: white; font-weight: bold"
+                  >more_vert</mat-icon
+                >
+              </button>
+              <mat-menu #menu="matMenu">
+                <button
+                  (click)="createSaveAccount(accountNomber.innerText)"
+                  mat-menu-item
+                  class="d-flex menu-btn"
+                  style="justify-content: space-between"
+                >
+                  <span>Créer un compte d'Epargne</span>
+                  <mat-icon style="order: 1 !important">add</mat-icon>
+                </button>
+                <button
+                  (click)="createBlockedAccount(accountNomber.innerText)"
+                  mat-menu-item
+                  class="d-flex menu-btn"
+                  style="justify-content: space-between"
+                >
+                  <span>Créer un compte Blocké</span>
+                  <mat-icon style="order: 1 !important; margin-left: 10px"
+                    >add</mat-icon
+                  >
+                </button>
+              </mat-menu>
+            </div>
+          </div>
         </div>
-        <div class="d-flex align-items-center account-other-infos">
-          <div class="number-title">
-            <div class="title">
-              Numéro de compte
-            </div>
-            <div class="number" #accountNomber>
-              {{(userAccount$ | async)?.iban}}
-            </div>
-          </div>
-          <div class="sold-title" style="margin-left: 10px;">
-            <div class="title">
-              Solde disponible
-            </div>
-            <div class="d-flex justify-content-between align-items-center sold-view">
-              <div *ngIf="vieuxSold" class="sold text-center  ">
-                {{(userAccount$ | async)?.balance}} XOF
-              </div>
-              <div *ngIf="!vieuxSold" class="d-flex align-items-center text-center pb-2 sold sold-hiden">
-                ........
-              </div>
-              <mat-icon style="margin-left: 5px;" matSuffix (click)="vieuxSold = !vieuxSold">{{vieuxSold
-                ?
-                'visibility_off' : 'visibility'}}
-              </mat-icon>
-            </div>
-          </div>
-          <div class="option">
-            <button mat-icon-button [matMenuTriggerFor]="menu">
-              <mat-icon style="color: white; font-weight: bold;">more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button (click)="createSaveAccount(accountNomber.innerText)" mat-menu-item class="d-flex menu-btn"
-                style="justify-content: space-between;">
-                <span>Créer un compte d'Epargne</span>
-                <mat-icon style="order: 1 !important;">add</mat-icon>
-              </button>
-              <button (click)="createBlockedAccount(accountNomber.innerText)" mat-menu-item class="d-flex menu-btn"
-                style="justify-content: space-between;">
-                <span>Créer un compte Blocké</span>
-                <mat-icon style="order: 1 !important; margin-left: 10px;">add</mat-icon>
-              </button>
-            </mat-menu>
-          </div>
+        <div *ngFor="let subAccount of userSubAccount$ | async | slice : 0 : 2">
+          <app-account [subAccountInput]="subAccount"></app-account>
         </div>
       </div>
-      <div *ngFor="let subAccount of userSubAccount$ | async | slice:0:2">
-        <app-account [subAccountInput]="subAccount"></app-account>
+      <div
+        *ngIf="userSubAccount$ | async as userSubAccount"
+        class="mb-4 view-account-list"
+      >
+        <a
+          [routerLink]="['/dashboard/accounts']"
+          *ngIf="userSubAccount.length > 2"
+          class="accounts-list"
+        >
+          Voir la liste complète des comptes
+        </a>
+      </div>
+      <div class="w-100 disc-btn">
+        <button
+          (click)="onDisconnect()"
+          mat-flat-button
+          class="user-edit disconnect-btn"
+        >
+          Se déconnecter
+        </button>
       </div>
     </div>
-    <div *ngIf="(userSubAccount$ | async) as userSubAccount" class=" mb-5 view-account-list">
-      <a [routerLink]="['/dashboard/accounts']" *ngIf="userSubAccount.length > 2" class="accounts-list">
-        Voir la liste complète des comptes
-      </a>
+    <div class="router-box">
+      <router-outlet></router-outlet>
     </div>
-    <button (click)="onDisconnect()" mat-flat-button class="user-edit disconnect-btn">Se déconnecter</button>
   </div>
-  <div class="router-box">
-    <router-outlet></router-outlet>
-  </div>
-</div>
+  <mat-drawer
+    #drawer
+    mode="over"
+    position="end"
+    style="max-height: 100vh; position: fixed; width: 400px"
+  >
+    <app-edit-user-infos></app-edit-user-infos>
+  </mat-drawer>
+</mat-drawer-container>

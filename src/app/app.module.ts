@@ -9,13 +9,14 @@ import { EffectsModule } from '@ngrx/effects';
 import { ToastrModule } from 'ngx-toastr';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { UserHttpInterceptor } from './shared/interceptors/httpInterceptor';
-import { ActivateRoute } from './shared/guards/routes.guard';
+import { ActivateRoute } from './shared/guards/is-user-connected-guard/routes.guard';
 import { TransactionStatusColorPipe } from './shared/pipe/transaction-status-color/transaction-status-color.pipe';
 
 import { getUserInformationsAction } from './features/auth/store/user.actions';
 import { UserEffects } from './features/auth/store/user.effect';
 import { userReducer } from './features/auth/store/user.reducer';
 import { ActivateAdminRoute } from './shared/guards/admin/admin.guard';
+import { InactivateAuthRoutes } from './shared/guards/is-user-not-connected-guard/routes.guard';
 
 
 @NgModule({
@@ -45,8 +46,10 @@ import { ActivateAdminRoute } from './shared/guards/admin/admin.guard';
       provide: HTTP_INTERCEPTORS,
       useClass: UserHttpInterceptor,
       multi: true
-    }, ActivateRoute,
-    ActivateAdminRoute
+    },
+    ActivateRoute,
+    ActivateAdminRoute,
+    InactivateAuthRoutes,
   ],
   bootstrap: [AppComponent]
 })

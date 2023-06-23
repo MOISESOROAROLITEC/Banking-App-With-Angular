@@ -17,37 +17,37 @@ import { EffectsModule } from '@ngrx/effects';
 import { AdminEffects } from './store/transaction.effect';
 import { TransactionStatusColorPipe } from './pipe/transaction-status-color.pipe';
 import { AdminGuard } from 'src/app/shared/guards/admin/admin.guard';
-import { RoutesGuard } from 'src/app/shared/guards/routes.guard';
+import { RoutesGuard } from 'src/app/shared/guards/is-user-connected-guard/routes.guard';
 import { userInformationsReducer } from 'src/app/shared/store/user.reducer';
 import { userReducer } from '../auth/store/user.reducer';
 
 const routes: Routes = [
-  {
-    path: "", component: MainComponent, canActivate: [RoutesGuard, AdminGuard]
-  }
+	{
+		path: "", component: MainComponent, canActivate: [RoutesGuard, AdminGuard]
+	}
 ]
 
 @NgModule({
-  declarations: [
-    TransactionStatusColorPipe,
-    MainComponent,
-  ],
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatIconModule,
-    MatMenuModule,
-    MatSelectModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatNativeDateModule,
-    MatDatepickerModule,
-    StoreModule.forFeature("usersTransactions", usersTransactionsReducer),
-    StoreModule.forFeature("userInformations", userInformationsReducer),
-    StoreModule.forFeature("userFeature", userReducer),
-    EffectsModule.forFeature(AdminEffects),
-    RouterModule.forChild(routes)
-  ]
+	declarations: [
+		TransactionStatusColorPipe,
+		MainComponent,
+	],
+	imports: [
+		CommonModule,
+		MatButtonModule,
+		MatIconModule,
+		MatMenuModule,
+		MatSelectModule,
+		MatTableModule,
+		MatFormFieldModule,
+		MatInputModule,
+		MatNativeDateModule,
+		MatDatepickerModule,
+		StoreModule.forFeature("usersTransactions", usersTransactionsReducer),
+		StoreModule.forFeature("userInformations", userInformationsReducer),
+		StoreModule.forFeature("userFeature", userReducer),
+		EffectsModule.forFeature(AdminEffects),
+		RouterModule.forChild(routes)
+	]
 })
 export class AdminDashboardModule { }

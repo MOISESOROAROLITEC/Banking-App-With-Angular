@@ -1,6 +1,6 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { Injectable, inject } from '@angular/core';
-import { UserSharedService } from '../services/user.shared.service';
+import { UserSharedService } from '../../services/user.shared.service';
 
 @Injectable()
 export class ActivateRoute {

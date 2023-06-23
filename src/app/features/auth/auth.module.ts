@@ -23,52 +23,53 @@ import { DashboardEffects } from '../dashboard/store/effect/accounts.effect';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { NewPasswordComponent } from './components/new-password/new-password.component';
 import { PasswordResetSuccessfullyComponent } from './components/password-reset-successfully/password-reset-successfully.component';
+import { AuthRoutsGuard } from 'src/app/shared/guards/is-user-not-connected-guard/routes.guard';
 
 const routes: Routes = [
-	{
-		path: "", component: AuthComponent, children: [
-			{ path: "", redirectTo: 'login', pathMatch: "full" },
-			{ path: "sign-up", component: SignUpComponent },
-			{ path: "login", component: LoginComponent },
-			{ path: "reset-password", component: ResetPasswordComponent },
-			{ path: "reset-password/new-password", component: NewPasswordComponent },
-			{ path: "reset-password/success", component: PasswordResetSuccessfullyComponent },
-		]
-	},
+  {
+    path: "", component: AuthComponent, canActivate: [AuthRoutsGuard], children: [
+      { path: "", redirectTo: 'login', pathMatch: "full" },
+      { path: "sign-up", component: SignUpComponent },
+      { path: "login", component: LoginComponent },
+      { path: "reset-password", component: ResetPasswordComponent },
+      { path: "reset-password/new-password", component: NewPasswordComponent },
+      { path: "reset-password/success", component: PasswordResetSuccessfullyComponent },
+    ]
+  },
 
 ]
 
 @NgModule({
-	declarations: [
-		SignUpComponent,
-		LoginComponent,
-		AuthComponent,
-		ResetPasswordComponent,
-		NewPasswordComponent,
-		PasswordResetSuccessfullyComponent,
-	],
-	imports: [
-		CommonModule,
-		MatFormFieldModule,
-		HttpClientModule,
-		MatInputModule,
-		MatIconModule,
-		ReactiveFormsModule,
-		MatButtonModule,
-		MatDividerModule,
-		MatCheckboxModule,
-		ToastrModule.forRoot({
-			closeButton: true,
-			newestOnTop: true,
-			preventDuplicates: true,
-			resetTimeoutOnDuplicate: true
-		}),
-		StoreModule.forFeature('userFeature', userReducer),
-		StoreModule.forFeature('userAccounts', userAccountsReducer),
-		EffectsModule.forFeature(UserEffects),
-		EffectsModule.forFeature(DashboardEffects),
-		RouterModule.forChild(routes),
-	],
-	providers: [AuthService]
+  declarations: [
+    SignUpComponent,
+    LoginComponent,
+    AuthComponent,
+    ResetPasswordComponent,
+    NewPasswordComponent,
+    PasswordResetSuccessfullyComponent,
+  ],
+  imports: [
+    CommonModule,
+    MatFormFieldModule,
+    HttpClientModule,
+    MatInputModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatCheckboxModule,
+    ToastrModule.forRoot({
+      closeButton: true,
+      newestOnTop: true,
+      preventDuplicates: true,
+      resetTimeoutOnDuplicate: true
+    }),
+    StoreModule.forFeature('userFeature', userReducer),
+    StoreModule.forFeature('userAccounts', userAccountsReducer),
+    EffectsModule.forFeature(UserEffects),
+    EffectsModule.forFeature(DashboardEffects),
+    RouterModule.forChild(routes),
+  ],
+  providers: [AuthService]
 })
 export class AuthModule { }

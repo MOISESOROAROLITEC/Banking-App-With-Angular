@@ -16,6 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgFor } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { TransactionsComponent } from './components/transactions/transactions.component';
 import { MainComponent } from './components/main/main.component';
@@ -33,8 +34,10 @@ import { TransfertSuccesComponent } from './components/transfert-succes/transfer
 import { TransfertFaileComponent } from './components/transfert-faile/transfert-faile.component';
 import { TransactionStatusColorPipe } from './pipe/transaction-status-color.pipe';
 import { UserEffects } from '../auth/store/user.effect';
-import { RoutesGuard } from 'src/app/shared/guards/routes.guard';
+import { RoutesGuard } from 'src/app/shared/guards/is-user-connected-guard/routes.guard';
 import { AdminGuard } from 'src/app/shared/guards/admin/admin.guard';
+import { EditUserInfosComponent } from './components/edit-user-infos/edit-user-infos.component';
+
 
 
 const routes: Routes = [
@@ -56,6 +59,7 @@ const routes: Routes = [
     TransfertComponent,
     TransfertSuccesComponent,
     TransfertFaileComponent,
+    EditUserInfosComponent,
   ],
   imports: [
     CommonModule,
@@ -67,6 +71,7 @@ const routes: Routes = [
     NgFor,
     ReactiveFormsModule,
     MatDialogModule,
+    MatSidenavModule,
     MatFormFieldModule,
     MatInputModule,
     MatNativeDateModule,

@@ -1,13 +1,18 @@
 .dashboard {
   overflow: hidden;
+  $user-info-box-width: 415px;
   .user-infos {
     width: 25%;
-    min-width: 415px;
+    min-width: $user-info-box-width;
     display: flex;
     align-items: center;
     flex-direction: column;
     min-height: 100vh;
+    height: 100vh;
     border-right: 1px solid #0079ff;
+    position: fixed;
+    top: 0;
+    left: 0;
     .user-initial {
       color: white;
       $size: 150px;
@@ -19,13 +24,16 @@
       font-weight: 600;
       font-size: 60px;
       line-height: 117px;
-      margin-top: 30px;
+      margin-top: 20px;
     }
     .username {
       margin: 15px 0 0 0;
       .firstName {
         font-weight: bold;
       }
+    }
+    .user-email {
+      font-size: 15px;
     }
     .user-edit {
       background-color: #ff00601a;
@@ -56,7 +64,7 @@
       padding: 0 10px 0 10px;
       .account-block {
         background-color: #0079ff;
-        margin: 10px 0;
+        margin: 7px 0;
         padding: 3px 7px;
         border-radius: 5px;
         color: white;
@@ -91,13 +99,15 @@
         text-decoration: none;
       }
     }
-
-    .disconnect-btn {
-      font-weight: bold;
-      font-size: 1.1rem;
-      padding: 4px 25px;
-      position: absolute;
-      bottom: 10px;
+    .disc-btn {
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
+      .disconnect-btn {
+        font-weight: bold;
+        font-size: 1.1rem;
+        padding: 4px 25px;
+      }
     }
   }
 
@@ -105,5 +115,6 @@
     width: 100%;
     min-height: 100vh;
     overflow-x: auto;
+    margin-left: $user-info-box-width;
   }
 }
