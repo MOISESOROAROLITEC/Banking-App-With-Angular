@@ -4,7 +4,6 @@ import { catchError, exhaustMap, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { DashboardService } from '../../services/dashboard.service';
 import { ToastService } from 'src/app/shared/services/toast/toast.service';
-// import { getAllAccountsAction, getAllAccountsFailed, getAllAccountsSucceed, getAllSubAccountsAction, getAllSubAccountsFailed, getAllSubAccountsSucceed } from '../actions/allAccounts.action';
 import * as allAccountsAction from '../actions/allAccounts.action';
 
 @Injectable()
