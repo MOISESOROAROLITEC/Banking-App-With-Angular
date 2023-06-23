@@ -4,13 +4,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreModule } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { ToastrModule } from 'ngx-toastr';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { UserHttpInterceptor } from './shared/interceptors/httpInterceptor';
 import { ActivateRoute } from './shared/guards/routes.guard';
 import { TransactionStatusColorPipe } from './shared/pipe/transaction-status-color/transaction-status-color.pipe';
+
+import { getUserInformationsAction } from './features/auth/store/user.actions';
+import { UserEffects } from './features/auth/store/user.effect';
+import { userReducer } from './features/auth/store/user.reducer';
+import { ActivateAdminRoute } from './shared/guards/admin/admin.guard';
 
 
 @NgModule({
@@ -30,7 +35,9 @@ import { TransactionStatusColorPipe } from './shared/pipe/transaction-status-col
       progressBar: true,
       resetTimeoutOnDuplicate: true
     }),
+    StoreModule.forFeature('userFeature', userReducer),
     StoreModule.forRoot({}, {}),
+    EffectsModule.forFeature(UserEffects),
     EffectsModule.forRoot([]),
   ],
   providers: [
@@ -38,8 +45,15 @@ import { TransactionStatusColorPipe } from './shared/pipe/transaction-status-col
       provide: HTTP_INTERCEPTORS,
       useClass: UserHttpInterceptor,
       multi: true
-    }, ActivateRoute
+    }, ActivateRoute,
+    ActivateAdminRoute
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(
+    private store: Store
+  ) {
+    this.store.dispatch(getUserInformationsAction())
+  }
+}

@@ -11,11 +11,16 @@ export interface UserDatasLogin {
 }
 export interface UserDatas {
   name: string
-  password?: string
   email: string
+  password?: string
   role: string
   token?: string
 }
+
+export interface UserDatasState extends UserDatas {
+  loading: boolean
+}
+
 export interface UserDatasStore {
   name: string
   password?: string

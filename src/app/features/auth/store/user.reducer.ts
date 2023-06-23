@@ -4,6 +4,9 @@ import { UserDatasStore } from 'src/app/shared/constantes/constantes';
 import {
   changeUserEmail, changeUserName, changeUserToken,
   createUser, createUserFailed, createUserSuccess,
+  getUserInformationsAction,
+  getUserInformationsFailed,
+  getUserInformationsSucceed,
   loginUser, loginUserFailed, loginUserSuccess,
   resetPasswordVerifyEmail, resetPasswordVerifyEmailFailed,
   resetPasswordVerifyEmailSuccess, updateUser
@@ -37,6 +40,16 @@ export const userReducer = createReducer(
     return ({ ...user, ...userDatas, loading: false })
   }),
   on(loginUserFailed, (user, { message }) => {
+    return ({ ...user, loading: false, requestErrorMessage: message })
+  }),
+
+  on(getUserInformationsAction, (user) => {
+    return ({ ...user, loading: true })
+  }),
+  on(getUserInformationsSucceed, (user, { userDatas }) => {
+    return ({ ...user, ...userDatas, loading: false })
+  }),
+  on(getUserInformationsFailed, (user, { message }) => {
     return ({ ...user, loading: false, requestErrorMessage: message })
   }),
 

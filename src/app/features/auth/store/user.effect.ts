@@ -6,6 +6,7 @@ import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { ToastService } from 'src/app/shared/services/toast/toast.service';
+import { UserSharedService } from 'src/app/shared/services/user.shared.service';
 
 @Injectable()
 export class UserEffects {
@@ -21,7 +22,12 @@ export class UserEffects {
             if (response.token) {
               localStorage.setItem("token", response.token);
             }
-            this.router.navigate(['/dashboard'])
+            localStorage.setItem("role", response.role)
+            if (response.role !== "admin") {
+              this.router.navigate(['/dashboard'])
+            } else {
+              this.router.navigate(['/admin'])
+            }
             return ({ type: userActions.createUserSuccess.type, payload: response })
           }),
           catchError((error) => {
@@ -31,6 +37,22 @@ export class UserEffects {
               this.toast.error("Impossible de contacter le serveur")
             }
             return of({ type: userActions.createUserFailed.type, message: error.error.message })
+          })
+        )
+      )
+    )
+  )
+
+  getUserInformationsEffect$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(userActions.getUserInformationsAction.type),
+      exhaustMap(() => this.userSharedService.getUserInformations()
+        .pipe(
+          map((response) => {
+            return ({ type: userActions.getUserInformationsSucceed.type, userDatas: response })
+          }),
+          catchError((error) => {
+            return of({ type: userActions.getUserInformationsFailed.type, message: error.error.message })
           })
         )
       )
@@ -48,7 +70,12 @@ export class UserEffects {
             if (response.token) {
               localStorage.setItem("token", response.token);
             }
-            this.router.navigate(['/dashboard'])
+            localStorage.setItem("role", response.role)
+            if (response.role !== "admin") {
+              this.router.navigate(['/dashboard'])
+            } else {
+              this.router.navigate(['/admin'])
+            }
             return ({ type: userActions.loginUserSuccess.type, userDatas: response })
           }),
           catchError((error) => {
@@ -115,6 +142,7 @@ export class UserEffects {
     private userService: AuthService,
     private router: Router,
     private toast: ToastService,
+    private userSharedService: UserSharedService,
   ) { }
 
 }

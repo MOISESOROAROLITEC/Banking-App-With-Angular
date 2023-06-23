@@ -148,4 +148,24 @@
   <a [routerLink]="['/dashboard']" class="accounts-list">
     Liste des transactions
   </a>
+  <button
+    (click)="onReturnTansaction()"
+    class="mb-2 d-flex btn"
+    mat-flat-button
+    extended
+    color="accent"
+  >
+    <mat-icon
+      matIconSuffix
+      style="
+        font-weight: bold;
+        font-size: 25px;
+        width: 30px;
+        height: 25px;
+        justify-content: space-between;
+      "
+      >login</mat-icon
+    >
+    Liste des transactions
+  </button>
 </div>

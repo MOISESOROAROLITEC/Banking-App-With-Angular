@@ -16,10 +16,12 @@ import { usersTransactionsReducer } from './store/transaction.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AdminEffects } from './store/transaction.effect';
 import { TransactionStatusColorPipe } from './pipe/transaction-status-color.pipe';
+import { AdminGuard } from 'src/app/shared/guards/admin/admin.guard';
+import { RoutesGuard } from 'src/app/shared/guards/routes.guard';
 
 const routes: Routes = [
   {
-    path: "", component: MainComponent
+    path: "", component: MainComponent, canActivate: [RoutesGuard, AdminGuard]
   }
 ]
 

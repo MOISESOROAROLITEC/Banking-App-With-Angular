@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Account, SubAccount } from 'src/app/shared/constantes/constantes';
 import { getUserAccount, getUserSubAccounts } from '../../store/selector/accounts.selector';
 import { doTransfertAction } from '../../store/actions/transfert.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-transfert',
@@ -22,6 +23,7 @@ export class TransfertComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private store: Store,
+    private router: Router
   ) {
     this.transfertForm = this.fb.group({
       reciverAccountNumber: ["", [Validators.required, Validators.pattern("^.{16}$")]],
@@ -42,6 +44,10 @@ export class TransfertComponent implements OnInit {
 
   selectAccount(account?: Account | SubAccount) {
     this.accountSelected = account
+  }
+
+  onReturnTansaction() {
+    this.router.navigate(['/dashboard'])
   }
 
   onSubmit() {
