@@ -22,6 +22,11 @@ export const getUserDatas = createSelector(
   (state: UserDatas) => state
 );
 
+export const getUserRole = createSelector(
+  selectUserState,
+  (state: UserDatas) => state.role
+);
+
 export const getUserFirstName = createSelector(
   selectUserState,
   (state: UserDatas) => {
