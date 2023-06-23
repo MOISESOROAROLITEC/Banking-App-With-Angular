@@ -10,6 +10,7 @@ export class ActivateRoute {
   ) { }
 
   canActivate(): boolean {
+    console.log("je suis dans la route gouard");
     if (this.userSharedService.isUserConnected()) {
       return true
     } else {
