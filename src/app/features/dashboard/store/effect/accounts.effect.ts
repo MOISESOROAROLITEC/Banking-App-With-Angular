@@ -2,36 +2,21 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { Store } from '@ngrx/store';
+
 import { DashboardService } from '../../services/dashboard.service';
 import { ToastService } from 'src/app/shared/services/toast/toast.service';
-import {
-  getUserAccountsAction,
-  getUserAccountsSucceed,
-  getUserAccountsFailed,
-  createSaveAccountAction,
-  createSaveAccountSucceed,
-  createSaveAccountFailed,
-  createBlockedAccountAction,
-  createBlockedAccountSucceed,
-  createBlockedAccountFailed,
-  blockAccountAction,
-  blockAccountSucceed,
-  blockAccountFailed,
-  deblockAccountAction,
-  deblockAccountSucceed,
-  deblockAccountFailed,
-} from '../actions/accounts.actions';
-import { Store } from '@ngrx/store';
+import * as accountsActions from '../actions/accounts.actions';
 
 @Injectable()
 export class DashboardEffects {
   getUserAccountsEffect$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(getUserAccountsAction.type),
+      ofType(accountsActions.getUserAccountsAction.type),
       exhaustMap(() => this.dashboardService.getUserAccounts()
         .pipe(
           map((response) => {
-            return ({ type: getUserAccountsSucceed.type, userAccounts: response })
+            return ({ type: accountsActions.getUserAccountsSucceed.type, userAccounts: response })
           }),
           catchError((error) => {
             if (error.error.message) {
@@ -39,7 +24,7 @@ export class DashboardEffects {
             } else {
               this.toast.error("Impossible de contacter le serveur")
             }
-            return of({ type: getUserAccountsFailed.type, message: error.error.message })
+            return of({ type: accountsActions.getUserAccountsFailed.type, message: error.error.message })
           })
         )
       )
@@ -48,12 +33,12 @@ export class DashboardEffects {
 
   createSaveAccountEffect$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(createSaveAccountAction.type),
+      ofType(accountsActions.createSaveAccountAction.type),
       exhaustMap(({ parentIban }) => this.dashboardService.createSaveAccounts(parentIban)
         .pipe(
           map((response) => {
-            this.store.dispatch(getUserAccountsAction());
-            return ({ type: createSaveAccountSucceed.type, subAccount: response })
+            this.store.dispatch(accountsActions.getUserAccountsAction());
+            return ({ type: accountsActions.createSaveAccountSucceed.type, subAccount: response })
           }),
           catchError((error) => {
             if (error.error.message) {
@@ -61,7 +46,7 @@ export class DashboardEffects {
             } else {
               this.toast.error("Impossible de contacter le serveur")
             }
-            return of({ type: createSaveAccountFailed.type, message: error.error.message })
+            return of({ type: accountsActions.createSaveAccountFailed.type, message: error.error.message })
           })
         )
       )
@@ -70,12 +55,12 @@ export class DashboardEffects {
 
   createBlockedAccountEffect$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(createBlockedAccountAction.type),
+      ofType(accountsActions.createBlockedAccountAction.type),
       exhaustMap(({ parentIban }) => this.dashboardService.createBlockedAccounts(parentIban)
         .pipe(
           map((response) => {
-            this.store.dispatch(getUserAccountsAction());
-            return ({ type: createBlockedAccountSucceed.type, subAccount: response })
+            this.store.dispatch(accountsActions.getUserAccountsAction());
+            return ({ type: accountsActions.createBlockedAccountSucceed.type, subAccount: response })
           }),
           catchError((error) => {
             if (error.error.message) {
@@ -83,7 +68,7 @@ export class DashboardEffects {
             } else {
               this.toast.error("Impossible de contacter le serveur")
             }
-            return of({ type: createBlockedAccountFailed.type, message: error.error.message })
+            return of({ type: accountsActions.createBlockedAccountFailed.type, message: error.error.message })
           })
         )
       )
@@ -92,12 +77,12 @@ export class DashboardEffects {
 
   blockAccountEffect$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(blockAccountAction.type),
+      ofType(accountsActions.blockAccountAction.type),
       exhaustMap(({ accountIban }) => this.dashboardService.blockAccount(accountIban)
         .pipe(
           map((response) => {
-            this.store.dispatch(getUserAccountsAction());
-            return ({ type: blockAccountSucceed.type, subAccount: response })
+            this.store.dispatch(accountsActions.getUserAccountsAction());
+            return ({ type: accountsActions.blockAccountSucceed.type, subAccount: response })
           }),
           catchError((error) => {
             if (error.error.message) {
@@ -105,7 +90,7 @@ export class DashboardEffects {
             } else {
               this.toast.error("Impossible de contacter le serveur")
             }
-            return of({ type: blockAccountFailed.type, message: error.error.message })
+            return of({ type: accountsActions.blockAccountFailed.type, message: error.error.message })
           })
         )
       )
@@ -114,12 +99,12 @@ export class DashboardEffects {
 
   deblockAccountEffect$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(deblockAccountAction.type),
+      ofType(accountsActions.deblockAccountAction.type),
       exhaustMap(({ accountIban }) => this.dashboardService.deblockAccount(accountIban)
         .pipe(
           map((response) => {
-            this.store.dispatch(getUserAccountsAction());
-            return ({ type: deblockAccountSucceed.type, subAccount: response })
+            this.store.dispatch(accountsActions.getUserAccountsAction());
+            return ({ type: accountsActions.deblockAccountSucceed.type, subAccount: response })
           }),
           catchError((error) => {
             if (error.error.message) {
@@ -127,7 +112,7 @@ export class DashboardEffects {
             } else {
               this.toast.error("Impossible de contacter le serveur")
             }
-            return of({ type: deblockAccountFailed.type, message: error.error.message })
+            return of({ type: accountsActions.deblockAccountFailed.type, message: error.error.message })
           })
         )
       )

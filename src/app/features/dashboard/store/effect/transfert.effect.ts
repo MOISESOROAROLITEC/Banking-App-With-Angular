@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { MatDialog } from '@angular/material/dialog';
+
 import { DashboardService } from '../../services/dashboard.service';
 import { ToastService } from 'src/app/shared/services/toast/toast.service';
-
 import { doTransfertAction, doTransfertFaile, doTransfertSuccess } from '../actions/transfert.actions';
-import { Store } from '@ngrx/store';
 import { getUserAccountsAction } from '../actions/accounts.actions';
-import { MatDialog } from '@angular/material/dialog';
 import { TransfertSuccesComponent } from '../../components/transfert-succes/transfert-succes.component';
 import { TransfertFaileComponent } from '../../components/transfert-faile/transfert-faile.component';
 

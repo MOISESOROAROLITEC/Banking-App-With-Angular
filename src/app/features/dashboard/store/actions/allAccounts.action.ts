@@ -12,8 +12,6 @@ export const getAllAccountsFailed = createAction(
   '[Accounts] getAllAccountsFailed'
 );
 
-
-
 export const getAllSubAccountsAction = createAction(
   '[SubAccounts] getAllSubAccountsAction'
 );

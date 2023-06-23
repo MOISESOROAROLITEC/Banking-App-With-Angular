@@ -26,7 +26,6 @@ import { AccountComponent } from './components/account/account.component';
 import { TransfertComponent } from './components/transfert/transfert.component';
 import { AccountAndSubAccountEffects } from './store/effect/allAccounts.effect';
 import { allAccountsReducer, allSubAccountsReducer } from './store/reducer/allAccounts.reducer';
-import { } from 'src/app/shared/pipe/transaction-status-color/transaction-status-color.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TransfertEffects } from './store/effect/transfert.effect';
 import { userTransfertReducer } from './store/reducer/transfert.reducer';

@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { DoTransfert, Transaction, UserTransactions } from "src/app/shared/constantes/constantes";
+import { DoTransfert } from "src/app/shared/constantes/constantes";
 
 export const doTransfertAction = createAction(
   '[transfert] doTransfert',

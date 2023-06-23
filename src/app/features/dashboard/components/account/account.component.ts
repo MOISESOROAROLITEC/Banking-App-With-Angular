@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SubAccount } from 'src/app/shared/constantes/constantes';
 import { blockAccountAction, deblockAccountAction } from '../../store/actions/accounts.actions';

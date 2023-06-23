@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AdminTransactions, Transaction } from 'src/app/shared/constantes/constantes';
+import { AdminTransactions } from 'src/app/shared/constantes/constantes';
 import { accepteTransactionAction, getUsersTransactionsAction, rejectTransactionAction } from '../store/transaction.actions';
 import { getUsersTransactionsSelector } from '../store/transaction.selectors';
 
@@ -25,8 +25,7 @@ export class MainComponent implements OnInit {
     this.userTransactions$.subscribe(
       {
         next: (value) => {
-          console.log(value),
-            this.datasources = value
+          this.datasources = value
         }
       }
     )

@@ -1,10 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { Account, SubAccount, UserTransactionsReducer } from "src/app/shared/constantes/constantes";
-import {
-  getUserTransactionsAction,
-  getUserTransactionsFailed,
-  getUserTransactionsSucceed,
-} from "../actions/transactions.actions";
+import { Account, SubAccount } from "src/app/shared/constantes/constantes";
 import { getAllAccountsAction, getAllAccountsFailed, getAllAccountsSucceed, getAllSubAccountsAction, getAllSubAccountsFailed, getAllSubAccountsSucceed } from "../actions/allAccounts.action";
 
 const initialAccountsState: Account[] = [

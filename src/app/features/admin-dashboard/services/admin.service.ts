@@ -17,8 +17,6 @@ export class AdminService {
   }
 
   rejectTransaction(id: number) {
-    console.log(id);
-
     const data = { id: id, newStatus: 'Rejeté' }
     return this.http.post('transaction/change-status', data)
   }

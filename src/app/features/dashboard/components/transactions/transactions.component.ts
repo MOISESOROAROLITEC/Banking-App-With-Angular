@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+
 import { Transaction, UserTransactions } from 'src/app/shared/constantes/constantes';
 import { getUserTransactionsSelector } from '../../store/selector/transaction.selector';
 import { getUserTransactionsAction } from '../../store/actions/transactions.actions';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-transactions',

@@ -4,17 +4,18 @@ import { catchError, exhaustMap, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { DashboardService } from '../../services/dashboard.service';
 import { ToastService } from 'src/app/shared/services/toast/toast.service';
-import { getAllAccountsAction, getAllAccountsFailed, getAllAccountsSucceed, getAllSubAccountsAction, getAllSubAccountsFailed, getAllSubAccountsSucceed } from '../actions/allAccounts.action';
+// import { getAllAccountsAction, getAllAccountsFailed, getAllAccountsSucceed, getAllSubAccountsAction, getAllSubAccountsFailed, getAllSubAccountsSucceed } from '../actions/allAccounts.action';
+import * as allAccountsAction from '../actions/allAccounts.action';
 
 @Injectable()
 export class AccountAndSubAccountEffects {
   getAllAccountsEffect$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(getAllAccountsAction.type),
+      ofType(allAccountsAction.getAllAccountsAction.type),
       exhaustMap(() => this.dashboardService.getAllAccounts()
         .pipe(
           map((response) => {
-            return ({ type: getAllAccountsSucceed.type, allAccounts: response })
+            return ({ type: allAccountsAction.getAllAccountsSucceed.type, allAccounts: response })
           }),
           catchError((error) => {
             if (error.error.message) {
@@ -22,7 +23,7 @@ export class AccountAndSubAccountEffects {
             } else {
               this.toast.error("Impossible de contacter le serveur")
             }
-            return of({ type: getAllAccountsFailed.type })
+            return of({ type: allAccountsAction.getAllAccountsFailed.type })
           })
         )
       )
@@ -31,11 +32,11 @@ export class AccountAndSubAccountEffects {
 
   getAllSubAccountsEffect$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(getAllSubAccountsAction.type),
+      ofType(allAccountsAction.getAllSubAccountsAction.type),
       exhaustMap(() => this.dashboardService.getAllSubAccounts()
         .pipe(
           map((response) => {
-            return ({ type: getAllSubAccountsSucceed.type, allSubAccounts: response })
+            return ({ type: allAccountsAction.getAllSubAccountsSucceed.type, allSubAccounts: response })
           }),
           catchError((error) => {
             if (error.error.message) {
@@ -43,7 +44,7 @@ export class AccountAndSubAccountEffects {
             } else {
               this.toast.error("Impossible de contacter le serveur")
             }
-            return of({ type: getAllSubAccountsFailed.type })
+            return of({ type: allAccountsAction.getAllSubAccountsFailed.type })
           })
         )
       )

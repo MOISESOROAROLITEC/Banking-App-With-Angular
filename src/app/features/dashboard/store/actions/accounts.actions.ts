@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { SubAccount, UserAccounts, UserDatas, UserDatasSignUp, UserTransactions } from 'src/app/shared/constantes/constantes';
+import { SubAccount, UserAccounts } from 'src/app/shared/constantes/constantes';
 
 export const getUserAccountsAction = createAction(
   '[accounts] getUserAccounts',
