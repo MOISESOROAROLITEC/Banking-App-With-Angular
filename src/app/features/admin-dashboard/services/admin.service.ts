@@ -16,4 +16,16 @@ export class AdminService {
     return this.http.get<AllTransactions>("transaction/all")
   }
 
+  rejectTransaction(id: number) {
+    console.log(id);
+
+    const data = { id: id, newStatus: 'Rejeté' }
+    return this.http.post('transaction/change-status', data)
+  }
+
+  accepteTransaction(id: number) {
+    const data = { id: id, newStatus: 'Accepté' }
+    return this.http.post('transaction/change-status', data)
+  }
+
 }

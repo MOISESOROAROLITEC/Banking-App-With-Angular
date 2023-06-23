@@ -11,7 +11,7 @@ export class TransactionStatusColorPipe implements PipeTransform {
       case "Accepté":
         className = "transaction-approuved"
         break;
-      case "Accepté":
+      case "Rejeté":
         className = "transaction-rejected"
         break;
       default:

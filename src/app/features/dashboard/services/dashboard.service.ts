@@ -66,6 +66,7 @@ export class DashboardService {
   }
 
   doTransfert(transactionData: DoTransfert) {
+    console.log("je pass");
     return this.http.post("transaction/transfert", transactionData, this.httpService.getHeader())
   }
 

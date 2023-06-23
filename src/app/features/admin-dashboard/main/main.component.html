@@ -47,7 +47,12 @@
     </form>
   </div>
   <div *ngIf="datasources" class="transaction-table">
-    <table mat-table [dataSource]="datasources" class="mat-elevation-z0">
+    <table
+      mat-table
+      fixedLayout="true"
+      [dataSource]="datasources"
+      class="mat-elevation-z0"
+    >
       <ng-container matColumnDef="subAccountIban">
         <th mat-header-cell *matHeaderCellDef>Compte</th>
         <td mat-cell *matCellDef="let element">
@@ -64,9 +69,9 @@
         <th mat-header-cell *matHeaderCellDef>Montant</th>
         <td mat-cell *matCellDef="let element">{{ element.amount }}</td>
       </ng-container>
-      <ng-container matColumnDef="reciver.name">
+      <ng-container matColumnDef="reciver">
         <th mat-header-cell *matHeaderCellDef>Bénéficiaire</th>
-        <td mat-cell *matCellDef="let element">{{ element.reciver.name }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.reciver }}</td>
       </ng-container>
       <ng-container matColumnDef="createAt">
         <th mat-header-cell *matHeaderCellDef>Date de transaction</th>
@@ -76,13 +81,44 @@
       </ng-container>
       <ng-container matColumnDef="status" style="margin-right: -100px">
         <th mat-header-cell *matHeaderCellDef>Status</th>
-        <td mat-cell *matCellDef="let element" style="width: 100%">
+        <td mat-cell *matCellDef="let element">
           <span
             class="{{ element.status | transactionStatusColor }}"
             style="font-size: small"
           >
             {{ element.status }}</span
           >
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="accountReciver">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            [disabled]="element.status !== 'En cours de traitement'"
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+          >
+            <mat-icon>expand_more</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button
+              (click)="accepteTransaction(element.id)"
+              class="menu-btn-accepte"
+              mat-menu-item
+              style="color: #00dfa2"
+            >
+              Accepter
+            </button>
+            <button
+              (click)="rejectTransaction(element.id)"
+              class="menu-btn-reject"
+              mat-menu-item
+              style="color: #ff0060 !important"
+            >
+              <span> Rejeter</span>
+            </button>
+          </mat-menu>
         </td>
       </ng-container>
 

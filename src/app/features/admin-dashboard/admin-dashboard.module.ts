@@ -15,7 +15,7 @@ import { StoreModule } from '@ngrx/store';
 import { usersTransactionsReducer } from './store/transaction.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AdminEffects } from './store/transaction.effect';
-import { TransactionStatusColorPipe } from 'src/app/shared/pipe/transaction/transaction-status-color.pipe';
+import { TransactionStatusColorPipe } from './pipe/transaction-status-color.pipe';
 
 const routes: Routes = [
   {
@@ -25,8 +25,8 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    MainComponent,
     TransactionStatusColorPipe,
+    MainComponent,
   ],
   imports: [
     CommonModule,

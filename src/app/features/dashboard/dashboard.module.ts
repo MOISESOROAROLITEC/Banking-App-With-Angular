@@ -26,13 +26,14 @@ import { AccountComponent } from './components/account/account.component';
 import { TransfertComponent } from './components/transfert/transfert.component';
 import { AccountAndSubAccountEffects } from './store/effect/allAccounts.effect';
 import { allAccountsReducer, allSubAccountsReducer } from './store/reducer/allAccounts.reducer';
-import { TransactionStatusColorPipe } from 'src/app/shared/pipe/transaction/transaction-status-color.pipe';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { } from 'src/app/shared/pipe/transaction-status-color/transaction-status-color.pipe';
+import { ReactiveFormsModule } from '@angular/forms';
 import { TransfertEffects } from './store/effect/transfert.effect';
 import { userTransfertReducer } from './store/reducer/transfert.reducer';
 import { TransfertSuccesComponent } from './components/transfert-succes/transfert-succes.component';
 import { TransfertFaileComponent } from './components/transfert-faile/transfert-faile.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { TransactionStatusColorPipe } from './pipe/transaction-status-color.pipe';
 
 
 const routes: Routes = [
@@ -48,10 +49,10 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     MainComponent,
+    TransactionStatusColorPipe,
     TransactionsComponent,
     AccountComponent,
     TransfertComponent,
-    TransactionStatusColorPipe,
     TransfertSuccesComponent,
     TransfertFaileComponent,
   ],
