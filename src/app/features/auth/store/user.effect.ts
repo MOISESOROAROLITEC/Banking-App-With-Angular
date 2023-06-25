@@ -18,18 +18,15 @@ export class UserEffects {
       exhaustMap(({ userDatas }) => this.userService.createUser(userDatas)
         .pipe(
           map((response) => {
-            // localStorage.setItem("username", response.name);
-            // localStorage.setItem("email", response.email);
             if (response.token) {
               localStorage.setItem("token", response.token);
             }
-            // localStorage.setItem("role", response.role)
             if (response.role !== "admin") {
               this.router.navigate(['/dashboard'])
             } else {
               this.router.navigate(['/admin'])
             }
-            return ({ type: userActions.createUserSuccess.type, payload: response })
+            return ({ type: userActions.createUserSuccess.type, userDatas: response })
           }),
           catchError((error) => {
             if (error.error.message) {
@@ -56,6 +53,10 @@ export class UserEffects {
             return ({ type: userActions.getUserInformationsSucceed.type, userDatas: response })
           }),
           catchError((error) => {
+            if (error.status === 401 || error.status === 404) {
+              localStorage.removeItem('token')
+              this.router.navigate(["auth/login"])
+            }
             return of({ type: userActions.getUserInformationsFailed.type, message: error.error.message })
           })
         )
@@ -69,12 +70,9 @@ export class UserEffects {
       exhaustMap(({ loginDatas }) => this.userService.loginUser(loginDatas)
         .pipe(
           map((response) => {
-            // localStorage.setItem("username", response.name);
-            // localStorage.setItem("email", response.email);
             if (response.token) {
               localStorage.setItem("token", response.token);
             }
-            // localStorage.setItem("role", response.role)
             if (response.role !== "admin") {
               this.router.navigate(['/dashboard'])
             } else {
@@ -101,6 +99,7 @@ export class UserEffects {
       exhaustMap(({ data }) => this.dashboardService.editUserDatas(data)
         .pipe(
           map((response) => {
+            console.log('le nouveau token est : ', response.token);
             if (response.token) {
               localStorage.setItem('token', response.token)
             }

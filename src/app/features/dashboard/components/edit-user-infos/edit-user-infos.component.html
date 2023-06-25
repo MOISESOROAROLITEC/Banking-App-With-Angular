@@ -57,30 +57,39 @@
       <div class="title">Mot de passe</div>
       <mat-form-field appearance="outline" class="col-12 mt-1 edit-field">
         <input
+          [type]="oldHidePassword ? 'password' : 'text'"
           required
           matInput
           id="password"
-          formControlName="password"
+          formControlName="oldPassword"
           placeholder="Ancien mot de passe"
         />
-        <mat-icon matSuffix [ngClass]="changePasswordIconColor('password')"
-          >check_circle</mat-icon
+        <mat-icon
+          (click)="oldHidePassword = !oldHidePassword"
+          matSuffix
+          [ngClass]="changePasswordIconColor('oldPassword')"
+          >{{ oldHidePassword ? "visibility_off" : "visibility" }}</mat-icon
         >
       </mat-form-field>
       <mat-form-field appearance="outline" class="col-12 mt-1 edit-field">
         <input
+          [type]="newHidePassword ? 'password' : 'text'"
           required
           matInput
           id="newPassword"
           formControlName="newPassword"
           placeholder="Nouveau mot de passe"
         />
-        <mat-icon matSuffix [ngClass]="changePasswordIconColor('newPassword')"
-          >check_circle</mat-icon
+        <mat-icon
+          (click)="newHidePassword = !newHidePassword"
+          matSuffix
+          [ngClass]="changePasswordIconColor('newPassword')"
+          >{{ newHidePassword ? "visibility_off" : "visibility" }}</mat-icon
         >
       </mat-form-field>
       <mat-form-field appearance="outline" class="col-12 mt-1 edit-field">
         <input
+          [type]="confirmHidePassword ? 'password' : 'text'"
           required
           matInput
           id="confirmPassword"
@@ -89,12 +98,20 @@
         />
         <mat-icon
           matSuffix
+          (click)="confirmHidePassword = !confirmHidePassword"
           [ngClass]="changePasswordIconColor('confirmPassword')"
-          >check_circle</mat-icon
-        >
+          >{{ confirmHidePassword ? "visibility_off" : "visibility" }}
+        </mat-icon>
       </mat-form-field>
       <div class="w-100 d-flex justify-content-end buton-box">
-        <button [disabled]="!editFormPassword.valid" mat-stroked-button>
+        <button
+          [disabled]="
+            !editFormPassword.valid ||
+            editFormPassword.get('newPassword')?.value !==
+              editFormPassword.get('confirmPassword')?.value
+          "
+          mat-stroked-button
+        >
           Enregister
         </button>
       </div>

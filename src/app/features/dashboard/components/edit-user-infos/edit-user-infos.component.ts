@@ -19,10 +19,15 @@ export class EditUserInfosComponent {
   editFormPassword: FormGroup
   username: string = ""
   email: string = ""
+  oldHidePassword = true
+  newHidePassword = true
+  confirmHidePassword = true
   data: UpdateUserDatas = {
     name: undefined,
     email: undefined,
-    password: undefined
+    oldPassword: undefined,
+    newPassword: undefined,
+    confirmPassword: undefined,
   }
   constructor(
     private fb: FormBuilder,
@@ -47,7 +52,7 @@ export class EditUserInfosComponent {
     });
 
     this.editFormPassword = this.fb.group({
-      password: ['', [Validators.pattern("^.{8,50}$")]],
+      oldPassword: ['', [Validators.pattern("^.{8,50}$")]],
       newPassword: ['', [Validators.pattern("^.{8,50}$")]],
       confirmPassword: ['', [Validators.pattern("^.{8,50}$")]],
     })
@@ -102,7 +107,6 @@ export class EditUserInfosComponent {
   }
 
   onSubmitEmail() {
-    console.log("submit email");
     if (this.editFormEmail.valid) {
       this.data = { ...this.data, email: this.editFormEmail.get("email")?.value }
       this.store.dispatch(updateUserInformationsAction({ data: this.data }))
@@ -111,10 +115,14 @@ export class EditUserInfosComponent {
   }
 
   onSubmitPassword() {
-    if (this.editFormPassword.valid) {
-      this.data = { ...this.data, password: this.editFormPassword.get("password")?.value }
+    let isValidePasswordForm = this.editFormPassword.valid;
+    let oldPassword = this.editFormPassword.get("oldPassword")?.value
+    let newPassword = this.editFormPassword.get("newPassword")?.value
+    let confirmPassword = this.editFormPassword.get("confirmPassword")?.value
+    if (isValidePasswordForm && newPassword === confirmPassword) {
+      this.data = { ...this.data, oldPassword, newPassword, confirmPassword }
       this.store.dispatch(updateUserInformationsAction({ data: this.data }))
-      this.data = { ...this.data, password: undefined }
+      this.data = { ...this.data, oldPassword: undefined, newPassword: undefined, confirmPassword: undefined }
     }
   }
 }

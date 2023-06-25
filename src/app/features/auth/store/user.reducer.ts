@@ -74,8 +74,6 @@ export const userReducer = createReducer(
   }),
 
   on(updateUser, (user, { newDatas }) => {
-    // localStorage.setItem("username", newDatas.name);
-    // localStorage.setItem("email", newDatas.email);
     if (newDatas.token) {
       localStorage.setItem("token", newDatas.token);
     }
@@ -87,7 +85,6 @@ export const userReducer = createReducer(
   }),
 
   on(changeUserEmail, (user, { newEmail }) => {
-    // localStorage.setItem("email", newEmail)
     return ({ ...user, email: newEmail })
   }),
 

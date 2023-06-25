@@ -20,7 +20,9 @@ export interface UserDatas {
 export interface UpdateUserDatas {
   name: string | undefined;
   email: string | undefined;
-  password: string | undefined
+  oldPassword: string | undefined;
+  newPassword: string | undefined;
+  confirmPassword: string | undefined;
 }
 
 export interface UserDatasState extends UserDatas {
