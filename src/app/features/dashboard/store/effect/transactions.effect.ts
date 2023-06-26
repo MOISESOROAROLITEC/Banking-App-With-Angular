@@ -18,7 +18,7 @@ export class TransactionEffects {
   getUserTransactionsEffect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(getUserTransactionsAction.type),
-      exhaustMap(() => this.dashboardService.getUserTransactions()
+      exhaustMap(({ transactionsFilter }) => this.dashboardService.getUserTransactions(transactionsFilter)
         .pipe(
           map((response) => {
             return ({ type: getUserTransactionsSucceed.type, transactions: response })

@@ -37,7 +37,7 @@ import { UserEffects } from '../auth/store/user.effect';
 import { RoutesGuard } from 'src/app/shared/guards/is-user-connected-guard/routes.guard';
 import { AdminGuard } from 'src/app/shared/guards/admin/admin.guard';
 import { EditUserInfosComponent } from './components/edit-user-infos/edit-user-infos.component';
-
+import { FormsModule } from '@angular/forms';
 
 
 const routes: Routes = [
@@ -68,6 +68,7 @@ const routes: Routes = [
     MatMenuModule,
     MatSelectModule,
     MatTableModule,
+    FormsModule,
     NgFor,
     ReactiveFormsModule,
     MatDialogModule,

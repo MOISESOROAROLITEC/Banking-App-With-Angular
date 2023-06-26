@@ -7,19 +7,23 @@
     >
       <mat-form-field class="form-fields account-types" appearance="outline">
         <mat-label>Type de compte</mat-label>
-        <mat-select [value]="'Tout'">
+        <mat-select
+          (selectionChange)="filterAccountType($event)"
+          [value]="'Tout'"
+        >
           <mat-option>Tout</mat-option>
           <mat-option value="Courant">Courant</mat-option>
           <mat-option value="Epargne">Epargne</mat-option>
           <mat-option value="Bloqué">Bloqué</mat-option>
         </mat-select>
       </mat-form-field>
+
       <mat-form-field class="form-fields account-status" appearance="outline">
         <mat-label>Status</mat-label>
-        <mat-select [value]="'Tout'">
+        <mat-select (selectionChange)="filterStatus($event)" [value]="'Tout'">
           <mat-option>Tout</mat-option>
           <mat-option value="Accepté">Accepté</mat-option>
-          <mat-option value="Traitement">Traitement</mat-option>
+          <mat-option value="En cours de traitement">Traitement</mat-option>
           <mat-option value="Rejeté">Rejeté</mat-option>
         </mat-select>
       </mat-form-field>

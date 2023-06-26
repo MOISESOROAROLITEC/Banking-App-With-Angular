@@ -81,6 +81,13 @@ export interface Transaction {
   subAccountIban?: string,
 }
 
+export interface TransactionsFilter {
+  status: string | undefined;
+  typeOfAccount: string | undefined;
+  transactionDate: string | number | undefined;
+  reciverNameOrAmount: string | number | undefined
+}
+
 export interface UserTransactions {
   transactions?: Transaction[],
 }

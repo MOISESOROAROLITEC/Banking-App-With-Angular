@@ -99,7 +99,6 @@ export class UserEffects {
       exhaustMap(({ data }) => this.dashboardService.editUserDatas(data)
         .pipe(
           map((response) => {
-            console.log('le nouveau token est : ', response.token);
             if (response.token) {
               localStorage.setItem('token', response.token)
             }

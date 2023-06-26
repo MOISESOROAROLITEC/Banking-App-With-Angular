@@ -9,7 +9,13 @@
       Compte {{ accountSelected?.type }}
       <mat-icon
         matIconSuffix
-        style="order: 1; font-weight: bold; font-size: 25px; margin-left: 10px"
+        style="
+          order: 1;
+          font-weight: bold;
+          width: 25px;
+          font-size: 25px;
+          margin-left: 10px;
+        "
         >expand_more</mat-icon
       >
     </button>
@@ -57,7 +63,7 @@
     class="container mt-3 sign-up-form"
   >
     <div class="row">
-      <div class="col-6 transfert-form">
+      <div class="col-12 col-xxl-6 col-xl-6 col-lg-6 transfert-form">
         <h5 class="title">Transfert d'argent</h5>
         <mat-form-field appearance="outline" class="col-12">
           <input
@@ -93,7 +99,7 @@
         </mat-form-field>
       </div>
       <div
-        class="col-6 d-flex justify-content-center align-items-end transfert-recap"
+        class="col-12 col-xxl-6 col-xl-6 col-lg-6 d-flex justify-content-center align-items-end transfert-recap"
       >
         <div class="transfert-recap-content">
           <h5 class="mb-4 title">Récapitulatif de la transaction</h5>
@@ -145,12 +151,9 @@
       </div>
     </div>
   </form>
-  <a [routerLink]="['/dashboard']" class="accounts-list">
-    Liste des transactions
-  </a>
   <button
     (click)="onReturnTansaction()"
-    class="mb-2 d-flex btn"
+    class="m-4 d-flex btn"
     mat-flat-button
     extended
     color="accent"
@@ -164,7 +167,7 @@
         height: 25px;
         justify-content: space-between;
       "
-      >login</mat-icon
+      >arrow_back</mat-icon
     >
     Liste des transactions
   </button>
