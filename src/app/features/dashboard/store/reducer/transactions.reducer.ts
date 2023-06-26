@@ -8,6 +8,9 @@ import { UserTransactionsReducer } from "../constantes";
 
 const initialTransactionsState: UserTransactionsReducer = {
   loading: false,
+  totalRecords: 0,
+  totalPages: 0,
+  currentPage: 0
 }
 
 export const userTransactionsReducer = createReducer(
@@ -16,7 +19,7 @@ export const userTransactionsReducer = createReducer(
     return ({ ...transactionStore, loading: true })
   }),
   on(getUserTransactionsSucceed, (transactionStore, { transactions }) => {
-    return ({ ...transactionStore, transactions: transactions, loading: false })
+    return ({ ...transactionStore, ...transactions, loading: false })
   }),
   on(getUserTransactionsFailed, (accountsStore, { message }) => {
     return ({ ...accountsStore, loading: false, requestErrorMessage: message })

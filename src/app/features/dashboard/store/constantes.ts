@@ -1,10 +1,10 @@
 export interface TransactionsFilter {
-  status: string | undefined;
-  typeOfAccount: string | undefined;
-  transactionDate: string | number | undefined;
-  reciverNameOrAmount: string | number | undefined;
-  currentPage: number;
-  pageSize: number;
+  status?: string;
+  typeOfAccount?: string;
+  transactionDate?: string;
+  reciverNameOrAmount?: string;
+  skip?: number;
+  take?: number;
 }
 
 
@@ -20,13 +20,14 @@ export interface Transaction {
 }
 
 export interface UserTransactions {
+  totalRecords: number,
+  totalPages: number,
+  currentPage: number,
   transactions?: Transaction[],
 }
 
 export interface UserTransactionsReducer extends UserTransactions {
-  transactions?: Transaction[];
   loading: boolean;
-  requestErrorMessage?: string;
 }
 
 export interface DoTransfert {

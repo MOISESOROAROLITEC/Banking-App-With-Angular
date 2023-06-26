@@ -48,7 +48,6 @@ export class UserEffects {
         .pipe(
           map((response) => {
             if (response.token) {
-              console.log("je pass : getUserInformationsEffect");
               localStorage.setItem('token', response.token)
             }
             return ({ type: userActions.getUserInformationsSucceed.type, userDatas: response })

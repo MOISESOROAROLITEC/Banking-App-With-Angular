@@ -16,22 +16,18 @@ import { Transaction, TransactionsFilter, UserTransactions } from '../../store/c
 })
 export class TransactionsComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ["subAccountIban", "transactionType", "amount", "reciver.name", "createAt", "status"];
-  userTransactions$: Observable<Transaction[] | undefined>;
+  userTransactions$: Observable<UserTransactions | undefined>;
   datasources: any
   subscribetrans: Subscription
 
-  length = 50;
+  length = 0;
   pageSize = 10;
-  pageIndex = 0;
+  currentPage = 0;
   pageSizeOptions = [5, 10, 25, 50];
 
   transactionFilter: TransactionsFilter = {
-    status: undefined,
-    typeOfAccount: undefined,
-    transactionDate: undefined,
-    reciverNameOrAmount: undefined,
-    pageSize: 20,
-    currentPage: 1,
+    take: this.pageSize,
+    skip: 0,
   }
 
   constructor(
@@ -41,7 +37,12 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     this.userTransactions$ = this.store.select(getUserTransactionsSelector)
     this.subscribetrans = this.userTransactions$.subscribe({
       next: (value) => {
-        this.datasources = value
+        if (value) {
+          this.datasources = value.transactions
+          this.length = value.totalRecords
+          //this.currentPage = value.currentPage
+        }
+
       }
     })
   }
@@ -66,9 +67,15 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   }
 
   handlePageEvent(e: PageEvent) {
-    this.length = e.length;
     this.pageSize = e.pageSize;
-    this.pageIndex = e.pageIndex;
+    this.currentPage = e.pageIndex;
+    this.transactionFilter = {
+      ...this.transactionFilter,
+      take: this.pageSize,
+      skip: this.currentPage * this.pageSize,
+    }
+
+    this.store.dispatch(getUserTransactionsAction({ transactionsFilter: this.transactionFilter }))
   }
 
   doTransfert() {

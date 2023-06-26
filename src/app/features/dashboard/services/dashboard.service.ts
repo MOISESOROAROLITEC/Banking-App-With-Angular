@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Account, SubAccount, UpdateUserDatas, UserAccounts, UserDatas } from 'src/app/shared/constantes/constantes';
 import { HttpService } from 'src/app/shared/services/http/http.service';
-import { DoTransfert, Transaction, TransactionsFilter } from '../store/constantes';
+import { DoTransfert, Transaction, TransactionsFilter, UserTransactions } from '../store/constantes';
 
 @Injectable({
   providedIn: 'root'
@@ -54,14 +54,16 @@ export class DashboardService {
     return this.http.patch<SubAccount>("account/change-type", data);
   }
 
-  getUserTransactions(transactionFilter: TransactionsFilter): Observable<Transaction[]> {
-    const transactionDate = transactionFilter.transactionDate || false
-    const typeOfAccount = transactionFilter.typeOfAccount || false
-    const reciverNameOrAmount = transactionFilter.reciverNameOrAmount || false
-    const status = transactionFilter.status || false
+  getUserTransactions(transactionFilter: TransactionsFilter): Observable<UserTransactions> {
+    const transactionDate = transactionFilter.transactionDate ?? false
+    const typeOfAccount = transactionFilter.typeOfAccount ?? false
+    const reciverNameOrAmount = transactionFilter.reciverNameOrAmount ?? false
+    const status = transactionFilter.status ?? false
+    const take = transactionFilter.take ?? false
+    const skip = transactionFilter.skip ?? false
 
-    return this.http.get<Transaction[]>(`transaction/user-transactions`, {
-      params: { status, reciverNameOrAmount, typeOfAccount, transactionDate }
+    return this.http.get<UserTransactions>(`transaction/user-transactions`, {
+      params: { status, reciverNameOrAmount, typeOfAccount, transactionDate, skip, take }
     });
   }
 
