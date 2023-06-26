@@ -2,11 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { PageEvent } from '@angular/material/paginator';
 
-import { Transaction, TransactionsFilter, UserTransactions } from 'src/app/shared/constantes/constantes';
 import { getUserTransactionsSelector } from '../../store/selector/transaction.selector';
 import { getUserTransactionsAction } from '../../store/actions/transactions.actions';
 import { MatSelectChange } from '@angular/material/select';
+import { Transaction, TransactionsFilter, UserTransactions } from '../../store/constantes';
 
 @Component({
   selector: 'app-transactions',
@@ -17,13 +18,21 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ["subAccountIban", "transactionType", "amount", "reciver.name", "createAt", "status"];
   userTransactions$: Observable<Transaction[] | undefined>;
   datasources: any
+  subscribetrans: Subscription
+
+  length = 50;
+  pageSize = 10;
+  pageIndex = 0;
+  pageSizeOptions = [5, 10, 25, 50];
+
   transactionFilter: TransactionsFilter = {
     status: undefined,
     typeOfAccount: undefined,
     transactionDate: undefined,
-    reciverNameOrAmount: undefined
+    reciverNameOrAmount: undefined,
+    pageSize: 20,
+    currentPage: 1,
   }
-  subscribetrans: Subscription
 
   constructor(
     private store: Store<UserTransactions>,
@@ -56,6 +65,11 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     this.store.dispatch(getUserTransactionsAction({ transactionsFilter: this.transactionFilter }))
   }
 
+  handlePageEvent(e: PageEvent) {
+    this.length = e.length;
+    this.pageSize = e.pageSize;
+    this.pageIndex = e.pageIndex;
+  }
 
   doTransfert() {
     this.router.navigate(["/dashboard/transfert"])

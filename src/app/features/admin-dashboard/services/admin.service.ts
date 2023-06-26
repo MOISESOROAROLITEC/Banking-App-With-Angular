@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AllTransactions } from 'src/app/shared/constantes/constantes';
+import { AllTransactions, TransactionsFilter } from '../../dashboard/store/constantes';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class AdminService {
     private http: HttpClient
   ) { }
 
-  getUsersTransactions(): Observable<AllTransactions> {
+  getUsersTransactions(transactionFilter: TransactionsFilter): Observable<AllTransactions> {
     return this.http.get<AllTransactions>("transaction/all")
   }
 

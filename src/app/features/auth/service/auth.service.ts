@@ -37,17 +37,8 @@ export class AuthService {
     return this.http.post(`user/reset-password/new-password`, newPassword, this.httpService.getHeader())
   }
 
-  saveUserDatas(name: string, email: string, token: string | undefined) {
-    localStorage.setItem('username', name)
-    this.store.dispatch(changeUserName({ newName: name }))
-    localStorage.setItem('email', email)
-    this.store.dispatch(changeUserEmail({ newEmail: email }))
-    if (token) {
-      localStorage.setItem('token', token)
-      this.store.dispatch(changeUserToken({ newToken: token }))
-    }
+  saveUserDatas(token: string) {
+    localStorage.setItem('token', token)
+    this.store.dispatch(changeUserToken({ newToken: token }))
   }
-
 }
-
-

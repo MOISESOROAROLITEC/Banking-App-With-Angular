@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { UserTransactions } from "src/app/shared/constantes/constantes";
+import { UserTransactions } from "../constantes";
 
 export const selectTransactionsState = createFeatureSelector<UserTransactions>('userTransactions');
 

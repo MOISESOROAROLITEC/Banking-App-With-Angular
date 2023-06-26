@@ -1,10 +1,10 @@
 import { createReducer, on } from "@ngrx/store";
-import { UserTransactionsReducer } from "src/app/shared/constantes/constantes";
 import {
   getUserTransactionsAction,
   getUserTransactionsFailed,
   getUserTransactionsSucceed,
 } from "../actions/transactions.actions";
+import { UserTransactionsReducer } from "../constantes";
 
 const initialTransactionsState: UserTransactionsReducer = {
   loading: false,

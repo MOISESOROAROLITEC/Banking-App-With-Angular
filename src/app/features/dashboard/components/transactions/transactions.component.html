@@ -126,4 +126,18 @@
       Aucune transaction effectué pour le moment
     </div>
   </div>
+  <mat-paginator
+    #paginator
+    class="demo-paginator"
+    (page)="handlePageEvent($event)"
+    [length]="length"
+    [pageSize]="pageSize"
+    [disabled]="false"
+    [showFirstLastButtons]="false"
+    [pageSizeOptions]="pageSizeOptions"
+    [hidePageSize]="false"
+    [pageIndex]="pageIndex"
+    aria-label="Select page"
+  >
+  </mat-paginator>
 </div>

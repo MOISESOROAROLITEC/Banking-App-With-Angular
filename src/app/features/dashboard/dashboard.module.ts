@@ -17,6 +17,7 @@ import { NgFor } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 
 import { TransactionsComponent } from './components/transactions/transactions.component';
 import { MainComponent } from './components/main/main.component';
@@ -73,6 +74,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     MatDialogModule,
     MatSidenavModule,
+    MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
     MatNativeDateModule,

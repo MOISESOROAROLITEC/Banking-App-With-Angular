@@ -1,7 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
-import { TransfertState } from "src/app/shared/constantes/constantes";
 
 import { doTransfertFaile, doTransfertSuccess } from "../actions/transfert.actions";
+import { TransfertState } from "../constantes";
 
 const initialTransfertState: TransfertState = {
   transactionState: undefined,

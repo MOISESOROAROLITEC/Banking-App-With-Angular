@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Account, DoTransfert, SubAccount, Transaction, TransactionsFilter, UpdateUserDatas, UserAccounts, UserDatas } from 'src/app/shared/constantes/constantes';
+import { Account, SubAccount, UpdateUserDatas, UserAccounts, UserDatas } from 'src/app/shared/constantes/constantes';
 import { HttpService } from 'src/app/shared/services/http/http.service';
+import { DoTransfert, Transaction, TransactionsFilter } from '../store/constantes';
 
 @Injectable({
   providedIn: 'root'
