@@ -17,7 +17,7 @@ import { NgFor } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { TransactionsComponent } from './components/transactions/transactions.component';
 import { MainComponent } from './components/main/main.component';
@@ -28,7 +28,10 @@ import { TransactionEffects } from './store/effect/transactions.effect';
 import { AccountComponent } from './components/account/account.component';
 import { TransfertComponent } from './components/transfert/transfert.component';
 import { AccountAndSubAccountEffects } from './store/effect/allAccounts.effect';
-import { allAccountsReducer, allSubAccountsReducer } from './store/reducer/allAccounts.reducer';
+import {
+  allAccountsReducer,
+  allSubAccountsReducer,
+} from './store/reducer/allAccounts.reducer';
 import { TransfertEffects } from './store/effect/transfert.effect';
 import { userTransfertReducer } from './store/reducer/transfert.reducer';
 import { TransfertSuccesComponent } from './components/transfert-succes/transfert-succes.component';
@@ -40,16 +43,18 @@ import { AdminGuard } from 'src/app/shared/guards/admin/admin.guard';
 import { EditUserInfosComponent } from './components/edit-user-infos/edit-user-infos.component';
 import { FormsModule } from '@angular/forms';
 
-
 const routes: Routes = [
   {
-    path: "", component: MainComponent, canActivate: [RoutesGuard, AdminGuard], children: [
-      { path: "", redirectTo: 'transactions', pathMatch: "full", },
-      { path: "transactions", component: TransactionsComponent },
-      { path: "transfert", component: TransfertComponent },
-    ]
-  }
-]
+    path: '',
+    component: MainComponent,
+    canActivate: [RoutesGuard, AdminGuard],
+    children: [
+      { path: '', redirectTo: 'transactions', pathMatch: 'full' },
+      { path: 'transactions', component: TransactionsComponent },
+      { path: 'transfert', component: TransfertComponent },
+    ],
+  },
+];
 
 @NgModule({
   declarations: [
@@ -91,6 +96,6 @@ const routes: Routes = [
     EffectsModule.forFeature(AccountAndSubAccountEffects),
     EffectsModule.forFeature(TransfertEffects),
     EffectsModule.forFeature(UserEffects),
-  ]
+  ],
 })
-export class DashboardModule { }
+export class DashboardModule {}

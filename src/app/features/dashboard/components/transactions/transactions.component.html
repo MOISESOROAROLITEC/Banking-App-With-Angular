@@ -28,6 +28,7 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field
+        (dateChange)="filterTransactionsByDate($event)"
         class="form-fields datepicker"
         (click)="picker.open()"
         appearance="outline"
@@ -68,15 +69,27 @@
         <button
           (click)="doTransfert()"
           mat-menu-item
-          style="margin-right: 100px"
+          style="margin-right: 50px"
         >
           Transfert
+        </button>
+        <button
+          (click)="doTransfert()"
+          mat-menu-item
+          style="margin-right: 50px"
+        >
+          Recharger un compte
         </button>
       </mat-menu>
     </form>
   </div>
   <div *ngIf="datasources" class="transaction-table">
-    <table mat-table [dataSource]="datasources" class="mat-elevation-z0">
+    <table
+      mat-table
+      fixedLayout="true"
+      [dataSource]="datasources"
+      class="mat-elevation-z0"
+    >
       <ng-container matColumnDef="subAccountIban">
         <th mat-header-cell *matHeaderCellDef>Compte</th>
         <td mat-cell *matCellDef="let element">
@@ -127,6 +140,7 @@
     </div>
   </div>
   <mat-paginator
+    *ngIf="!(datasources?.length == 0)"
     #paginator
     class="demo-paginator"
     (page)="handlePageEvent($event)"

@@ -48,7 +48,6 @@ export interface AdminTransactions extends Transaction {
 
 export interface AllTransactions {
   totalRecords: number;
-  totalPages: number;
   currentPage: number;
   transactions: Array<AdminTransactions>;
 }

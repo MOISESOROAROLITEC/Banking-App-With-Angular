@@ -6,6 +6,7 @@
 /out-tsc
 /bazel-out
 proxy.conf.json
+*.log
 
 # Node
 /node_modules

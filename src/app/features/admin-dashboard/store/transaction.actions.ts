@@ -1,8 +1,12 @@
 import { createAction, props } from '@ngrx/store';
-import { AllTransactions } from '../../dashboard/store/constantes';
+import {
+  AllTransactions,
+  TransactionsFilter,
+} from '../../dashboard/store/constantes';
 
 export const getUsersTransactionsAction = createAction(
   '[accounts] getUsersTransactions',
+  props<{ transactionsFilter: TransactionsFilter }>()
 );
 export const getUsersTransactionsSucceed = createAction(
   '[accounts] getUsersTransactionsSucceed',
@@ -11,7 +15,6 @@ export const getUsersTransactionsSucceed = createAction(
 export const getUsersTransactionsFailed = createAction(
   '[accounts] getUsersTransactionsFailed'
 );
-
 
 export const rejectTransactionAction = createAction(
   '[transAction] rejectTransactionAction',
@@ -33,4 +36,9 @@ export const accepteTransactionSucceed = createAction(
 );
 export const accepteTransactionFaile = createAction(
   '[transAction] accepteTransactionFaile'
+);
+
+export const updateAdminTransactionFilter = createAction(
+  '[transActionFilter] updateAdminTransactionFilter',
+  props<{ newFilter: TransactionsFilter }>()
 );

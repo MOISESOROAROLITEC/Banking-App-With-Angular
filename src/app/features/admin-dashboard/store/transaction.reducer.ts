@@ -2,13 +2,15 @@ import { createReducer, on } from '@ngrx/store';
 import {
   getUsersTransactionsAction,
   getUsersTransactionsFailed,
-  getUsersTransactionsSucceed
+  getUsersTransactionsSucceed,
+  updateAdminTransactionFilter,
 } from './transaction.actions';
-import { AllTransactionsState } from '../../dashboard/store/constantes';
-
+import {
+  AllTransactionsState,
+  TransactionsFilter,
+} from '../../dashboard/store/constantes';
 
 const initialUsersTransactionsState: AllTransactionsState = {
-  totalPages: 0,
   totalRecords: 0,
   currentPage: 0,
   transactions: [],
@@ -18,12 +20,24 @@ const initialUsersTransactionsState: AllTransactionsState = {
 export const usersTransactionsReducer = createReducer(
   initialUsersTransactionsState,
   on(getUsersTransactionsAction, (store) => {
-    return ({ ...store, loading: true })
+    return { ...store, loading: true };
   }),
   on(getUsersTransactionsSucceed, (store, { usersTransactions }) => {
-    return ({ ...store, ...usersTransactions, loading: false })
+    return { ...store, ...usersTransactions, loading: false };
   }),
   on(getUsersTransactionsFailed, (user) => {
-    return ({ ...user, loading: false, })
-  }),
-)
+    return { ...user, loading: false };
+  })
+);
+
+const initialAdminFilter: TransactionsFilter = {
+  take: 10,
+  skip: 0,
+};
+
+export const adminTransactionsFilterReducer = createReducer(
+  initialAdminFilter,
+  on(updateAdminTransactionFilter, (store, { newFilter }) => {
+    return { ...store, ...newFilter };
+  })
+);

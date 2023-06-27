@@ -7,18 +7,25 @@ import { PageEvent } from '@angular/material/paginator';
 import { getUserTransactionsSelector } from '../../store/selector/transaction.selector';
 import { getUserTransactionsAction } from '../../store/actions/transactions.actions';
 import { MatSelectChange } from '@angular/material/select';
-import { Transaction, TransactionsFilter, UserTransactions } from '../../store/constantes';
+import { TransactionsFilter, UserTransactions } from '../../store/constantes';
 
 @Component({
   selector: 'app-transactions',
   templateUrl: './transactions.component.html',
-  styleUrls: ['./transactions.component.scss']
+  styleUrls: ['./transactions.component.scss'],
 })
 export class TransactionsComponent implements OnInit, OnDestroy {
-  displayedColumns: string[] = ["subAccountIban", "transactionType", "amount", "reciver.name", "createAt", "status"];
+  displayedColumns: string[] = [
+    'subAccountIban',
+    'transactionType',
+    'amount',
+    'reciver.name',
+    'createAt',
+    'status',
+  ];
   userTransactions$: Observable<UserTransactions | undefined>;
-  datasources: any
-  subscribetrans: Subscription
+  datasources: any;
+  subscribetrans: Subscription;
 
   length = 0;
   pageSize = 10;
@@ -28,43 +35,52 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   transactionFilter: TransactionsFilter = {
     take: this.pageSize,
     skip: 0,
-  }
+  };
 
-  constructor(
-    private store: Store<UserTransactions>,
-    private router: Router,
-  ) {
-    this.userTransactions$ = this.store.select(getUserTransactionsSelector)
+  constructor(private store: Store<UserTransactions>, private router: Router) {
+    this.userTransactions$ = this.store.select(getUserTransactionsSelector);
     this.subscribetrans = this.userTransactions$.subscribe({
       next: (value) => {
         if (value) {
-          this.datasources = value.transactions
-          this.length = value.totalRecords
-          //this.currentPage = value.currentPage
+          this.datasources = value.transactions;
+          this.length = value.totalRecords;
         }
-
-      }
-    })
+      },
+    });
   }
   ngOnInit() {
-    this.store.dispatch(getUserTransactionsAction({ transactionsFilter: this.transactionFilter }))
+    this.store.dispatch(
+      getUserTransactionsAction({ transactionsFilter: this.transactionFilter })
+    );
   }
 
   ngOnDestroy() {
-    this.subscribetrans.unsubscribe()
+    this.subscribetrans.unsubscribe();
   }
 
   filterStatus(event: MatSelectChange) {
-    const selectedValue = event.value
-    this.transactionFilter = { ...this.transactionFilter, status: selectedValue }
-    this.store.dispatch(getUserTransactionsAction({ transactionsFilter: this.transactionFilter }))
+    const selectedValue = event.value;
+    this.transactionFilter = {
+      ...this.transactionFilter,
+      status: selectedValue,
+    };
+    this.store.dispatch(
+      getUserTransactionsAction({ transactionsFilter: this.transactionFilter })
+    );
   }
 
   filterAccountType(event: MatSelectChange) {
-    const selectedValue = event.value
-    this.transactionFilter = { ...this.transactionFilter, typeOfAccount: selectedValue }
-    this.store.dispatch(getUserTransactionsAction({ transactionsFilter: this.transactionFilter }))
+    const selectedValue = event.value;
+    this.transactionFilter = {
+      ...this.transactionFilter,
+      typeOfAccount: selectedValue,
+    };
+    this.store.dispatch(
+      getUserTransactionsAction({ transactionsFilter: this.transactionFilter })
+    );
   }
+
+  filterTransactionsByDate(event: Event) {}
 
   handlePageEvent(e: PageEvent) {
     this.pageSize = e.pageSize;
@@ -73,13 +89,15 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       ...this.transactionFilter,
       take: this.pageSize,
       skip: this.currentPage * this.pageSize,
-    }
+    };
 
-    this.store.dispatch(getUserTransactionsAction({ transactionsFilter: this.transactionFilter }))
+    this.store.dispatch(
+      getUserTransactionsAction({ transactionsFilter: this.transactionFilter })
+    );
   }
 
   doTransfert() {
-    this.router.navigate(["/dashboard/transfert"])
+    this.router.navigate(['/dashboard/transfert']);
   }
 
   onSubmit(event: Event) {

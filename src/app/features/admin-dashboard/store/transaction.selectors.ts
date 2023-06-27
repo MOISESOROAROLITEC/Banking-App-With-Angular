@@ -1,9 +1,20 @@
-import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { AllTransactions } from "../../dashboard/store/constantes";
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import {
+  AllTransactions,
+  TransactionsFilter,
+} from '../../dashboard/store/constantes';
 
-export const selectUsersTransactionState = createFeatureSelector<AllTransactions>('usersTransactions');
+export const selectUsersTransactionState =
+  createFeatureSelector<AllTransactions>('usersTransactions');
+export const selectAdminFilter =
+  createFeatureSelector<TransactionsFilter>('adminFilter');
 
 export const getUsersTransactionsSelector = createSelector(
   selectUsersTransactionState,
-  (state: AllTransactions) => state.transactions
+  (state: AllTransactions) => state
+);
+
+export const getAdminTransactionsFilterSelector = createSelector(
+  selectAdminFilter,
+  (state: TransactionsFilter) => state
 );

@@ -12,7 +12,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { StoreModule } from '@ngrx/store';
-import { usersTransactionsReducer } from './store/transaction.reducer';
+import {
+  adminTransactionsFilterReducer,
+  usersTransactionsReducer,
+} from './store/transaction.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AdminEffects } from './store/transaction.effect';
 import { TransactionStatusColorPipe } from './pipe/transaction-status-color.pipe';
@@ -20,34 +23,36 @@ import { AdminGuard } from 'src/app/shared/guards/admin/admin.guard';
 import { RoutesGuard } from 'src/app/shared/guards/is-user-connected-guard/routes.guard';
 import { userInformationsReducer } from 'src/app/shared/store/user.reducer';
 import { userReducer } from '../auth/store/user.reducer';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const routes: Routes = [
-	{
-		path: "", component: MainComponent, canActivate: [RoutesGuard, AdminGuard]
-	}
-]
+  {
+    path: '',
+    component: MainComponent,
+    canActivate: [RoutesGuard, AdminGuard],
+  },
+];
 
 @NgModule({
-	declarations: [
-		TransactionStatusColorPipe,
-		MainComponent,
-	],
-	imports: [
-		CommonModule,
-		MatButtonModule,
-		MatIconModule,
-		MatMenuModule,
-		MatSelectModule,
-		MatTableModule,
-		MatFormFieldModule,
-		MatInputModule,
-		MatNativeDateModule,
-		MatDatepickerModule,
-		StoreModule.forFeature("usersTransactions", usersTransactionsReducer),
-		StoreModule.forFeature("userInformations", userInformationsReducer),
-		StoreModule.forFeature("userFeature", userReducer),
-		EffectsModule.forFeature(AdminEffects),
-		RouterModule.forChild(routes)
-	]
+  declarations: [TransactionStatusColorPipe, MainComponent],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    MatSelectModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    StoreModule.forFeature('usersTransactions', usersTransactionsReducer),
+    StoreModule.forFeature('userInformations', userInformationsReducer),
+    StoreModule.forFeature('userFeature', userReducer),
+    StoreModule.forFeature('adminFilter', adminTransactionsFilterReducer),
+    EffectsModule.forFeature(AdminEffects),
+    RouterModule.forChild(routes),
+  ],
 })
-export class AdminDashboardModule { }
+export class AdminDashboardModule {}
