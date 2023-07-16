@@ -18,12 +18,8 @@ import { userReducer } from './features/auth/store/user.reducer';
 import { ActivateAdminRoute } from './shared/guards/admin/admin.guard';
 import { InactivateAuthRoutes } from './shared/guards/is-user-not-connected-guard/routes.guard';
 
-
 @NgModule({
-  declarations: [
-    AppComponent,
-    TransactionStatusColorPipe,
-  ],
+  declarations: [AppComponent, TransactionStatusColorPipe],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -34,7 +30,7 @@ import { InactivateAuthRoutes } from './shared/guards/is-user-not-connected-guar
       newestOnTop: true,
       preventDuplicates: true,
       progressBar: true,
-      resetTimeoutOnDuplicate: true
+      resetTimeoutOnDuplicate: true,
     }),
     StoreModule.forFeature('userFeature', userReducer),
     StoreModule.forRoot({}, {}),
@@ -45,18 +41,16 @@ import { InactivateAuthRoutes } from './shared/guards/is-user-not-connected-guar
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserHttpInterceptor,
-      multi: true
+      multi: true,
     },
     ActivateRoute,
     ActivateAdminRoute,
     InactivateAuthRoutes,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(
-    private store: Store
-  ) {
-    this.store.dispatch(getUserInformationsAction())
+  constructor(private store: Store) {
+    this.store.dispatch(getUserInformationsAction());
   }
 }
