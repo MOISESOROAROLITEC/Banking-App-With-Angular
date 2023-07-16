@@ -100,6 +100,10 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     this.router.navigate(['/dashboard/transfert']);
   }
 
+  doRecharge() {
+    this.router.navigate(['/dashboard/recharge']);
+  }
+
   onSubmit(event: Event) {
     event.preventDefault();
   }

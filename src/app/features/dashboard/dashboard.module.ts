@@ -42,6 +42,7 @@ import { RoutesGuard } from 'src/app/shared/guards/is-user-connected-guard/route
 import { AdminGuard } from 'src/app/shared/guards/admin/admin.guard';
 import { EditUserInfosComponent } from './components/edit-user-infos/edit-user-infos.component';
 import { FormsModule } from '@angular/forms';
+import { RechargeAnAccountComponent } from './components/recharge-an-account/recharge-an-account.component';
 
 const routes: Routes = [
   {
@@ -52,6 +53,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'transactions', pathMatch: 'full' },
       { path: 'transactions', component: TransactionsComponent },
       { path: 'transfert', component: TransfertComponent },
+      { path: 'recharge', component: RechargeAnAccountComponent },
     ],
   },
 ];
@@ -63,6 +65,7 @@ const routes: Routes = [
     TransactionsComponent,
     AccountComponent,
     TransfertComponent,
+    RechargeAnAccountComponent,
     TransfertSuccesComponent,
     TransfertFaileComponent,
     EditUserInfosComponent,
