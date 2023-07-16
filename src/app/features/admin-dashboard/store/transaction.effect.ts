@@ -2,11 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   catchError,
-  concatMap,
   exhaustMap,
   map,
   mergeMap,
-  switchMap,
   withLatestFrom,
 } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
@@ -16,7 +14,6 @@ import * as transactionsActions from './transaction.actions';
 import { ToastService } from 'src/app/shared/services/toast/toast.service';
 import { AdminService } from '../services/admin.service';
 import { getAdminTransactionsFilterSelector } from './transaction.selectors';
-import { TransactionsFilter } from '../../dashboard/store/constantes';
 
 @Injectable()
 export class AdminEffects {

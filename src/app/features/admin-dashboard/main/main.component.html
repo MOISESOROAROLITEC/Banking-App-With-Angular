@@ -1,50 +1,74 @@
 <div class="admin-dash">
   <div class="d-flex justify-content-between align-items-center header">
     <div class="title">Transactions</div>
-    <form
-      class="d-flex justify-content-between align-items-center other-options"
-    >
-      <mat-form-field class="form-fields account-types" appearance="outline">
-        <mat-label>Type de compte</mat-label>
-        <mat-select [value]="'Tout'">
-          <mat-option>Tout</mat-option>
-          <mat-option value="Courant">Courant</mat-option>
-          <mat-option value="Epargne">Epargne</mat-option>
-          <mat-option value="Bloqué">Bloqué</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="form-fields account-status" appearance="outline">
-        <mat-label>Status</mat-label>
-        <mat-select [value]="'Tout'">
-          <mat-option>Tout</mat-option>
-          <mat-option value="Accepté">Accepté</mat-option>
-          <mat-option value="Traitement">Traitement</mat-option>
-          <mat-option value="Rejeté">Rejeté</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field
-        class="form-fields datepicker"
-        (click)="picker.open()"
-        appearance="outline"
+    <div class="rigth-items d-flex align-items-center">
+      <form
+        class="d-flex justify-content-between align-items-center other-options"
       >
-        <mat-label>Calendrier</mat-label>
-        <input
-          matInput
-          [matDatepicker]="picker"
-          style="cursor: pointer !important"
-        />
-        <mat-datepicker-toggle
+        <mat-form-field class="form-fields account-types" appearance="outline">
+          <mat-label>Type de compte</mat-label>
+          <mat-select
+            (selectionChange)="filterAccountType($event)"
+            [value]="'Tout'"
+          >
+            <mat-option>Tout</mat-option>
+            <mat-option value="Courant">Courant</mat-option>
+            <mat-option value="Epargne">Epargne</mat-option>
+            <mat-option value="Bloqué">Bloqué</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="form-fields account-status" appearance="outline">
+          <mat-label>Status</mat-label>
+          <mat-select (selectionChange)="filterStatus($event)" [value]="'Tout'">
+            <mat-option>Tout</mat-option>
+            <mat-option value="Accepté">Accepté</mat-option>
+            <mat-option value="En cours de traitement">Traitement</mat-option>
+            <mat-option value="Rejeté">Rejeté</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field
+          class="form-fields datepicker"
+          (click)="picker.open()"
+          appearance="outline"
+        >
+          <mat-label>Calendrier</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            style="cursor: pointer !important"
+          />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="form-fields search-field" appearance="outline">
+          <mat-label>Bénéficiaire ou monant</mat-label>
+          <input matInput placeholder="Beneficiaire ou montant" />
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </form>
+      <button
+        (click)="disconnect()"
+        mat-icon-button
+        color="warn"
+        title="Se deconnecter"
+        style="margin-left: 20px"
+      >
+        <mat-icon
           matIconSuffix
-          [for]="picker"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field class="form-fields search-field" appearance="outline">
-        <mat-label>Bénéficiaire ou monant</mat-label>
-        <input matInput placeholder="Beneficiaire ou montant" />
-        <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
-    </form>
+          style="
+            font-weight: bold;
+            font-size: 25px;
+            width: 30px;
+            height: 25px;
+            justify-content: space-between;
+          "
+          >logout</mat-icon
+        >
+      </button>
+    </div>
   </div>
   <div *ngIf="datasources" class="transaction-table">
     <table
@@ -76,7 +100,7 @@
       <ng-container matColumnDef="createAt">
         <th mat-header-cell *matHeaderCellDef>Date de transaction</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.createAt | date : "M/d/y" }}
+          {{ element.createAt | date : "d/M/y" }}
         </td>
       </ng-container>
       <ng-container matColumnDef="status" style="margin-right: -100px">
@@ -134,7 +158,6 @@
     </div>
   </div>
   <mat-paginator
-    *ngIf="!(datasources?.length == 0)"
     #paginator
     class="demo-paginator"
     (page)="handlePageEvent($event)"

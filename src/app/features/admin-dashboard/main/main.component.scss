@@ -9,7 +9,6 @@
       font-size: 18px;
     }
     .other-options {
-      width: 100%;
       justify-content: space-between;
       .form-fields {
         font-size: 14px;
@@ -18,16 +17,16 @@
         cursor: pointer;
       }
       .account-types {
-        max-width: 170px !important;
-        min-width: 170px !important;
+        max-width: 180px !important;
+        min-width: 180px !important;
       }
       .account-status {
-        max-width: 130px !important;
-        min-width: 130px !important;
-      }
-      .datepicker {
         max-width: 140px !important;
         min-width: 140px !important;
+      }
+      .datepicker {
+        max-width: 150px !important;
+        min-width: 150px !important;
       }
       .do-transaction-btn {
         max-width: 150px !important;

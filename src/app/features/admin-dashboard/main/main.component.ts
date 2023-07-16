@@ -5,6 +5,7 @@ import {
   accepteTransactionAction,
   getUsersTransactionsAction,
   rejectTransactionAction,
+  updateAdminTransactionFilter,
 } from '../store/transaction.actions';
 import { getUsersTransactionsSelector } from '../store/transaction.selectors';
 import {
@@ -13,6 +14,7 @@ import {
 } from '../../dashboard/store/constantes';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSelectChange } from '@angular/material/select';
+import { UserSharedService } from 'src/app/shared/services/user.shared.service';
 
 @Component({
   selector: 'app-main',
@@ -42,7 +44,10 @@ export class MainComponent implements OnInit {
     skip: 0,
   };
 
-  constructor(private store: Store) {
+  constructor(
+    private readonly store: Store,
+    private readonly userSharedService: UserSharedService
+  ) {
     this.store.dispatch(
       getUsersTransactionsAction({ transactionsFilter: this.transactionFilter })
     );
@@ -62,10 +67,15 @@ export class MainComponent implements OnInit {
 
   filterStatus(event: MatSelectChange) {
     const selectedValue = event.value;
+    this.currentPage = 0;
     this.transactionFilter = {
       ...this.transactionFilter,
       status: selectedValue,
+      skip: 0,
     };
+    this.store.dispatch(
+      updateAdminTransactionFilter({ newFilter: this.transactionFilter })
+    );
     this.store.dispatch(
       getUsersTransactionsAction({ transactionsFilter: this.transactionFilter })
     );
@@ -104,5 +114,9 @@ export class MainComponent implements OnInit {
 
   rejectTransaction(id: number) {
     this.store.dispatch(rejectTransactionAction({ id: id }));
+  }
+
+  disconnect() {
+    this.userSharedService.disconnectUser();
   }
 }
