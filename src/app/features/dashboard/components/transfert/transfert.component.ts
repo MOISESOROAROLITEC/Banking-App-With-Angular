@@ -23,11 +23,11 @@ export class TransfertComponent implements OnInit {
   transfertForm: FormGroup;
 
   constructor(
-    private fb: FormBuilder,
+    private formBuilder: FormBuilder,
     private store: Store,
     private router: Router
   ) {
-    this.transfertForm = this.fb.group({
+    this.transfertForm = this.formBuilder.group({
       reciverAccountNumber: [
         '',
         [Validators.required, Validators.pattern('^.{16}$')],

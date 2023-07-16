@@ -60,9 +60,11 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   filterStatus(event: MatSelectChange) {
     const selectedValue = event.value;
+    this.currentPage = 0;
     this.transactionFilter = {
       ...this.transactionFilter,
       status: selectedValue,
+      skip: 0,
     };
     this.store.dispatch(
       getUserTransactionsAction({ transactionsFilter: this.transactionFilter })
@@ -71,9 +73,11 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   filterAccountType(event: MatSelectChange) {
     const selectedValue = event.value;
+    this.currentPage = 0;
     this.transactionFilter = {
       ...this.transactionFilter,
       typeOfAccount: selectedValue,
+      skip: 0,
     };
     this.store.dispatch(
       getUserTransactionsAction({ transactionsFilter: this.transactionFilter })
